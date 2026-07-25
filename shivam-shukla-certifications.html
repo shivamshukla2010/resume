@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shivam Shukla — Certifications</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-dark:   #0D3B6E;
+    --blue-mid:    #1A56A0;
+    --blue-accent: #2E86DE;
+    --blue-light:  #D6E8FA;
+    --gold:        #F5A623;
+    --text-dark:   #1A1A2E;
+    --text-mid:    #3D4B5C;
+    --text-light:  #6B7A8D;
+    --bg:          #F4F7FB;
+    --white:       #FFFFFF;
+    --border:      #D0DDF0;
+  }
+
+  html { font-size: 15px; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding: 30px 16px;
+    min-width: 960px;
+  }
+
+  .page {
+    width: 900px;
+    min-width: 900px;
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(13,59,110,0.13);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, var(--blue-accent) 100%);
+    padding: 1.2rem 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 40%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .header-name a { color: inherit; text-decoration: none; }
+  .header-name a:hover { text-decoration: underline; }
+  .header-title {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    margin-top: 0.25rem;
+    letter-spacing: 0.3px;
+  }
+  .header-subtitle {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 0.5rem;
+  }
+  .header-subtitle a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .badge-strip {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.55rem;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--white);
+    border-radius: 999px;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);
+  }
+  .badge.gold {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--blue-dark);
+  }
+
+  /* ── BODY ── */
+  .body {
+    padding: 1.6rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+
+  /* ── SECTION HEADING ── */
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .section-heading-bar {
+    width: 4px;
+    height: 1.3em;
+    background: linear-gradient(180deg, var(--blue-accent), var(--gold));
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .section-heading h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  }
+
+  /* ── SUMMARY ROW ── */
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.4rem;
+    background: var(--blue-light);
+    border-radius: 10px;
+    padding: 0.8rem;
+  }
+  .summary-cell {
+    text-align: center;
+    padding: 0.4rem 0.2rem;
+    background: var(--white);
+    border-radius: 7px;
+    border: 1.5px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .summary-cell::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .summary-cell.sf::before  { background: #0176d3; }
+  .summary-cell.an::before  { background: #c9614a; }
+  .summary-cell.tab::before { background: #e67428; }
+  .summary-cell.ms::before  { background: #00a4ef; }
+  .summary-cell.db::before  { background: #dc2d12; }
+  .summary-cell.gg::before  { background: #34a853; }
+  .summary-cell.ot::before  { background: #7B6FA8; }
+  .summary-num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .summary-cell.sf  .summary-num { color: #0176d3; }
+  .summary-cell.an  .summary-num { color: #c9614a; }
+  .summary-cell.tab .summary-num { color: #c85800; }
+  .summary-cell.ms  .summary-num { color: #0090d0; }
+  .summary-cell.db  .summary-num { color: #dc2d12; }
+  .summary-cell.gg  .summary-num { color: #2a7a2a; }
+  .summary-cell.ot  .summary-num { color: #7B6FA8; }
+  .summary-label {
+    font-size: 0.6rem;
+    color: var(--text-light);
+    margin-top: 0.1rem;
+  }
+
+  /* ── PROVIDER SECTION ── */
+  .provider-section { margin-bottom: 0.2rem; }
+
+  .provider-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px 8px 0 0;
+    border: 1.5px solid var(--border);
+    border-bottom: none;
+    background: var(--blue-light);
+  }
+  .provider-header-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    flex-shrink: 0;
+  }
+  .provider-header-logo img { height: 24px; width: auto; object-fit: contain; display: block; }
+  .provider-header-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+  }
+  .provider-header-cat {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-left: 0.3rem;
+  }
+  .provider-header-count {
+    margin-left: auto;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    border-radius: 999px;
+    padding: 0.1rem 0.65rem;
+  }
+
+  .provider-sf   .provider-header { border-top: 3px solid #0176d3; }
+  .provider-an   .provider-header { border-top: 3px solid #c9614a; }
+  .provider-tab  .provider-header { border-top: 3px solid #e67428; }
+  .provider-ms   .provider-header { border-top: 3px solid #00a4ef; }
+  .provider-db   .provider-header { border-top: 3px solid #dc2d12; }
+  .provider-gg   .provider-header { border-top: 3px solid #34a853; }
+  .provider-ot   .provider-header { border-top: 3px solid #7B6FA8; }
+
+  .provider-sf  .provider-header-count { background: #e8f2fd; color: #0176d3; }
+  .provider-an  .provider-header-count { background: #fdf0ec; color: #c9614a; }
+  .provider-tab .provider-header-count { background: #fff3ea; color: #c85800; }
+  .provider-ms  .provider-header-count { background: #e6f6ff; color: #0090d0; }
+  .provider-db  .provider-header-count { background: #ffeeed; color: #dc2d12; }
+  .provider-gg  .provider-header-count { background: #e8f8ec; color: #2a7a2a; }
+  .provider-ot  .provider-header-count { background: #f3f0ff; color: #7B6FA8; }
+
+  /* ── CERT GRID ── */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1.5px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  .cert-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    background: var(--white);
+  }
+  .cert-item:nth-child(even) { border-right: none; }
+  .cert-item:nth-last-child(-n+2):nth-child(odd),
+  .cert-item:nth-last-child(-n+2):nth-child(odd) ~ .cert-item { border-bottom: none; }
+  .cert-item:only-child,
+  .cert-item:nth-child(odd):last-child {
+    grid-column: span 2;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .cert-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 0.38em;
+  }
+  .provider-sf  .cert-dot { background: #0176d3; }
+  .provider-an  .cert-dot { background: #c9614a; }
+  .provider-tab .cert-dot { background: #e67428; }
+  .provider-ms  .cert-dot { background: #00a4ef; }
+  .provider-db  .cert-dot { background: #dc2d12; }
+  .provider-gg  .cert-dot { background: #34a853; }
+  .provider-ot  .cert-dot { background: #7B6FA8; }
+
+  .cert-info { flex: 1; min-width: 0; }
+  .cert-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.3;
+  }
+  .cert-meta {
+    font-size: 0.67rem;
+    color: var(--text-light);
+    margin-top: 0.08rem;
+  }
+  .cert-tag {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .tag-architect  { background: #fdf3d0; border: 1px solid #d4a820; color: #7a5000; }
+  .tag-ai         { background: #deeeff; border: 1px solid #0176d3; color: #094880; }
+  .tag-cloud      { background: #e6f4ff; border: 1px solid #4a9ed6; color: #0a4070; }
+  .tag-marketing  { background: #fff0e8; border: 1px solid #e67428; color: #8a3c00; }
+  .tag-platform   { background: #e8f2fd; border: 1px solid #0176d3; color: #0176d3; }
+  .tag-data       { background: #ffeeed; border: 1px solid #dc2d12; color: #901808; }
+  .tag-accredited { background: #f0f8ff; border: 1px solid #5aacdd; color: #0a5080; }
+  .tag-superbadge { background: #f5f0ff; border: 1px solid #8b60d0; color: #4a1a90; }
+  .tag-bi         { background: #fff3ea; border: 1px solid #e67428; color: #c85800; }
+  .tag-azure      { background: #e6f6ff; border: 1px solid #00a4ef; color: #0090d0; }
+  .tag-analytics  { background: #e8f8ec; border: 1px solid #34a853; color: #2a7a2a; }
+  .tag-llm        { background: #fdf0ec; border: 1px solid #c9614a; color: #c9614a; }
+  .tag-other      { background: #f3f0ff; border: 1px solid #7B6FA8; color: #7B6FA8; }
+
+  @media print {
+    body { padding: 0; background: white; }
+    .page { box-shadow: none; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-name">
+      <a href="shivam-shukla-resume.html">Shivam Shukla</a>
+    </div>
+    <div class="header-title">Salesforce &nbsp;|&nbsp; Principal Technical Architect &amp; Architects Practice Lead &nbsp;·&nbsp; <strong style="color:rgba(255,255,255,0.95);">MBA</strong> <span style="opacity:0.75;">(Sales &amp; Marketing)</span></div>
+    <div class="header-subtitle">&larr; <a href="shivam-shukla-resume.html">Back to Resume</a></div>
+    <div class="badge-strip">
+      <span class="badge gold">31 Certifications &nbsp;·&nbsp; 6 Providers</span>
+      <span class="badge">Salesforce · 23</span>
+      <span class="badge">Anthropic · 1</span>
+      <span class="badge">Tableau · 4</span>
+      <span class="badge">Microsoft · 2</span>
+      <span class="badge">Databricks · 1</span>
+      <span class="badge">Google · 3</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- SECTION HEADING -->
+    <div class="section-heading">
+      <div class="section-heading-bar"></div>
+      <h2>All Certifications</h2>
+    </div>
+
+    <!-- SUMMARY ROW -->
+    <div class="summary-row">
+      <div class="summary-cell sf">
+        <div class="summary-num">23</div>
+        <div class="summary-label">Salesforce</div>
+      </div>
+      <div class="summary-cell an">
+        <div class="summary-num">1</div>
+        <div class="summary-label">Anthropic</div>
+      </div>
+      <div class="summary-cell tab">
+        <div class="summary-num">4</div>
+        <div class="summary-label">Tableau</div>
+      </div>
+      <div class="summary-cell ms">
+        <div class="summary-num">2</div>
+        <div class="summary-label">Microsoft</div>
+      </div>
+      <div class="summary-cell db">
+        <div class="summary-num">1</div>
+        <div class="summary-label">Databricks</div>
+      </div>
+      <div class="summary-cell gg">
+        <div class="summary-num">3</div>
+        <div class="summary-label">Google</div>
+      </div>
+    </div>
+
+    <!-- ── SALESFORCE ── -->
+    <div class="provider-section provider-sf">
+      <div class="provider-header">
+        <div class="provider-header-logo">
+          <svg viewBox="0 0 28 20" width="28" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.5 4.8a4.2 4.2 0 0 1 3.1-1.38 4.22 4.22 0 0 1 3.8 2.38 3.14 3.14 0 0 1 1.3-.28 3.18 3.18 0 0 1 3.18 3.18 3.18 3.18 0 0 1-3.18 3.18H6.5A2.82 2.82 0 0 1 3.7 9.1a2.82 2.82 0 0 1 2.8-2.82c.18 0 .36.02.54.05A3.96 3.96 0 0 1 11.5 4.8z" fill="#0176d3"/>
+          </svg>
+        </div>
+        <span class="provider-header-name">Salesforce</span>
+        <span class="provider-header-cat">Platform Leader · Certifications, Accredited Professionals &amp; Superbadges</span>
+        <span class="provider-header-count">23 certs</span>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Platform Dev Lifecycle &amp; Deployment Architect</div>
+            <div class="cert-meta">May 2026</div>
+          </div>
+          <span class="cert-tag tag-architect">ARCHITECT</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Loyalty Cloud</div>
+            <div class="cert-meta">Aug 2025</div>
+          </div>
+          <span class="cert-tag tag-cloud">CLOUD</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Health Cloud</div>
+            <div class="cert-meta">May 2025</div>
+          </div>
+          <span class="cert-tag tag-cloud">CLOUD</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Agentforce Specialist</div>
+            <div class="cert-meta">Sep 2024</div>
+          </div>
+          <span class="cert-tag tag-ai">AI / GEN AI</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Marketing Associate</div>
+            <div class="cert-meta">Feb 2024</div>
+          </div>
+          <span class="cert-tag tag-marketing">MARKETING</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Application Architect</div>
+            <div class="cert-meta">Oct 2023</div>
+          </div>
+          <span class="cert-tag tag-architect">ARCHITECT</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Sharing and Visibility Architect</div>
+            <div class="cert-meta">Oct 2023</div>
+          </div>
+          <span class="cert-tag tag-architect">ARCHITECT</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified AI Associate</div>
+            <div class="cert-meta">Sep 2023</div>
+          </div>
+          <span class="cert-tag tag-ai">AI</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Data Architect</div>
+            <div class="cert-meta">May 2023</div>
+          </div>
+          <span class="cert-tag tag-architect">ARCHITECT</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Associate</div>
+            <div class="cert-meta">May 2023</div>
+          </div>
+          <span class="cert-tag tag-platform">PLATFORM</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Marketing Cloud Advanced Cross Channel Accredited Professional</div>
+            <div class="cert-meta">Mar 2023</div>
+          </div>
+          <span class="cert-tag tag-accredited">ACCREDITED</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Tableau CRM and Einstein Discovery Consultant</div>
+            <div class="cert-meta">Feb 2023</div>
+          </div>
+          <span class="cert-tag tag-ai">AI / DATA</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Einstein Next Best Action Accredited Professional</div>
+            <div class="cert-meta">Jan 2023</div>
+          </div>
+          <span class="cert-tag tag-accredited">ACCREDITED</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Platform App Builder</div>
+            <div class="cert-meta">Sep 2022</div>
+          </div>
+          <span class="cert-tag tag-platform">PLATFORM</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Customer Data Platform Accredited Professional</div>
+            <div class="cert-meta">Jun 2022</div>
+          </div>
+          <span class="cert-tag tag-accredited">ACCREDITED</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Marketing Cloud Personalization Accredited Professional</div>
+            <div class="cert-meta">Jul 2022</div>
+          </div>
+          <span class="cert-tag tag-accredited">ACCREDITED</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Marketing Cloud Administrator</div>
+            <div class="cert-meta">May 2021</div>
+          </div>
+          <span class="cert-tag tag-marketing">MARKETING</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Marketing Cloud Developer</div>
+            <div class="cert-meta">May 2021</div>
+          </div>
+          <span class="cert-tag tag-marketing">MARKETING</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Certified Marketing Cloud Consultant</div>
+            <div class="cert-meta">Jul 2019</div>
+          </div>
+          <span class="cert-tag tag-marketing">MARKETING</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Administrator (ADM-201)</div>
+            <div class="cert-meta">Mar 2017</div>
+          </div>
+          <span class="cert-tag tag-platform">PLATFORM</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Marketing Cloud Email Specialist</div>
+            <div class="cert-meta">Apr 2017</div>
+          </div>
+          <span class="cert-tag tag-marketing">MARKETING</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Marketing Cloud Partner Accreditation</div>
+            <div class="cert-meta">Oct 2016</div>
+          </div>
+          <span class="cert-tag tag-marketing">MARKETING</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Platform Developer (PD-1)</div>
+            <div class="cert-meta">Dec 2016</div>
+          </div>
+          <span class="cert-tag tag-platform">PLATFORM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ANTHROPIC ── -->
+    <div class="provider-section provider-an">
+      <div class="provider-header">
+        <div class="provider-header-logo">
+          <img src="images/claude_logo.jpeg" alt="Anthropic">
+        </div>
+        <span class="provider-header-name">Anthropic</span>
+        <span class="provider-header-cat">AI / LLM</span>
+        <span class="provider-header-count">1 cert</span>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Claude Certified Associate – Foundations</div>
+            <div class="cert-meta">Jul 2026</div>
+          </div>
+          <span class="cert-tag tag-llm">AI / LLM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MICROSOFT ── -->
+    <div class="provider-section provider-ms">
+      <div class="provider-header">
+        <div class="provider-header-logo">
+          <svg viewBox="0 0 28 28" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2"  y="2"  width="11" height="11" rx="1" fill="#f25022"/>
+            <rect x="15" y="2"  width="11" height="11" rx="1" fill="#7fba00"/>
+            <rect x="2"  y="15" width="11" height="11" rx="1" fill="#00a4ef"/>
+            <rect x="15" y="15" width="11" height="11" rx="1" fill="#ffb900"/>
+          </svg>
+        </div>
+        <span class="provider-header-name">Microsoft</span>
+        <span class="provider-header-cat">Azure &amp; Dev</span>
+        <span class="provider-header-count">2 certs</span>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Microsoft Certified: Azure Fundamentals</div>
+            <div class="cert-meta">Jun 2020</div>
+          </div>
+          <span class="cert-tag tag-azure">AZURE</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Exam 480: Programming in HTML5 with JavaScript and CSS3</div>
+            <div class="cert-meta">Mar 2013 &nbsp;·&nbsp; ID E190-6967</div>
+          </div>
+          <span class="cert-tag tag-azure">DEV</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DATABRICKS ── -->
+    <div class="provider-section provider-db">
+      <div class="provider-header">
+        <div class="provider-header-logo">
+          <img src="images/databricks.png" alt="Databricks" style="height:22px;width:auto;object-fit:contain;display:block;">
+        </div>
+        <span class="provider-header-name">Databricks</span>
+        <span class="provider-header-cat">Data Engineering</span>
+        <span class="provider-header-count">1 cert</span>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Databricks Certified Data Engineer Associate</div>
+            <div class="cert-meta">May 2026 &nbsp;·&nbsp; Expires May 2028 &nbsp;·&nbsp; ID 182002597</div>
+          </div>
+          <span class="cert-tag tag-data">DATA ENG</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GOOGLE ── -->
+    <div class="provider-section provider-gg">
+      <div class="provider-header">
+        <div class="provider-header-logo">
+          <svg viewBox="0 0 28 28" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M27 14.3c0-.9-.08-1.76-.23-2.6H14v4.92h7.28a6.22 6.22 0 0 1-2.7 4.08v3.38h4.37C25.67 21.7 27 18.27 27 14.3z" fill="#4285f4"/>
+            <path d="M14 27c3.65 0 6.71-1.21 8.94-3.28l-4.37-3.39a8.47 8.47 0 0 1-4.57 1.27 8.42 8.42 0 0 1-7.91-5.82H1.57v3.5A13.5 13.5 0 0 0 14 27z" fill="#34a853"/>
+            <path d="M6.09 15.78A8.53 8.53 0 0 1 5.65 14c0-.62.1-1.22.28-1.78V8.72H1.57A13.5 13.5 0 0 0 .5 14c0 2.17.52 4.22 1.44 6.04l4.15-3.26z" fill="#fbbc05"/>
+            <path d="M14 5.6c2.05 0 3.9.71 5.35 2.09l4.01-4.01A13.44 13.44 0 0 0 14 .5 13.5 13.5 0 0 0 1.57 8.72l4.52 3.5A8.42 8.42 0 0 1 14 5.6z" fill="#ea4335"/>
+          </svg>
+        </div>
+        <span class="provider-header-name">Google</span>
+        <span class="provider-header-cat">Digital Advertising &amp; Analytics</span>
+        <span class="provider-header-count">3 certs</span>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Google Analytics</div>
+            <div class="cert-meta">Jan 2017</div>
+          </div>
+          <span class="cert-tag tag-analytics">ANALYTICS</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Google Adwords</div>
+            <div class="cert-meta">Jan 2017</div>
+          </div>
+          <span class="cert-tag tag-analytics">ADVERTISING</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Google Mobile Advertising</div>
+            <div class="cert-meta">Jan 2017</div>
+          </div>
+          <span class="cert-tag tag-analytics">ADVERTISING</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TABLEAU ── -->
+    <div class="provider-section provider-tab">
+      <div class="provider-header">
+        <div class="provider-header-logo">
+          <svg viewBox="10 10 80 80" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="51" y="16" width="3.5" height="13" fill="#5B9BAA"/>
+            <rect x="45.75" y="21.5" width="13" height="3.5" fill="#5B9BAA"/>
+            <rect x="41.5" y="22" width="5" height="18" fill="#E88020"/>
+            <rect x="34" y="28.5" width="18" height="5" fill="#E88020"/>
+            <rect x="68" y="24" width="5" height="18" fill="#4A8FA0"/>
+            <rect x="60.5" y="30.5" width="18" height="5" fill="#4A8FA0"/>
+            <rect x="27" y="40" width="3.5" height="13" fill="#6AABB8"/>
+            <rect x="21.75" y="45.5" width="13" height="3.5" fill="#6AABB8"/>
+            <rect x="49" y="36" width="6" height="22" fill="#E88020"/>
+            <rect x="41" y="43" width="22" height="6" fill="#E88020"/>
+            <rect x="77" y="41" width="3.5" height="13" fill="#7B6FA8"/>
+            <rect x="71.75" y="46.5" width="13" height="3.5" fill="#7B6FA8"/>
+            <rect x="40" y="55" width="5" height="18" fill="#C8302A"/>
+            <rect x="32.5" y="61.5" width="18" height="5" fill="#C8302A"/>
+            <rect x="53.5" y="63" width="3.5" height="13" fill="#787898"/>
+            <rect x="48.25" y="68.5" width="13" height="3.5" fill="#787898"/>
+            <rect x="67" y="54" width="5" height="18" fill="#1E3C7A"/>
+            <rect x="59.5" y="60.5" width="18" height="5" fill="#1E3C7A"/>
+          </svg>
+        </div>
+        <span class="provider-header-name">Tableau</span>
+        <span class="provider-header-cat">Analytics &amp; BI</span>
+        <span class="provider-header-count">4 certs</span>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Tableau Server Architect</div>
+            <div class="cert-meta">May 2020</div>
+          </div>
+          <span class="cert-tag tag-bi">ARCHITECT</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Desktop I: Fundamentals</div>
+            <div class="cert-meta">May 2020</div>
+          </div>
+          <span class="cert-tag tag-bi">ANALYTICS</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Tableau Author</div>
+            <div class="cert-meta">May 2020</div>
+          </div>
+          <span class="cert-tag tag-bi">ANALYTICS</span>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <div class="cert-info">
+            <div class="cert-name">Tableau Consumer</div>
+            <div class="cert-meta">May 2020</div>
+          </div>
+          <span class="cert-tag tag-bi">ANALYTICS</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+</div><!-- /page -->
+</body>
+</html>

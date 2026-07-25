@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shivam Shukla — Principal Technical Architect</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-dark:   #0D3B6E;
+    --blue-mid:    #1A56A0;
+    --blue-accent: #2E86DE;
+    --blue-light:  #D6E8FA;
+    --gold:        #F5A623;
+    --text-dark:   #1A1A2E;
+    --text-mid:    #3D4B5C;
+    --text-light:  #6B7A8D;
+    --bg:          #F4F7FB;
+    --white:       #FFFFFF;
+    --border:      #D0DDF0;
+    --section-gap: 2rem;
+  }
+
+  html { font-size: 15px; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding: 30px 16px;
+    min-width: 960px;
+  }
+
+  .page {
+    width: 900px;
+    min-width: 900px;
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(13,59,110,0.13);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, var(--blue-accent) 100%);
+    padding: 1.2rem 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 40%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .header-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .header-name a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .header-name a:hover { text-decoration: underline; }
+
+  .header-title {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    margin-top: 0.25rem;
+    letter-spacing: 0.3px;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.1rem;
+    margin-top: 0.6rem;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.76rem;
+    color: rgba(255,255,255,0.9);
+  }
+  .meta-item a { color: inherit; text-decoration: none; }
+  .meta-item a:hover { text-decoration: underline; }
+  .meta-icon {
+    width: 18px; height: 18px;
+    fill: rgba(255,255,255,0.7);
+    flex-shrink: 0;
+  }
+
+  .badge-strip {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.55rem;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--white);
+    border-radius: 999px;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);
+  }
+  .badge.gold {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--blue-dark);
+  }
+
+  /* ── BODY LAYOUT ── */
+  .body {
+    display: grid;
+    grid-template-columns: 220px 680px;
+    grid-template-rows: 1fr auto;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: var(--blue-dark);
+    padding: 2rem 1.4rem;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .sidebar-section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.88);
+    border-radius: 6px;
+    padding: 0.3rem 0.55rem;
+    font-size: 0.74rem;
+    margin: 0.2rem 0.15rem 0 0;
+    line-height: 1.3;
+  }
+
+  .edu-item {
+    margin-bottom: 1rem;
+  }
+  .edu-degree {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.3;
+  }
+  .edu-year {
+    font-size: 0.72rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin: 0.15rem 0;
+  }
+  .edu-school {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.3;
+  }
+  .edu-score {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .industry-tag {
+    display: inline-block;
+    background: rgba(46,134,222,0.25);
+    color: rgba(255,255,255,0.9);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.73rem;
+    margin: 0.2rem 0.15rem 0 0;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    padding: 1.6rem 1.4rem 1.6rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .section-heading-bar {
+    width: 4px;
+    height: 1.3em;
+    background: linear-gradient(180deg, var(--blue-accent), var(--gold));
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .section-heading h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  }
+
+  /* Summary */
+  .summary-box {
+    background: var(--blue-light);
+    border-left: 4px solid var(--blue-accent);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.2rem;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+  .summary-box strong { color: var(--blue-dark); }
+  .exp-body strong { color: var(--blue-dark); font-weight: 700; }
+
+  /* Experience */
+  .exp-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+  }
+  .exp-card:last-child { margin-bottom: 0; }
+
+  .exp-header {
+    background: linear-gradient(90deg, var(--blue-light) 0%, #EEF5FE 100%);
+    padding: 0.75rem 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .exp-company-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .exp-company-logo {
+    height: 22px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .exp-company-logo svg { display: block; }
+  .exp-company-logo img {
+    height: 22px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+  }
+  .exp-company {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+  }
+  .exp-role {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--blue-mid);
+    margin-top: 0.1rem;
+  }
+  .exp-duration {
+    font-size: 0.75rem;
+    color: #000000;
+    font-weight: 700;
+    white-space: nowrap;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    margin-top: 0.1rem;
+  }
+
+  .exp-body {
+    padding: 0.9rem 1.1rem;
+  }
+  .exp-body ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .exp-body li {
+    font-size: 0.83rem;
+    color: var(--text-mid);
+    padding-left: 1.1rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .exp-body li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.52em;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--blue-accent);
+  }
+
+  /* Certifications */
+  .cert-provider-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.3rem;
+    margin-bottom: 0.8rem;
+  }
+  .cert-provider {
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    padding: 0.3rem 0.25rem 0.25rem;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,60,120,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .cert-provider::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .cert-provider.sf::before  { background: #0176d3; }
+  .cert-provider.tab::before { background: #e67428; }
+  .cert-provider.db::before  { background: #dc2d12; }
+  .cert-provider.ms::before  { background: #00a4ef; }
+  .cert-provider.gg::before  { background: #4285f4; }
+  .cert-provider.an::before  { background: #c9614a; }
+  .cert-provider-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+    margin-top: 0.2rem;
+  }
+  .cert-provider-logo svg { display: block; }
+  .cert-provider-logo img { height: 22px !important; }
+  .cert-provider-num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-top: 0.1rem;
+  }
+  .cert-provider.sf  .cert-provider-num { color: #0176d3; }
+  .cert-provider.tab .cert-provider-num { color: #c85800; }
+  .cert-provider.db  .cert-provider-num { color: #dc2d12; }
+  .cert-provider.ms  .cert-provider-num { color: #0090d0; }
+  .cert-provider.gg  .cert-provider-num { color: #2060d0; }
+  .cert-provider-name {
+    font-size: 0.67rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 0.15rem;
+  }
+  .cert-provider-cat {
+    font-size: 0.6rem;
+    color: var(--text-light);
+    margin-top: 0.05rem;
+  }
+  a.cert-provider {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  a.cert-provider:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,60,120,0.12);
+  }
+
+  .cert-featured-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+  .cert-feat {
+    border-radius: 7px;
+    border: 1.5px solid;
+    padding: 0.35rem 0.6rem 0.35rem 0.85rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .cert-feat::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+  }
+  .cert-feat.gold  { background: #fefbf0; border-color: #ddc870; }
+  .cert-feat.blue  { background: #f0f6ff; border-color: #90c0f0; }
+  .cert-feat.red   { background: #fff6f4; border-color: #f0b0a0; }
+  .cert-feat.gold::before { background: #c8950a; }
+  .cert-feat.blue::before { background: #0176d3; }
+  .cert-feat.red::before  { background: #dc2d12; }
+  .cert-feat-title {
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .cert-feat.gold .cert-feat-title { color: #3a2200; }
+  .cert-feat.blue .cert-feat-title { color: #062850; }
+  .cert-feat.red  .cert-feat-title { color: #400c06; }
+  .cert-feat-sub {
+    font-size: 0.65rem;
+    margin-top: 0.1rem;
+  }
+  .cert-feat.gold .cert-feat-sub { color: #7a6020; }
+  .cert-feat.blue .cert-feat-sub { color: #2a60a0; }
+  .cert-feat.red  .cert-feat-sub { color: #804030; }
+  .cert-feat-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .cert-feat.gold .cert-feat-tag { background: #fdf3d0; border: 1px solid #d4a820; color: #7a5000; }
+  .cert-feat.blue .cert-feat-tag { background: #deeeff; border: 1px solid #0176d3; color: #094880; }
+  .cert-feat.red  .cert-feat-tag { background: #fde8e4; border: 1px solid #dc2d12; color: #901808; }
+
+  /* Internship */
+  .intern-card {
+    background: #F9FAFC;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+  }
+  .intern-title {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--blue-dark);
+    margin-bottom: 0.3rem;
+  }
+  .intern-project {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--text-light);
+    margin-bottom: 0.6rem;
+  }
+  .intern-project strong { color: var(--blue-dark); font-weight: 700; font-style: normal; }
+  .intern-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .intern-card li {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    padding-left: 1.1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .intern-card li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.52em;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  /* Declaration */
+  .declaration {
+    grid-column: 2;
+    grid-row: 2;
+    border-top: 1px solid var(--border);
+    padding: 2.4rem 1.4rem 1.4rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .declaration p {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-style: italic;
+  }
+  .declaration .sig {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+  }
+  .declaration .place {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-top: 0.1rem;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: none; padding: 0; min-width: 900px; }
+    .page { box-shadow: none; border-radius: 0; width: 900px; min-width: 900px; max-width: 900px; }
+    .body { grid-template-columns: 220px 680px; }
+  }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-name">
+      <a href="https://www.linkedin.com/in/shivamshukla89/" target="_blank">Shivam Shukla</a>
+    </div>
+    <div class="header-title">Salesforce &nbsp;|&nbsp; Principal Technical Architect &amp; Architects Practice Lead &nbsp;·&nbsp; <strong style="color:rgba(255,255,255,0.95);">MBA</strong> <span style="opacity:0.75;">(Sales &amp; Marketing)</span></div>
+
+    <div class="header-meta">
+      <span class="meta-item">
+        <svg class="meta-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <a href="mailto:ShivamShukla2010@gmail.com">ShivamShukla2010@gmail.com</a>
+      </span>
+      <span class="meta-item">
+        <svg class="meta-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.29 21 3 13.71 3 4.5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.21 2.2z"/></svg>
+        +91-9566201289
+      </span>
+      <span class="meta-item">
+        <svg class="meta-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        Gurgaon, India
+      </span>
+      <span class="meta-item">
+        <svg class="meta-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+        <a href="https://www.linkedin.com/in/shivamshukla89/" target="_blank">linkedin.com/in/shivamshukla89</a>
+      </span>
+    </div>
+
+    <div class="badge-strip">
+      <span class="badge gold">31 Certifications &nbsp;·&nbsp; 6 Domains</span>
+      <span class="badge">IC &amp; Architects Practice Lead</span>
+      <span class="badge">14+ Years Experience</span>
+      <span class="badge">Data Cloud &amp; AI</span>
+      <span class="badge">Health Cloud</span>
+      <span class="badge">Marketing Cloud</span>
+      <span class="badge">Agentforce</span>
+    </div>
+  </header>
+
+  <div class="body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- Education -->
+      <div>
+        <div class="sidebar-section-title">Education</div>
+
+        <div class="edu-item">
+          <div class="edu-degree">MBA — Sales &amp; Marketing</div>
+          <div class="edu-year">2014 – 2016</div>
+          <div class="edu-school">Great Lakes Institute of Management, Chennai</div>
+          <div class="edu-score">CGPA 3.23 / 4.0</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-degree">B.Tech — Computer Science</div>
+          <div class="edu-year">2008 – 2012</div>
+          <div class="edu-school">Jaypee University of Engineering &amp; Technology, Guna</div>
+          <div class="edu-score">79%</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-degree">H.S.C</div>
+          <div class="edu-year">2007</div>
+          <div class="edu-school">CMS, Lucknow</div>
+          <div class="edu-score">89%</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-degree">S.S.C</div>
+          <div class="edu-year">2005</div>
+          <div class="edu-school">CMS, Lucknow</div>
+          <div class="edu-score">86%</div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div>
+        <div class="sidebar-section-title">Core Skills</div>
+        <div>
+          <span class="skill-tag">Team Management</span>
+          <span class="skill-tag">Data Cloud</span>
+          <span class="skill-tag">AI-Augmented Development</span>
+          <span class="skill-tag">Agentforce / AI</span>
+          <span class="skill-tag">Marketing Cloud Engagement</span>
+          <span class="skill-tag">Marketing Cloud Personalization</span>
+          <span class="skill-tag">Sales Cloud</span>
+          <span class="skill-tag">Service Cloud</span>
+          <span class="skill-tag">Health Cloud</span>
+          <span class="skill-tag">Solution Architecture</span>
+          <span class="skill-tag">Technical Workshops</span>
+          <span class="skill-tag">Pre-Sales / POC</span>
+          <span class="skill-tag">SDLC Management</span>
+        </div>
+      </div>
+
+      <!-- Industries -->
+      <div>
+        <div class="sidebar-section-title">Industries</div>
+        <div>
+          <span class="industry-tag">Healthcare</span>
+          <span class="industry-tag">Finance</span>
+          <span class="industry-tag">Automotive</span>
+          <span class="industry-tag">Retail</span>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- Summary -->
+      <section>
+        <div class="section-heading">
+          <div class="section-heading-bar"></div>
+          <h2>Professional Summary</h2>
+        </div>
+        <div class="summary-box">
+          <strong>Principal Technical Architect and Architects Practice Lead with <a href="shivam-shukla-certifications.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">31 industry certifications</a></strong> spanning Salesforce, Anthropic, Tableau, Databricks, Microsoft and Google — covering
+          <strong>CRM, Data Cloud, AI, Marketing Cloud and Health Cloud</strong>. Operates at two levels simultaneously: hands-on <strong>individual contributor</strong> designing and delivering complex enterprise solutions, and <strong>team leader</strong> guiding a practice of senior architects across HRE, CME and Tech verticals. Leads <strong>AI and Agentforce projects and Proof-of-Concept builds</strong> — delivering autonomous agent solutions, AI-augmented workflows and <strong>generative AI</strong> implementations on the Salesforce platform. Holds a <strong>Claude Certified Associate</strong> credential from Anthropic, reflecting hands-on expertise with large language models and AI tooling. Over 14 years of cross-industry experience translating complex business challenges into scalable outcomes. Holds an <strong>MBA degree</strong> with <strong>dual majors</strong> in <strong>Marketing &amp; Finance</strong>, combining technical depth with a commercial mindset to drive measurable customer success.
+        </div>
+      </section>
+
+      <!-- Certifications -->
+      <section>
+        <div class="section-heading">
+          <div class="section-heading-bar"></div>
+          <h2>Certifications</h2>
+        </div>
+        <!-- Provider breakdown -->
+        <div class="cert-provider-row">
+          <a href="shivam-shukla-certifications.html" class="cert-provider sf">
+            <div class="cert-provider-logo">
+              <svg viewBox="0 0 28 20" width="28" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.5 4.8a4.2 4.2 0 0 1 3.1-1.38 4.22 4.22 0 0 1 3.8 2.38 3.14 3.14 0 0 1 1.3-.28 3.18 3.18 0 0 1 3.18 3.18 3.18 3.18 0 0 1-3.18 3.18H6.5A2.82 2.82 0 0 1 3.7 9.1a2.82 2.82 0 0 1 2.8-2.82c.18 0 .36.02.54.05A3.96 3.96 0 0 1 11.5 4.8z" fill="#0176d3"/>
+              </svg>
+            </div>
+            <div class="cert-provider-num">22</div>
+            <div class="cert-provider-cat">Platform Leader</div>
+          </a>
+          <a href="shivam-shukla-certifications.html" class="cert-provider an">
+            <div class="cert-provider-logo">
+              <img src="images/claude_logo.jpeg" alt="Anthropic" style="height:22px;width:auto;display:block;object-fit:contain;">
+            </div>
+            <div class="cert-provider-num">1</div>
+            <div class="cert-provider-cat">Anthropic AI</div>
+          </a>
+          <a href="shivam-shukla-certifications.html" class="cert-provider ms">
+            <div class="cert-provider-logo">
+              <svg viewBox="0 0 28 28" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2"  y="2"  width="11" height="11" rx="1" fill="#f25022"/>
+                <rect x="15" y="2"  width="11" height="11" rx="1" fill="#7fba00"/>
+                <rect x="2"  y="15" width="11" height="11" rx="1" fill="#00a4ef"/>
+                <rect x="15" y="15" width="11" height="11" rx="1" fill="#ffb900"/>
+              </svg>
+            </div>
+            <div class="cert-provider-num">2</div>
+            <div class="cert-provider-cat">Azure &amp; Dev</div>
+          </a>
+          <a href="shivam-shukla-certifications.html" class="cert-provider db">
+            <div class="cert-provider-logo">
+              <img src="images/databricks.png" alt="Databricks" style="height:28px;width:auto;display:block;object-fit:contain;">
+            </div>
+            <div class="cert-provider-num">1</div>
+            <div class="cert-provider-cat">Data Engineering</div>
+          </a>
+          <a href="shivam-shukla-certifications.html" class="cert-provider gg">
+            <div class="cert-provider-logo">
+              <svg viewBox="0 0 28 28" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                <path d="M27 14.3c0-.9-.08-1.76-.23-2.6H14v4.92h7.28a6.22 6.22 0 0 1-2.7 4.08v3.38h4.37C25.67 21.7 27 18.27 27 14.3z" fill="#4285f4"/>
+                <path d="M14 27c3.65 0 6.71-1.21 8.94-3.28l-4.37-3.39a8.47 8.47 0 0 1-4.57 1.27 8.42 8.42 0 0 1-7.91-5.82H1.57v3.5A13.5 13.5 0 0 0 14 27z" fill="#34a853"/>
+                <path d="M6.09 15.78A8.53 8.53 0 0 1 5.65 14c0-.62.1-1.22.28-1.78V8.72H1.57A13.5 13.5 0 0 0 .5 14c0 2.17.52 4.22 1.44 6.04l4.15-3.26z" fill="#fbbc05"/>
+                <path d="M14 5.6c2.05 0 3.9.71 5.35 2.09l4.01-4.01A13.44 13.44 0 0 0 14 .5 13.5 13.5 0 0 0 1.57 8.72l4.52 3.5A8.42 8.42 0 0 1 14 5.6z" fill="#ea4335"/>
+              </svg>
+            </div>
+            <div class="cert-provider-num">1</div>
+            <div class="cert-provider-cat">Analytics</div>
+          </a>
+          <a href="shivam-shukla-certifications.html" class="cert-provider tab">
+            <div class="cert-provider-logo">
+              <svg viewBox="10 10 80 80" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                <rect x="51" y="16" width="3.5" height="13" fill="#5B9BAA"/>
+                <rect x="45.75" y="21.5" width="13" height="3.5" fill="#5B9BAA"/>
+                <rect x="41.5" y="22" width="5" height="18" fill="#E88020"/>
+                <rect x="34" y="28.5" width="18" height="5" fill="#E88020"/>
+                <rect x="68" y="24" width="5" height="18" fill="#4A8FA0"/>
+                <rect x="60.5" y="30.5" width="18" height="5" fill="#4A8FA0"/>
+                <rect x="27" y="40" width="3.5" height="13" fill="#6AABB8"/>
+                <rect x="21.75" y="45.5" width="13" height="3.5" fill="#6AABB8"/>
+                <rect x="49" y="36" width="6" height="22" fill="#E88020"/>
+                <rect x="41" y="43" width="22" height="6" fill="#E88020"/>
+                <rect x="77" y="41" width="3.5" height="13" fill="#7B6FA8"/>
+                <rect x="71.75" y="46.5" width="13" height="3.5" fill="#7B6FA8"/>
+                <rect x="40" y="55" width="5" height="18" fill="#C8302A"/>
+                <rect x="32.5" y="61.5" width="18" height="5" fill="#C8302A"/>
+                <rect x="53.5" y="63" width="3.5" height="13" fill="#787898"/>
+                <rect x="48.25" y="68.5" width="13" height="3.5" fill="#787898"/>
+                <rect x="67" y="54" width="5" height="18" fill="#1E3C7A"/>
+                <rect x="59.5" y="60.5" width="18" height="5" fill="#1E3C7A"/>
+              </svg>
+            </div>
+            <div class="cert-provider-num">4</div>
+            <div class="cert-provider-cat">Analytics &amp; BI</div>
+          </a>
+        </div>
+
+        <!-- Featured certifications -->
+        <div class="cert-featured-grid">
+          <div class="cert-feat gold">
+            <div>
+              <div class="cert-feat-title">Application Architect</div>
+              <div class="cert-feat-sub">Salesforce &nbsp;·&nbsp; Oct 2023</div>
+            </div>
+            <div class="cert-feat-tag">ARCHITECT</div>
+          </div>
+          <div class="cert-feat gold">
+            <div>
+              <div class="cert-feat-title">Sharing &amp; Visibility Architect</div>
+              <div class="cert-feat-sub">Salesforce &nbsp;·&nbsp; Oct 2023</div>
+            </div>
+            <div class="cert-feat-tag">ARCHITECT</div>
+          </div>
+          <div class="cert-feat gold">
+            <div>
+              <div class="cert-feat-title">Platform Dev Lifecycle &amp; Deployment Architect</div>
+              <div class="cert-feat-sub">Salesforce &nbsp;·&nbsp; May 2026</div>
+            </div>
+            <div class="cert-feat-tag">ARCHITECT</div>
+          </div>
+          <div class="cert-feat blue">
+            <div>
+              <div class="cert-feat-title">Agentforce Specialist</div>
+              <div class="cert-feat-sub">Salesforce &nbsp;·&nbsp; Sep 2024</div>
+            </div>
+            <div class="cert-feat-tag">AI / GEN AI</div>
+          </div>
+          <div class="cert-feat blue">
+            <div>
+              <div class="cert-feat-title">Health Cloud</div>
+              <div class="cert-feat-sub">Salesforce &nbsp;·&nbsp; May 2025</div>
+            </div>
+            <div class="cert-feat-tag">CLOUD</div>
+          </div>
+          <div class="cert-feat red">
+            <div>
+              <div class="cert-feat-title">Data Engineer Associate</div>
+              <div class="cert-feat-sub">Databricks &nbsp;·&nbsp; May 2026</div>
+            </div>
+            <div class="cert-feat-tag">ACTIVE 2028</div>
+          </div>
+          <div class="cert-feat" style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:3px solid #d97706;">
+            <div>
+              <div class="cert-feat-title">Claude Certified Associate – Foundations</div>
+              <div class="cert-feat-sub">Anthropic &nbsp;·&nbsp; Jul 2026</div>
+            </div>
+            <div class="cert-feat-tag" style="background:#d97706;color:#fff;">AI / LLM</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section>
+        <div class="section-heading">
+          <div class="section-heading-bar"></div>
+          <h2>Professional Experience</h2>
+        </div>
+
+        <!-- Salesforce -->
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company-wrap">
+                <div class="exp-company-logo">
+                  <svg viewBox="0 0 28 20" width="28" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.5 4.8a4.2 4.2 0 0 1 3.1-1.38 4.22 4.22 0 0 1 3.8 2.38 3.14 3.14 0 0 1 1.3-.28 3.18 3.18 0 0 1 3.18 3.18 3.18 3.18 0 0 1-3.18 3.18H6.5A2.82 2.82 0 0 1 3.7 9.1a2.82 2.82 0 0 1 2.8-2.82c.18 0 .36.02.54.05A3.96 3.96 0 0 1 11.5 4.8z" fill="#0176d3"/>
+                  </svg>
+                </div>
+                <div class="exp-company">Salesforce</div>
+              </div>
+              <div class="exp-role">Principal Technical Architect &amp; Architects Practice Lead</div>
+            </div>
+            <div class="exp-duration">May 2022 – Present</div>
+          </div>
+          <div class="exp-body">
+            <ul>
+              <li><strong>Dual-mode contributor</strong> — operates as both a hands-on <strong>Individual Contributor</strong> architecting and delivering solutions directly, and a <strong>Practice Lead</strong> managing and mentoring a team of experienced Technical Architects across enterprise accounts.</li>
+              <li><strong>Lead AI and Agentforce initiatives</strong> end-to-end — driving customer-facing <strong>Agentforce projects and Proof-of-Concept builds</strong> that demonstrate autonomous agent capabilities, AI-augmented workflows and <strong>generative AI</strong> solutions on the Salesforce platform.</li>
+              <li><strong>Leads an architects practice</strong> responsible for advisory and solutioning across <strong>HRE, CME and Tech</strong> industry verticals within Salesforce's multi-cloud portfolio.</li>
+              <li>Serve as a <strong>strategic technical problem solver and SME</strong> on Salesforce's <strong>multi-cloud solutions</strong>, personally architecting complex solutions across <strong>Data Cloud, Agentforce, Marketing Cloud and Health Cloud</strong>.</li>
+              <li>Conduct <strong>technical design sessions and workshops</strong> with business stakeholders; document solution blueprints and embed <strong>platform best practices</strong> aligned to business priorities.</li>
+              <li>Provide <strong>oversight and governance</strong> of Salesforce projects; oversee delivery of <strong>custom development, integrations and data migration</strong> elements end-to-end.</li>
+              <li>Liaise directly with <strong>Salesforce product teams</strong> to unblock implementations and influence product direction based on real customer streaming and real-time data challenges.</li>
+              <li>Participate in <strong>pre-sales activities</strong> including discovery sessions, technical investigations and <strong>Proof-of-Concept builds</strong> to support pipeline and deal velocity.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Abbott -->
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company-wrap">
+                <div class="exp-company-logo">
+                  <img src="images/Abbott.png" alt="Abbott">
+                </div>
+                <div class="exp-company">Abbott Healthcare</div>
+              </div>
+              <div class="exp-role">SFMC Architect</div>
+            </div>
+            <div class="exp-duration">Sep 2018 – Apr 2022</div>
+          </div>
+          <div class="exp-body">
+            <ul>
+              <li><strong>Architected and governed Marketing Cloud solutions</strong> for Abbott's global business units (<strong>Nutrition, Medical Devices, Diabetic Care</strong>), enforcing <strong>platform standards and compliance</strong> across all vendor-led implementations.</li>
+              <li>Built and executed <strong>digital marketing programmes</strong> via <strong>Email Studio, Journey Builder</strong> and Social Studio (Facebook, Instagram, YouTube); designed <strong>cross-channel communication strategies</strong>.</li>
+              <li>Conducted <strong>best-practice workshops</strong> with business stakeholders; produced <strong>data-flow diagrams</strong> and integration architecture to keep the platform stable and <strong>audit-ready</strong>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- JP Morgan -->
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company-wrap">
+                <div class="exp-company-logo">
+                  <img src="images/JP morgan.jpeg" alt="JP Morgan">
+                </div>
+                <div class="exp-company">J.P. Morgan</div>
+              </div>
+              <div class="exp-role">Senior Analyst — Salesforce</div>
+            </div>
+            <div class="exp-duration">Jun 2017 – Sep 2018</div>
+          </div>
+          <div class="exp-body">
+            <ul>
+              <li>Managed <strong>marketing automation</strong> for global clients using <strong>Salesforce Marketing Cloud (Exact Target)</strong>; prepared <strong>solution specifications and design documents</strong> in collaboration with multi-regional stakeholders.</li>
+              <li>Aligned <strong>CRM platform</strong> changes to evolving sales processes, maintained <strong>territory assignments</strong>, and utilised multiple data sources to drive informed system updates.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Infosys Consultant -->
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company-wrap">
+                <div class="exp-company-logo">
+                  <svg viewBox="0 0 32 32" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="4" fill="#007cc2"/>
+                    <text x="16" y="22" font-size="11" font-weight="900" font-family="Arial,sans-serif" fill="white" text-anchor="middle">Infy</text>
+                  </svg>
+                </div>
+                <div class="exp-company">Infosys Ltd</div>
+              </div>
+              <div class="exp-role">Associate Consultant — Salesforce</div>
+            </div>
+            <div class="exp-duration">Jun 2016 – Jun 2017</div>
+          </div>
+          <div class="exp-body">
+            <ul>
+              <li>Delivered <strong>end-to-end Salesforce Marketing Cloud implementations</strong> (Email Studio, Journey Builder, MC Connector) enabling <strong>personalised customer journeys</strong> with suppression management.</li>
+              <li>Maximised <strong>out-of-the-box SFDC capabilities</strong> to minimise customisation; managed <strong>full SDLC</strong>, client communications and knowledge-base contributions (Apsona Multi-Step Reporting, MC Connector tutorials).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Infosys BA -->
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company-wrap">
+                <div class="exp-company-logo">
+                  <svg viewBox="0 0 32 32" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="4" fill="#007cc2"/>
+                    <text x="16" y="22" font-size="11" font-weight="900" font-family="Arial,sans-serif" fill="white" text-anchor="middle">Infy</text>
+                  </svg>
+                </div>
+                <div class="exp-company">Infosys Ltd</div>
+              </div>
+              <div class="exp-role">Business Analyst / Systems Engineer</div>
+            </div>
+            <div class="exp-duration">Jul 2012 – May 2014</div>
+          </div>
+          <div class="exp-body">
+            <ul>
+              <li>Contributed to the successful implementation of a <strong>critical Social Networking module</strong>; managed <strong>SDLC phases</strong>, client communications and review activities.</li>
+              <li>Built periodic <strong>KPI dashboards and reports</strong> to track team performance; received <strong>client commendation</strong> for delivering critical functionalities on time.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Internship -->
+      <section>
+        <div class="section-heading">
+          <div class="section-heading-bar"></div>
+          <h2>Internship</h2>
+        </div>
+        <div class="intern-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.3rem;">
+            <div class="exp-company-wrap" style="margin-bottom:0;">
+              <div class="exp-company-logo">
+                <img src="images/TCS.jpeg" alt="TCS">
+              </div>
+              <div class="intern-title" style="margin-bottom:0;">Tata Consultancy Services</div>
+            </div>
+            <div class="exp-duration">Apr 2015 – Jun 2015</div>
+          </div>
+          <div class="intern-project">Conducted <strong>market research and competitive analysis</strong> for TCS's <strong>Health Care Accountable Care Solution</strong>, supporting solution design improvements and identifying future industry <strong>KPIs/KPAs</strong>.</div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Declaration (grid col 2, row 2) -->
+    <div class="declaration">
+      <p>I hereby declare that the above written particulars are true to the best of my knowledge and belief.</p>
+      <div style="margin-top: 2.4rem;">
+        <div class="sig">Shivam Shukla</div>
+        <div class="place">Place: Gurgaon</div>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+</div><!-- /page -->
+
+<script>
+  /* ── Scroll-triggered reveal via IntersectionObserver ─────────────────
+     Targets: .exp-card, .cert-feat, .cert-provider,
+              .intern-card, .summary-box
+     Skipped entirely when the user prefers reduced motion.               */
+  (function () {
+    var prefersReduced =
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced) return;
+
+    var SELECTORS = [
+      '.exp-card',
+      '.cert-feat',
+      '.cert-provider',
+      '.intern-card',
+      '.summary-box'
+    ];
+
+    var targets = document.querySelectorAll(SELECTORS.join(','));
+
+    if (!('IntersectionObserver' in window)) {
+      /* Fallback: make everything visible immediately */
+      targets.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+
+    /* Add the base scroll-reveal class to each target */
+    targets.forEach(function (el) {
+      el.classList.add('scroll-reveal');
+    });
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            /* Once revealed, stop watching */
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,   /* trigger when 12 % of element is visible */
+        rootMargin: '0px 0px -24px 0px'
+      }
+    );
+
+    targets.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
+</body>
+</html>
