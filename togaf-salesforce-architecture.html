@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOGAF Principles Applied to Salesforce Projects</title>
+  <style>
+    :root {
+      --blue-dark: #0b2e5e;
+      --blue-mid: #1a5faa;
+      --blue-light: #e8f1fb;
+      --teal: #00a1c9;
+      --teal-light: #e0f7fd;
+      --orange: #f97316;
+      --orange-light: #fff3e8;
+      --green: #16a34a;
+      --green-light: #e8f8ee;
+      --purple: #7c3aed;
+      --purple-light: #f3eeff;
+      --red: #dc2626;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .hero {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, var(--teal) 100%);
+      color: #fff;
+      padding: 56px 40px 48px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 700;
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+    .hero p {
+      font-size: 16px;
+      opacity: 0.85;
+      max-width: 720px;
+      margin: 0 auto 28px;
+    }
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .chip {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 13px;
+    }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV ── */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 2px solid var(--blue-mid);
+      padding: 0 24px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .sticky-nav ul {
+      display: inline-flex;
+      list-style: none;
+      gap: 0;
+    }
+    .sticky-nav a {
+      display: block;
+      padding: 14px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-600);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .sticky-nav a:hover { color: var(--blue-mid); border-bottom-color: var(--blue-mid); }
+
+    /* ── SECTIONS ── */
+    section { padding: 56px 0; }
+    section:nth-child(even) { background: #fff; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 12px;
+    }
+    .section-intro {
+      font-size: 15px;
+      color: var(--gray-600);
+      max-width: 820px;
+      margin-bottom: 40px;
+    }
+
+    /* ── TOGAF OVERVIEW ── */
+    .adm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .adm-card {
+      background: var(--blue-light);
+      border: 1px solid #b8d0f0;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .adm-num {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--blue-mid);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .adm-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── ADM DIAGRAM ── */
+    .adm-diagram {
+      background: #fff;
+      border: 2px solid var(--gray-200);
+      border-radius: 14px;
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+    .adm-diagram h3 {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 28px;
+      letter-spacing: 0.3px;
+    }
+    .adm-cycle {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+    }
+    .adm-phase {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .adm-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      border: 3px solid;
+      line-height: 1.2;
+      text-align: center;
+      padding: 4px;
+    }
+    .adm-phase-name {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+      max-width: 80px;
+    }
+    .adm-arrow {
+      font-size: 20px;
+      color: var(--gray-300);
+      align-self: center;
+    }
+    .phase-prelim  { background: #e8f1fb; border-color: var(--blue-mid); color: var(--blue-dark); }
+    .phase-a  { background: #fff3e8; border-color: var(--orange); color: #92400e; }
+    .phase-b  { background: #e0f7fd; border-color: var(--teal); color: #164e63; }
+    .phase-c  { background: #e8f8ee; border-color: var(--green); color: #14532d; }
+    .phase-d  { background: #f3eeff; border-color: var(--purple); color: #4c1d95; }
+    .phase-e  { background: #fef3c7; border-color: #d97706; color: #92400e; }
+    .phase-f  { background: #ffe4e6; border-color: #e11d48; color: #9f1239; }
+    .phase-g  { background: #f0fdf4; border-color: #15803d; color: #14532d; }
+    .phase-h  { background: #fdf4ff; border-color: #a21caf; color: #701a75; }
+    .phase-req { background: var(--gray-100); border-color: var(--gray-400, #9ca3af); color: var(--gray-700); }
+
+    /* ── PRINCIPLE CARDS ── */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .principle-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .principle-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.10); transform: translateY(-2px); }
+    .pc-header {
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .pc-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .pc-num {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: .7;
+    }
+    .pc-title { font-size: 15px; font-weight: 700; color: var(--blue-dark); line-height: 1.3; }
+    .pc-body { padding: 0 22px 22px; }
+    .pc-principle {
+      background: var(--gray-50);
+      border-left: 4px solid;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--gray-700);
+      margin-bottom: 14px;
+    }
+    .pc-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-600);
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+    .pc-body p, .pc-body li {
+      font-size: 13.5px;
+      color: var(--gray-700);
+      line-height: 1.55;
+    }
+    .pc-body ul { padding-left: 18px; }
+    .pc-body li { margin-bottom: 4px; }
+    .sf-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-top: 10px;
+    }
+
+    /* colour variants */
+    .var-blue  .pc-header { background: var(--blue-light); }
+    .var-blue  .pc-icon   { background: var(--blue-mid); color: #fff; }
+    .var-blue  .pc-principle { border-color: var(--blue-mid); }
+    .var-blue  .sf-tag    { background: var(--blue-light); color: var(--blue-dark); }
+
+    .var-teal  .pc-header { background: var(--teal-light); }
+    .var-teal  .pc-icon   { background: var(--teal); color: #fff; }
+    .var-teal  .pc-principle { border-color: var(--teal); }
+    .var-teal  .sf-tag    { background: var(--teal-light); color: #0c4a6e; }
+
+    .var-orange .pc-header { background: var(--orange-light); }
+    .var-orange .pc-icon   { background: var(--orange); color: #fff; }
+    .var-orange .pc-principle { border-color: var(--orange); }
+    .var-orange .sf-tag    { background: var(--orange-light); color: #92400e; }
+
+    .var-green .pc-header { background: var(--green-light); }
+    .var-green .pc-icon   { background: var(--green); color: #fff; }
+    .var-green .pc-principle { border-color: var(--green); }
+    .var-green .sf-tag    { background: var(--green-light); color: #14532d; }
+
+    .var-purple .pc-header { background: var(--purple-light); }
+    .var-purple .pc-icon   { background: var(--purple); color: #fff; }
+    .var-purple .pc-principle { border-color: var(--purple); }
+    .var-purple .sf-tag    { background: var(--purple-light); color: #4c1d95; }
+
+    /* ── MATRIX TABLE ── */
+    .matrix-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    thead th {
+      background: var(--blue-dark);
+      color: #fff;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    tbody tr:nth-child(even) td { background: var(--gray-50); }
+    tbody td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--gray-200);
+      color: var(--gray-700);
+      vertical-align: top;
+    }
+    td:first-child { font-weight: 600; color: var(--blue-dark); white-space: nowrap; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-high   { background: #dcfce7; color: #15803d; }
+    .badge-medium { background: #fef3c7; color: #92400e; }
+    .badge-low    { background: #fee2e2; color: #b91c1c; }
+
+    /* ── PHASE MAPPING ── */
+    .phase-map {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .phase-block {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .phase-block-head {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .phase-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .phase-block-head h4 { font-size: 14px; font-weight: 700; color: var(--blue-dark); }
+    .phase-block-head span { font-size: 11px; color: var(--gray-600); }
+    .phase-block-body {
+      padding: 14px 18px;
+      border-top: 1px solid var(--gray-200);
+    }
+    .phase-block-body li {
+      font-size: 13px;
+      color: var(--gray-700);
+      margin-bottom: 6px;
+      padding-left: 6px;
+    }
+    .phase-block-body li::before { content: "→ "; color: var(--teal); font-weight: 700; }
+
+    /* ── ARCHITECTURE LAYERS DIAGRAM ── */
+    .arch-layers {
+      background: #fff;
+      border: 2px solid var(--gray-200);
+      border-radius: 14px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+    .arch-layers h3 {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 24px;
+    }
+    .layer {
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .layer-icon { font-size: 22px; width: 32px; text-align: center; }
+    .layer-info { flex: 1; }
+    .layer-title { font-size: 13px; font-weight: 700; }
+    .layer-detail { font-size: 12px; margin-top: 2px; }
+    .layer-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .layer-tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+
+    .layer-biz   { background: #e8f1fb; }
+    .layer-biz .layer-title { color: var(--blue-dark); }
+    .layer-biz .layer-detail { color: #1e40af; }
+    .layer-biz .layer-tag { background: #dbeafe; border-color: #93c5fd; color: #1e3a8a; }
+
+    .layer-data  { background: #e0f7fd; }
+    .layer-data .layer-title { color: #0c4a6e; }
+    .layer-data .layer-detail { color: #0369a1; }
+    .layer-data .layer-tag { background: #bae6fd; border-color: #7dd3fc; color: #0c4a6e; }
+
+    .layer-app   { background: #e8f8ee; }
+    .layer-app .layer-title { color: #14532d; }
+    .layer-app .layer-detail { color: #15803d; }
+    .layer-app .layer-tag { background: #bbf7d0; border-color: #6ee7b7; color: #14532d; }
+
+    .layer-tech  { background: #f3eeff; }
+    .layer-tech .layer-title { color: #4c1d95; }
+    .layer-tech .layer-detail { color: #7c3aed; }
+    .layer-tech .layer-tag { background: #ddd6fe; border-color: #a78bfa; color: #4c1d95; }
+
+    .layer-connector {
+      text-align: center;
+      font-size: 18px;
+      color: var(--gray-300);
+      margin: 2px 0;
+    }
+
+    /* ── GOVERNANCE TEMPLATE ── */
+    .gov-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .gov-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .gov-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--blue-light);
+    }
+    .gov-card ul { list-style: none; padding: 0; }
+    .gov-card li {
+      font-size: 13px;
+      color: var(--gray-700);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .gov-card li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ── CHECKLIST TEMPLATE ── */
+    .checklist {
+      background: #fff;
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .checklist-head {
+      background: var(--blue-dark);
+      color: #fff;
+      padding: 16px 24px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .checklist-section {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .checklist-section h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 5px 0;
+      font-size: 13px;
+      color: var(--gray-700);
+    }
+    .check-box {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--gray-300);
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── REFERENCE CARDS ── */
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .ref-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow .2s, transform .2s;
+      display: block;
+    }
+    .ref-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); transform: translateY(-2px); }
+    .ref-card-type {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    .ref-card h4 { font-size: 14px; font-weight: 700; color: var(--blue-dark); margin-bottom: 6px; }
+    .ref-card p  { font-size: 12px; color: var(--gray-600); margin-bottom: 12px; line-height: 1.5; }
+    .ref-link {
+      font-size: 12px;
+      color: var(--blue-mid);
+      font-weight: 600;
+      word-break: break-all;
+    }
+
+    .ref-togaf  .ref-card-type { background: var(--blue-light); color: var(--blue-dark); }
+    .ref-sf     .ref-card-type { background: var(--teal-light); color: #0c4a6e; }
+    .ref-tool   .ref-card-type { background: var(--orange-light); color: #92400e; }
+    .ref-cert   .ref-card-type { background: var(--green-light); color: #14532d; }
+    .ref-blog   .ref-card-type { background: var(--purple-light); color: #4c1d95; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 22px; flex-shrink: 0; }
+    .callout-info { background: var(--blue-light); border-left: 4px solid var(--blue-mid); }
+    .callout-warn { background: var(--orange-light); border-left: 4px solid var(--orange); }
+    .callout-tip  { background: var(--green-light); border-left: 4px solid var(--green); }
+    .callout h4 { font-size: 13px; font-weight: 700; color: var(--blue-dark); margin-bottom: 4px; }
+    .callout p, .callout li { font-size: 13px; color: var(--gray-700); line-height: 1.55; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--gray-900);
+      color: var(--gray-300);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 13px;
+    }
+    footer a { color: var(--teal); text-decoration: none; }
+    footer p { margin-bottom: 6px; }
+
+    @media (max-width: 640px) {
+      .hero { padding: 36px 20px; }
+      .container { padding: 0 16px; }
+      section { padding: 40px 0; }
+      .adm-cycle { gap: 6px; }
+      .adm-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="hero-badge">Enterprise Architecture Guide</div>
+  <h1>TOGAF Principles in Salesforce Projects</h1>
+  <p>A practical playbook mapping The Open Group Architecture Framework (TOGAF) to every phase of a Salesforce implementation — from vision to governance.</p>
+  <div class="hero-chips">
+    <span class="chip">TOGAF 10 / ADM</span>
+    <span class="chip">Architecture Principles</span>
+    <span class="chip">Salesforce Platform</span>
+    <span class="chip">Governance Templates</span>
+    <span class="chip">Reference Links</span>
+  </div>
+</div>
+
+<!-- ═══════════ STICKY NAV ═══════════ -->
+<nav class="sticky-nav">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#principles">14 Principles</a></li>
+    <li><a href="#adm">ADM → Salesforce</a></li>
+    <li><a href="#layers">Architecture Layers</a></li>
+    <li><a href="#matrix">Mapping Matrix</a></li>
+    <li><a href="#governance">Governance</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#qa">Q &amp; A</a></li>
+    <li><a href="adobe-ea-interview-prep.html" style="color:#eb1000;border-bottom-color:transparent;" onmouseover="this.style.borderBottomColor='#eb1000'" onmouseout="this.style.borderBottomColor='transparent'">Adobe EA Prep →</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ ADOBE BANNER ═══════════ -->
+<div style="background:linear-gradient(135deg,#1a0000,#b50c00,#f54a36);color:#fff;padding:22px 24px;text-align:center;">
+  <div style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;">
+    <div style="font-size:13px;line-height:1.4;">
+      <strong style="font-size:16px;display:block;margin-bottom:4px;">Preparing for an Adobe Enterprise Architect interview?</strong>
+      Companion guide with 30 role-specific Q&amp;As covering AEP, AI/RAG architecture, TOGAF governance, and executive leadership — tailored to the Adobe EA JD.
+    </div>
+    <a href="adobe-ea-interview-prep.html" style="flex-shrink:0;background:#fff;color:#b50c00;font-weight:700;font-size:13px;padding:10px 22px;border-radius:6px;text-decoration:none;white-space:nowrap;">Open Adobe EA Prep Guide →</a>
+  </div>
+</div>
+
+<!-- ═══════════ OVERVIEW ═══════════ -->
+<section id="overview">
+  <div class="container">
+    <div class="section-label">What is TOGAF?</div>
+    <h2>Enterprise Architecture, Applied to Salesforce</h2>
+    <p class="section-intro">TOGAF (The Open Group Architecture Framework) is the world's most widely used enterprise architecture methodology. When applied to Salesforce, it provides guardrails that prevent costly rework, sprawl, and misalignment between IT and business — problems that affect over 70% of CRM programmes.</p>
+
+    <div class="adm-grid">
+      <div class="adm-card"><span class="adm-num">9</span><span class="adm-label">ADM Phases</span></div>
+      <div class="adm-card"><span class="adm-num">14</span><span class="adm-label">Core Principles</span></div>
+      <div class="adm-card"><span class="adm-num">4</span><span class="adm-label">Architecture Domains</span></div>
+      <div class="adm-card"><span class="adm-num">1</span><span class="adm-label">Repository (Architecture Content Framework)</span></div>
+    </div>
+
+    <!-- ADM CYCLE DIAGRAM -->
+    <div class="adm-diagram">
+      <h3>TOGAF Architecture Development Method (ADM) — Cycle Diagram</h3>
+      <div class="adm-cycle">
+        <div class="adm-phase">
+          <div class="adm-circle phase-req">
+            <div>REQ</div>
+          </div>
+          <div class="adm-phase-name" style="color:#6b7280">Requirements Management</div>
+        </div>
+        <div class="adm-arrow">→</div>
+        <div class="adm-phase">
+          <div class="adm-circle phase-prelim">Pre</div>
+          <div class="adm-phase-name" style="color:var(--blue-mid)">Preliminary</div>
+        </div>
+        <div class="adm-arrow">→</div>
+        <div class="adm-phase">
+          <div class="adm-circle phase-a">A</div>
+          <div class="adm-phase-name" style="color:var(--orange)">Architecture Vision</div>
+        </div>
+        <div class="adm-arrow">→</div>
+        <div class="adm-phase">
+          <div class="adm-circle phase-b">B</div>
+          <div class="adm-phase-name" style="color:var(--teal)">Business Architecture</div>
+        </div>
+        <div class="adm-arrow">→</div>
+        <div class="adm-phase">
+          <div class="adm-circle phase-c">C</div>
+          <div class="adm-phase-name" style="color:var(--green)">Information Systems</div>
+        </div>
+        <div class="adm-arrow">→</div>
+        <div class="adm-phase">
+          <div class="adm-circle phase-d">D</div>
+          <div class="adm-phase-name" style="color:var(--purple)">Technology Architecture</div>
+        </div>
+        <div class="adm-arrow">→</div>
+        <div class="adm-phase">
+          <div class="adm-circle phase-e">E</div>
+          <div class="adm-phase-name" style="color:#d97706">Opportunities &amp; Solutions</div>
+        </div>
+        <div class="adm-arrow">→</div>
+        <div class="adm-phase">
+          <div class="adm-circle phase-f">F</div>
+          <div class="adm-phase-name" style="color:#e11d48">Migration Planning</div>
+        </div>
+        <div class="adm-arrow">→</div>
+        <div class="adm-phase">
+          <div class="adm-circle phase-g">G</div>
+          <div class="adm-phase-name" style="color:var(--green)">Implementation Governance</div>
+        </div>
+        <div class="adm-arrow">→</div>
+        <div class="adm-phase">
+          <div class="adm-circle phase-h">H</div>
+          <div class="adm-phase-name" style="color:#a21caf">Architecture Change Mgmt</div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:12px;color:#9ca3af;margin-top:20px;">Requirements Management runs continuously at the centre of the cycle, feeding every phase.</p>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div>
+        <h4>Why TOGAF for Salesforce?</h4>
+        <p>Salesforce is not just a CRM — it's a platform spanning Sales Cloud, Service Cloud, Marketing Cloud, Data Cloud, Agentforce, MuleSoft, and more. Without an EA framework, organisations accumulate technical debt, duplicate integrations, and shadow IT. TOGAF provides the shared language and process to govern the full Salesforce ecosystem, not just individual projects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 14 PRINCIPLES ═══════════ -->
+<section id="principles" style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Core Framework</div>
+    <h2>TOGAF's 14 Architecture Principles — Applied to Salesforce</h2>
+    <p class="section-intro">TOGAF defines architecture principles across four categories: Business, Data, Application, and Technology. Below, each principle is mapped to concrete Salesforce practices, anti-patterns to avoid, and example guardrails.</p>
+
+    <!-- ── BUSINESS PRINCIPLES ── -->
+    <h3 style="font-size:18px;font-weight:700;color:var(--blue-dark);margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--blue-light);">Business Principles</h3>
+    <div class="principles-grid" style="margin-bottom:40px;">
+
+      <div class="principle-card var-blue">
+        <div class="pc-header">
+          <div class="pc-icon">🏢</div>
+          <div>
+            <div class="pc-num">BP-1 · Business</div>
+            <div class="pc-title">Primacy of Principles</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--blue-mid);">"These principles apply to all organisations within the enterprise and any technology decisions must be consistent with them."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Establish a Salesforce Centre of Excellence (CoE) whose architectural decisions override individual project teams. All custom development, third-party apps on AppExchange, and Org mergers must pass through the CoE governance board.</p>
+          <div class="pc-label">Anti-pattern to Avoid</div>
+          <ul>
+            <li>Project teams building bespoke Apex solutions without CoE sign-off</li>
+            <li>Business units buying separate Sales Cloud Orgs without consolidation review</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--blue-light);color:var(--blue-dark);">🏛 CoE Governance Board</span>
+          <span class="sf-tag" style="background:var(--blue-light);color:var(--blue-dark);">📋 Org Strategy Document</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-teal">
+        <div class="pc-header">
+          <div class="pc-icon">🎯</div>
+          <div>
+            <div class="pc-num">BP-2 · Business</div>
+            <div class="pc-title">Maximise Benefit to Enterprise</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--teal);">"Architecture decisions maximise the overall benefit to the enterprise, even if sub-optimal for a single business unit."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>When evaluating Marketing Cloud Engagement vs. Marketing Cloud Account Engagement (MCAE/Pardot), choose based on enterprise-wide marketing strategy — not just one team's immediate need. Use Salesforce Optimizer and Health Check reports regularly.</p>
+          <div class="pc-label">Template — Business Case Criteria</div>
+          <ul>
+            <li>Alignment with company-wide CX strategy</li>
+            <li>Cross-cloud reuse potential (e.g., shared Data Cloud segments)</li>
+            <li>Total Cost of Ownership across all Orgs</li>
+            <li>Impact on existing integration fabric (MuleSoft/API Gateway)</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--teal-light);color:#0c4a6e;">📊 Salesforce Optimizer</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-orange">
+        <div class="pc-header">
+          <div class="pc-icon">🔄</div>
+          <div>
+            <div class="pc-num">BP-3 · Business</div>
+            <div class="pc-title">Business Continuity</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--orange);">"Enterprise operations must be maintained in spite of system interruptions."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Salesforce provides 99.9%+ SLA but your customisations and integrations may not. Design for graceful degradation: offline-capable Lightning apps, MuleSoft retry policies, and bulk API fallbacks ensure business continuity.</p>
+          <div class="pc-label">Practical Guardrails</div>
+          <ul>
+            <li>Use Platform Events for async integrations — decouples callers from Salesforce downtime</li>
+            <li>Store critical reference data locally for offline access (Mobile SDK)</li>
+            <li>Configure Salesforce Shield Backup and Recovery policies</li>
+            <li>Document RTO / RPO for each Cloud product in your Org</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--orange-light);color:#92400e;">⚡ Platform Events</span>
+          <span class="sf-tag" style="background:var(--orange-light);color:#92400e;">🛡 Salesforce Shield</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-green">
+        <div class="pc-header">
+          <div class="pc-icon">⚙️</div>
+          <div>
+            <div class="pc-num">BP-4 · Business</div>
+            <div class="pc-title">IT Responsibility</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--green);">"IT is responsible for owning and implementing IT processes and infrastructure, not individual business units."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Define clear RACI for the Salesforce Org — who owns metadata deployments, sandbox refresh schedules, release management, and AppExchange procurement. Use a Salesforce DevOps pipeline (Copado, Gearset, or SF CLI) owned by IT.</p>
+          <div class="pc-label">RACI Template</div>
+          <ul>
+            <li><strong>Responsible:</strong> Salesforce Admin / Developer</li>
+            <li><strong>Accountable:</strong> Salesforce Architect / CoE Lead</li>
+            <li><strong>Consulted:</strong> Business Product Owner</li>
+            <li><strong>Informed:</strong> End Users, Compliance</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--green-light);color:#14532d;">🚀 DevOps Center</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── DATA PRINCIPLES ── -->
+    <h3 style="font-size:18px;font-weight:700;color:var(--blue-dark);margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--blue-light);">Data Principles</h3>
+    <div class="principles-grid" style="margin-bottom:40px;">
+
+      <div class="principle-card var-blue">
+        <div class="pc-header">
+          <div class="pc-icon">📦</div>
+          <div>
+            <div class="pc-num">DP-5 · Data</div>
+            <div class="pc-title">Data is an Asset</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--blue-mid);">"Data is an asset that has value to the enterprise and is managed accordingly."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Treat every Salesforce object — Accounts, Contacts, Opportunities, Cases — as enterprise data assets with defined owners, quality standards, and retention policies. Use Salesforce Data Cloud (formerly CDP) as the unified customer data layer across all clouds.</p>
+          <div class="pc-label">Data Asset Registry Columns</div>
+          <ul>
+            <li>Object Name → Data Owner → Sensitivity Classification</li>
+            <li>Retention Period → Masking Rules → Sharing Model</li>
+            <li>Source System → Integration Pattern → Last Audit Date</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--blue-light);color:var(--blue-dark);">☁ Data Cloud</span>
+          <span class="sf-tag" style="background:var(--blue-light);color:var(--blue-dark);">🗂 Salesforce Shield</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-teal">
+        <div class="pc-header">
+          <div class="pc-icon">👤</div>
+          <div>
+            <div class="pc-num">DP-6 · Data</div>
+            <div class="pc-title">Data is Shared</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--teal);">"Users have access to the data necessary to perform their duties; therefore, data is shared across enterprise functions."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Design Salesforce's Sharing Model (OWD, Roles, Sharing Rules, Teams) to enable need-to-know access without duplication. Use Connected Apps and Named Credentials for cross-system data sharing, not point-to-point exports.</p>
+          <div class="pc-label">Sharing Architecture Checklist</div>
+          <ul>
+            <li>Define OWD (Private / Public Read / Public Read-Write) per object</li>
+            <li>Role hierarchy reflects reporting lines, not just access levels</li>
+            <li>Sharing rules documented with business justification</li>
+            <li>Periodic access reviews scheduled (quarterly recommended)</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--teal-light);color:#0c4a6e;">🔐 Sharing Model</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-orange">
+        <div class="pc-header">
+          <div class="pc-icon">📚</div>
+          <div>
+            <div class="pc-num">DP-7 · Data</div>
+            <div class="pc-title">Data is Accessible</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--orange);">"Data is accessible for users to perform their functions."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Use Salesforce Reports & Dashboards, CRM Analytics (formerly Tableau CRM / Einstein Analytics), and Data Cloud Query APIs to expose data in the context where users work — not in a separate BI system they have to context-switch to.</p>
+          <div class="pc-label">Access Patterns</div>
+          <ul>
+            <li>Embedded CRM Analytics dashboards in Lightning pages</li>
+            <li>Report subscriptions for scheduled data delivery</li>
+            <li>Einstein Discovery for inline predictive insights</li>
+            <li>External Data Connectors for cross-system views</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--orange-light);color:#92400e;">📊 CRM Analytics</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-green">
+        <div class="pc-header">
+          <div class="pc-icon">🏷</div>
+          <div>
+            <div class="pc-num">DP-8 · Data</div>
+            <div class="pc-title">Data Trustee</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--green);">"Each data element has a trustee accountable for data quality."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Assign data stewards for each key object (Account, Contact, Lead, Opportunity). Use Salesforce Duplicate Rules, Matching Rules, and third-party tools (D&B Hoovers, Ringlead, Cloudingo) to enforce quality at the point of entry.</p>
+          <div class="pc-label">Data Quality Framework</div>
+          <ul>
+            <li>Completeness rules on required fields (validation rules)</li>
+            <li>Accuracy: matching rules linking Contacts to known email domains</li>
+            <li>Consistency: picklist value governance, no free-text</li>
+            <li>Timeliness: Last Modified Date SLA alerts via Process Builder / Flow</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--green-light);color:#14532d;">🔍 Duplicate Management</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── APPLICATION PRINCIPLES ── -->
+    <h3 style="font-size:18px;font-weight:700;color:var(--blue-dark);margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--blue-light);">Application Principles</h3>
+    <div class="principles-grid" style="margin-bottom:40px;">
+
+      <div class="principle-card var-purple">
+        <div class="pc-header">
+          <div class="pc-icon">🧩</div>
+          <div>
+            <div class="pc-num">AP-9 · Application</div>
+            <div class="pc-title">Technology Independence</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--purple);">"Applications are independent of specific technology choices and therefore can operate on a variety of technology platforms."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Build Salesforce integrations using the REST/SOAP/Bulk/Streaming API contracts — not Org-specific internal endpoints. This ensures that when Salesforce changes their internal architecture (e.g., Genie → Data Cloud migration), your integration layer remains intact.</p>
+          <div class="pc-label">Integration Design Rules</div>
+          <ul>
+            <li>Always use versioned API endpoints (v59.0, not latest)</li>
+            <li>Prefer MuleSoft or API-led connectivity over direct database calls</li>
+            <li>Externally-facing LWC components must work in both Classic and Aura if legacy exists</li>
+            <li>Use Named Credentials — never hardcode auth tokens in Apex</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--purple-light);color:#4c1d95;">🔌 API-led Connectivity</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-blue">
+        <div class="pc-header">
+          <div class="pc-icon">🤝</div>
+          <div>
+            <div class="pc-num">AP-10 · Application</div>
+            <div class="pc-title">Ease of Use</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--blue-mid);">"Applications are easy to use. The underlying technology is transparent to users, who can concentrate on tasks at hand."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Apply this to Lightning page design: each page layout should surface only the information the user needs for their role. Use Dynamic Forms, Conditional Visibility, and Screen Flows to guide users through complex processes without exposing backend complexity.</p>
+          <div class="pc-label">UX Guardrails</div>
+          <ul>
+            <li>No more than 2 related lists per Lightning Record Page (use tabs)</li>
+            <li>Screen Flows for multi-step processes — never raw form fields</li>
+            <li>In-app guidance (Salesforce In-App Guidance tool) for onboarding</li>
+            <li>Mobile responsiveness mandatory for field-facing roles</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--blue-light);color:var(--blue-dark);">⚡ Dynamic Forms</span>
+          <span class="sf-tag" style="background:var(--blue-light);color:var(--blue-dark);">🎬 Screen Flows</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── TECHNOLOGY PRINCIPLES ── -->
+    <h3 style="font-size:18px;font-weight:700;color:var(--blue-dark);margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--blue-light);">Technology Principles</h3>
+    <div class="principles-grid">
+
+      <div class="principle-card var-teal">
+        <div class="pc-header">
+          <div class="pc-icon">🔧</div>
+          <div>
+            <div class="pc-num">TP-11 · Technology</div>
+            <div class="pc-title">Requirements-Based Change</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--teal);">"Only in response to business needs are changes to applications and technology made."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Mandate that every change request to the Salesforce Org must trace back to a documented business requirement. Use a Change Management process: Dev → Staging → UAT → Production — no hotfixes direct to production, even for admins.</p>
+          <div class="pc-label">Change Control Template</div>
+          <ul>
+            <li>Business Requirement ID (from Jira / Salesforce Cases)</li>
+            <li>Impact Analysis (objects, integrations, reports affected)</li>
+            <li>Rollback Plan (change sets, scratch org snapshots)</li>
+            <li>UAT Sign-off from Business Owner</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--teal-light);color:#0c4a6e;">📋 Change Sets / SF CLI</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-orange">
+        <div class="pc-header">
+          <div class="pc-icon">♻️</div>
+          <div>
+            <div class="pc-num">TP-12 · Technology</div>
+            <div class="pc-title">Responsive Change Management</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--orange);">"Changes to the enterprise information environment are implemented in a timely manner."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Salesforce releases 3 major updates per year (Spring, Summer, Winter). Establish an automated process to test each release in a Full Sandbox 60 days before the production push. Assign a Release Manager role within the CoE.</p>
+          <div class="pc-label">Release Readiness Checklist</div>
+          <ul>
+            <li>Activate Salesforce Release Notes preview sandbox</li>
+            <li>Run automated test suites (target &gt;85% code coverage)</li>
+            <li>Review critical updates — opt-in / opt-out decisions documented</li>
+            <li>Communicate impact to end users 2 weeks before rollout</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--orange-light);color:#92400e;">🧪 Sandbox Strategy</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-green">
+        <div class="pc-header">
+          <div class="pc-icon">🔌</div>
+          <div>
+            <div class="pc-num">TP-13 · Technology</div>
+            <div class="pc-title">Interoperability</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--green);">"Software and hardware should conform to defined standards that promote interoperability for data, applications, and technology."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Salesforce's API-first approach aligns perfectly with this principle. Mandate REST/GraphQL API contracts over custom middleware, use Salesforce Connect for real-time external data, and publish API specifications to an internal developer portal.</p>
+          <div class="pc-label">Integration Standards</div>
+          <ul>
+            <li>REST API for CRUD operations (JSON payload standard)</li>
+            <li>Bulk API 2.0 for data loads &gt;10k records</li>
+            <li>Platform Events / Change Data Capture for event-driven patterns</li>
+            <li>MuleSoft Anypoint for complex orchestration</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--green-light);color:#14532d;">🌐 MuleSoft / Heroku Connect</span>
+        </div>
+      </div>
+
+      <div class="principle-card var-purple">
+        <div class="pc-header">
+          <div class="pc-icon">🛡</div>
+          <div>
+            <div class="pc-num">TP-14 · Technology</div>
+            <div class="pc-title">Security &amp; Privacy</div>
+          </div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-principle" style="border-color:var(--purple);">"Information processing facilities must be consistent with enterprise security architecture and comply with applicable regulatory requirements."</div>
+          <div class="pc-label">Salesforce Application</div>
+          <p>Apply the principle of least privilege across all Salesforce profiles, permission sets, and permission set groups. Use Salesforce Shield (Event Monitoring, Platform Encryption, Field Audit Trail) for regulated industries (HIPAA, GDPR, CCPA).</p>
+          <div class="pc-label">Security Controls Checklist</div>
+          <ul>
+            <li>MFA enabled for all users (mandatory since Feb 2022)</li>
+            <li>Platform Encryption on PII fields (SSN, DOB, credit card)</li>
+            <li>Event Monitoring for login anomalies and data exports</li>
+            <li>Connected App whitelist — no unapproved OAuth applications</li>
+            <li>GDPR: Right-to-be-forgotten implemented via Apex anonymisation</li>
+          </ul>
+          <span class="sf-tag" style="background:var(--purple-light);color:#4c1d95;">🔐 Salesforce Shield</span>
+          <span class="sf-tag" style="background:var(--purple-light);color:#4c1d95;">🛡 Permission Sets</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ADM → SALESFORCE ═══════════ -->
+<section id="adm">
+  <div class="container">
+    <div class="section-label">Phase Mapping</div>
+    <h2>TOGAF ADM Phases → Salesforce Project Activities</h2>
+    <p class="section-intro">Each ADM phase has a direct parallel in a Salesforce implementation lifecycle. Use this mapping to structure your project governance and deliverables.</p>
+
+    <div class="phase-map">
+
+      <div class="phase-block">
+        <div class="phase-block-head" style="background:#f0f9ff;">
+          <div class="phase-dot" style="background:#0ea5e9;color:#fff;">Pre</div>
+          <div>
+            <h4>Preliminary Phase</h4>
+            <span>Prepare the Organisation</span>
+          </div>
+        </div>
+        <div class="phase-block-body">
+          <ul>
+            <li>Establish Salesforce CoE charter and operating model</li>
+            <li>Define Org strategy: single-Org vs. multi-Org</li>
+            <li>Identify existing Salesforce licences and contracts</li>
+            <li>Document current-state architecture (as-is Org Health Check)</li>
+            <li>Agree on architecture principles (use this document as input)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-block-head" style="background:#fff3e8;">
+          <div class="phase-dot" style="background:var(--orange);color:#fff;">A</div>
+          <div>
+            <h4>Architecture Vision</h4>
+            <span>Stakeholder Alignment</span>
+          </div>
+        </div>
+        <div class="phase-block-body">
+          <ul>
+            <li>Create Salesforce Solution Vision document (1-pager)</li>
+            <li>Define success metrics: adoption KPIs, ROI targets</li>
+            <li>Identify impacted stakeholders and sponsor (C-suite)</li>
+            <li>Produce high-level capability map (to-be)</li>
+            <li>Salesforce Trailhead: Architecture Overview for Executives</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-block-head" style="background:#e0f7fd;">
+          <div class="phase-dot" style="background:var(--teal);color:#fff;">B</div>
+          <div>
+            <h4>Business Architecture</h4>
+            <span>Process + Capability Design</span>
+          </div>
+        </div>
+        <div class="phase-block-body">
+          <ul>
+            <li>Map business processes to Salesforce objects and flows</li>
+            <li>Design sales / service / marketing process models</li>
+            <li>Define Lead-to-Cash or Case-to-Resolution process flows</li>
+            <li>Identify process automation candidates (Flow Orchestrator)</li>
+            <li>Document swimlane diagrams per business unit</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-block-head" style="background:#e8f8ee;">
+          <div class="phase-dot" style="background:var(--green);color:#fff;">C</div>
+          <div>
+            <h4>Information Systems Architecture</h4>
+            <span>Data + Application Design</span>
+          </div>
+        </div>
+        <div class="phase-block-body">
+          <ul>
+            <li>Design Salesforce data model (object relationships, lookups, MDRs)</li>
+            <li>Define master data management strategy (MDM + Data Cloud)</li>
+            <li>Map application portfolio to Salesforce Clouds</li>
+            <li>Design integration architecture (MuleSoft API mesh)</li>
+            <li>Define canonical data model for cross-system entities</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-block-head" style="background:#f3eeff;">
+          <div class="phase-dot" style="background:var(--purple);color:#fff;">D</div>
+          <div>
+            <h4>Technology Architecture</h4>
+            <span>Platform + Infrastructure</span>
+          </div>
+        </div>
+        <div class="phase-block-body">
+          <ul>
+            <li>Select Salesforce Clouds and editions (Enterprise, Unlimited, etc.)</li>
+            <li>Design sandbox strategy (Scratch, Dev, Partial, Full)</li>
+            <li>Plan DevOps toolchain (Copado, Gearset, GitHub Actions)</li>
+            <li>Design network topology: SSO, IP whitelisting, VPN</li>
+            <li>Define AppExchange evaluation criteria</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-block-head" style="background:#fef3c7;">
+          <div class="phase-dot" style="background:#d97706;color:#fff;">E</div>
+          <div>
+            <h4>Opportunities &amp; Solutions</h4>
+            <span>Build vs Buy Decisions</span>
+          </div>
+        </div>
+        <div class="phase-block-body">
+          <ul>
+            <li>Evaluate AppExchange packages vs. custom Apex build</li>
+            <li>Define configuration-first vs. code-first approach</li>
+            <li>Prioritise backlog using MoSCoW (Must / Should / Could / Won't)</li>
+            <li>Define transition states for Org migration</li>
+            <li>Run Proof of Concept for complex requirements (Agentforce AI)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-block-head" style="background:#ffe4e6;">
+          <div class="phase-dot" style="background:#e11d48;color:#fff;">F</div>
+          <div>
+            <h4>Migration Planning</h4>
+            <span>Roadmap + Data Migration</span>
+          </div>
+        </div>
+        <div class="phase-block-body">
+          <ul>
+            <li>Create phased implementation roadmap (wave planning)</li>
+            <li>Design data migration strategy (ETL with Informatica / DataLoader)</li>
+            <li>Plan legacy system decommission timeline</li>
+            <li>Define data cleansing rules pre-migration</li>
+            <li>Estimate licence costs per wave</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-block-head" style="background:#f0fdf4;">
+          <div class="phase-dot" style="background:#15803d;color:#fff;">G</div>
+          <div>
+            <h4>Implementation Governance</h4>
+            <span>Delivery Oversight</span>
+          </div>
+        </div>
+        <div class="phase-block-body">
+          <ul>
+            <li>Architecture review gates at each Sprint end</li>
+            <li>Automated governance: PMD static analysis on Apex</li>
+            <li>Deployment approvals via DevOps Center (Salesforce native)</li>
+            <li>Sprint demo includes architecture compliance review</li>
+            <li>Track technical debt in architecture backlog</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-block-head" style="background:#fdf4ff;">
+          <div class="phase-dot" style="background:#a21caf;color:#fff;">H</div>
+          <div>
+            <h4>Architecture Change Management</h4>
+            <span>Continuous Governance</span>
+          </div>
+        </div>
+        <div class="phase-block-body">
+          <ul>
+            <li>Quarterly architecture review board (ARB) meetings</li>
+            <li>Salesforce release readiness process (3× per year)</li>
+            <li>Update architecture artefacts when design changes</li>
+            <li>Org Health Score monitoring (Salesforce Health Check)</li>
+            <li>Annual licence and usage optimisation review</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ARCHITECTURE LAYERS ═══════════ -->
+<section id="layers" style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Architecture Domains</div>
+    <h2>Four Architecture Layers — Salesforce View</h2>
+    <p class="section-intro">TOGAF defines four architecture domains. Here's how they map to the Salesforce ecosystem, with specific products and tools in each layer.</p>
+
+    <div class="arch-layers">
+      <h3>Salesforce Enterprise Architecture Stack (TOGAF-aligned)</h3>
+
+      <div class="layer layer-biz">
+        <div class="layer-icon">🏢</div>
+        <div class="layer-info">
+          <div class="layer-title">Business Architecture</div>
+          <div class="layer-detail">Strategy, capabilities, business processes, organisation design</div>
+          <div class="layer-tags">
+            <span class="layer-tag">Business Capability Model</span>
+            <span class="layer-tag">Process Maps (Lead-to-Cash)</span>
+            <span class="layer-tag">Stakeholder Register</span>
+            <span class="layer-tag">Service Catalogue</span>
+            <span class="layer-tag">OKRs / KPIs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-connector">↓</div>
+
+      <div class="layer layer-data">
+        <div class="layer-icon">💾</div>
+        <div class="layer-info">
+          <div class="layer-title">Data Architecture</div>
+          <div class="layer-detail">Objects, relationships, MDM, data quality, governance, Salesforce Data Cloud</div>
+          <div class="layer-tags">
+            <span class="layer-tag">Salesforce Data Cloud</span>
+            <span class="layer-tag">Object Model (ERD)</span>
+            <span class="layer-tag">Duplicate Rules</span>
+            <span class="layer-tag">Salesforce Shield Encryption</span>
+            <span class="layer-tag">Data Retention Policies</span>
+            <span class="layer-tag">Change Data Capture</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-connector">↓</div>
+
+      <div class="layer layer-app">
+        <div class="layer-icon">⚡</div>
+        <div class="layer-info">
+          <div class="layer-title">Application Architecture</div>
+          <div class="layer-detail">Salesforce Clouds, custom apps, AppExchange, LWC components, Flows</div>
+          <div class="layer-tags">
+            <span class="layer-tag">Sales / Service / Marketing Cloud</span>
+            <span class="layer-tag">Experience Cloud</span>
+            <span class="layer-tag">Agentforce</span>
+            <span class="layer-tag">Lightning Web Components</span>
+            <span class="layer-tag">Flow Orchestrator</span>
+            <span class="layer-tag">AppExchange ISVs</span>
+            <span class="layer-tag">Einstein AI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer-connector">↓</div>
+
+      <div class="layer layer-tech">
+        <div class="layer-icon">🔧</div>
+        <div class="layer-info">
+          <div class="layer-title">Technology Architecture</div>
+          <div class="layer-detail">Salesforce infrastructure, integrations, DevOps toolchain, security infrastructure</div>
+          <div class="layer-tags">
+            <span class="layer-tag">MuleSoft Anypoint</span>
+            <span class="layer-tag">Salesforce API (REST/SOAP/Bulk)</span>
+            <span class="layer-tag">DevOps Center / Copado</span>
+            <span class="layer-tag">Heroku</span>
+            <span class="layer-tag">SSO / OAuth</span>
+            <span class="layer-tag">Platform Events</span>
+            <span class="layer-tag">Salesforce CLI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✅</span>
+      <div>
+        <h4>Architecture Content Framework (ACF) for Salesforce</h4>
+        <p>TOGAF's ACF defines what artefacts to produce. For Salesforce, this means: Business Capability Model → Salesforce Object Model (ERD) → Application Portfolio Map (which Cloud does what) → Integration Architecture Diagram (MuleSoft API flows). Store all artefacts in Confluence, SharePoint, or the EA tool of choice (LeanIX, Ardoq, or even Lucidchart).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MAPPING MATRIX ═══════════ -->
+<section id="matrix">
+  <div class="container">
+    <div class="section-label">Quick Reference</div>
+    <h2>TOGAF Principle → Salesforce Feature Matrix</h2>
+    <p class="section-intro">Use this matrix in architecture review board discussions or to assess compliance of a proposed Salesforce design.</p>
+
+    <div class="matrix-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>TOGAF Principle</th>
+            <th>Category</th>
+            <th>Salesforce Feature / Capability</th>
+            <th>Key Tool / Product</th>
+            <th>Compliance Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Primacy of Principles (BP-1)</td>
+            <td>Business</td>
+            <td>Centre of Excellence (CoE), Architecture Governance Board</td>
+            <td>Salesforce Success Plans, CoE Starter Kit</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+          <tr>
+            <td>Maximise Benefit (BP-2)</td>
+            <td>Business</td>
+            <td>Cross-Cloud licensing & capability reuse</td>
+            <td>Salesforce Optimizer, Health Check</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+          <tr>
+            <td>Business Continuity (BP-3)</td>
+            <td>Business</td>
+            <td>Platform Events, Async Apex, Backup & Recovery</td>
+            <td>Salesforce Shield, OwnBackup</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+          <tr>
+            <td>IT Responsibility (BP-4)</td>
+            <td>Business</td>
+            <td>RACI Matrix, DevOps pipeline ownership</td>
+            <td>DevOps Center, Copado, Gearset</td>
+            <td><span class="badge badge-medium">Medium</span></td>
+          </tr>
+          <tr>
+            <td>Data is an Asset (DP-5)</td>
+            <td>Data</td>
+            <td>Data Cloud, unified customer profile, data dictionary</td>
+            <td>Salesforce Data Cloud, Shield</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+          <tr>
+            <td>Data is Shared (DP-6)</td>
+            <td>Data</td>
+            <td>Sharing Model, OWD, Role Hierarchy, Named Credentials</td>
+            <td>Salesforce Setup, Connected Apps</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+          <tr>
+            <td>Data is Accessible (DP-7)</td>
+            <td>Data</td>
+            <td>CRM Analytics, Dashboards, Einstein Discovery</td>
+            <td>CRM Analytics Studio, Tableau</td>
+            <td><span class="badge badge-medium">Medium</span></td>
+          </tr>
+          <tr>
+            <td>Data Trustee (DP-8)</td>
+            <td>Data</td>
+            <td>Duplicate Rules, Validation Rules, Data Steward role</td>
+            <td>Duplicate Management, Cloudingo</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+          <tr>
+            <td>Technology Independence (AP-9)</td>
+            <td>Application</td>
+            <td>Versioned APIs, Named Credentials, API-led connectivity</td>
+            <td>MuleSoft Anypoint Exchange, REST API</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+          <tr>
+            <td>Ease of Use (AP-10)</td>
+            <td>Application</td>
+            <td>Dynamic Forms, Screen Flows, In-App Guidance</td>
+            <td>Lightning App Builder, Flow Builder</td>
+            <td><span class="badge badge-medium">Medium</span></td>
+          </tr>
+          <tr>
+            <td>Requirements-Based Change (TP-11)</td>
+            <td>Technology</td>
+            <td>Change Request process, Sandbox pipeline, audit trail</td>
+            <td>SF CLI, DevOps Center, Jira</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+          <tr>
+            <td>Responsive Change Mgmt (TP-12)</td>
+            <td>Technology</td>
+            <td>Release readiness, Critical Update management</td>
+            <td>Release Notes Preview Sandbox</td>
+            <td><span class="badge badge-medium">Medium</span></td>
+          </tr>
+          <tr>
+            <td>Interoperability (TP-13)</td>
+            <td>Technology</td>
+            <td>REST/Bulk/Streaming APIs, Platform Events, CDC</td>
+            <td>MuleSoft, Heroku Connect, CDC</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+          <tr>
+            <td>Security &amp; Privacy (TP-14)</td>
+            <td>Technology</td>
+            <td>MFA, Platform Encryption, Event Monitoring, Permission Sets</td>
+            <td>Salesforce Shield, Trust Portal</td>
+            <td><span class="badge badge-high">High</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ GOVERNANCE ═══════════ -->
+<section id="governance" style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Templates</div>
+    <h2>Governance Framework &amp; Templates</h2>
+    <p class="section-intro">TOGAF's Architecture Governance Framework defines how decisions are made, documented, and enforced. Here are practical templates for a Salesforce context.</p>
+
+    <div class="gov-grid">
+      <div class="gov-card">
+        <h4>🏛 Architecture Review Board (ARB)</h4>
+        <ul>
+          <li>Meets monthly (or at each major milestone)</li>
+          <li>Chaired by Enterprise Architect / CTO</li>
+          <li>Reviews new Cloud/Org additions</li>
+          <li>Approves AppExchange purchases &gt;$10k ACV</li>
+          <li>Reviews deviations from architecture principles</li>
+          <li>Produces Architecture Decision Records (ADRs)</li>
+          <li>Monitors Org Health Score trends</li>
+        </ul>
+      </div>
+
+      <div class="gov-card">
+        <h4>📋 Architecture Decision Record (ADR)</h4>
+        <ul>
+          <li>Title: Short description of the decision</li>
+          <li>Date: YYYY-MM-DD</li>
+          <li>Status: Proposed / Accepted / Deprecated</li>
+          <li>Context: Why is this decision needed?</li>
+          <li>Decision: What was decided?</li>
+          <li>Consequences: What changes as a result?</li>
+          <li>Alternatives Considered: What was rejected &amp; why?</li>
+        </ul>
+      </div>
+
+      <div class="gov-card">
+        <h4>🗺 Architecture Roadmap</h4>
+        <ul>
+          <li>Current State (as-is) architecture baseline</li>
+          <li>Target State (to-be) architecture vision</li>
+          <li>Gap Analysis: what needs to change</li>
+          <li>Work Packages mapped to Salesforce waves</li>
+          <li>Dependencies and sequencing</li>
+          <li>Estimated effort and resource requirements</li>
+          <li>Success metrics per wave</li>
+        </ul>
+      </div>
+
+      <div class="gov-card">
+        <h4>🔍 Architecture Compliance Review</h4>
+        <ul>
+          <li>Run at end of each Agile sprint</li>
+          <li>Check against 14 TOGAF principles</li>
+          <li>Review Apex Governor Limits usage</li>
+          <li>Verify no hardcoded IDs / credentials</li>
+          <li>Check bulk-safe Apex trigger patterns</li>
+          <li>Validate test coverage ≥ 85%</li>
+          <li>Issue Compliance Certificate or Waiver</li>
+        </ul>
+      </div>
+
+      <div class="gov-card">
+        <h4>📊 Org Health Monitoring</h4>
+        <ul>
+          <li>Salesforce Health Check score ≥ 80 target</li>
+          <li>API usage trending (approaching limits)</li>
+          <li>Record storage utilisation review</li>
+          <li>File storage and big object usage</li>
+          <li>Inactive users and licence waste audit</li>
+          <li>Deployment frequency and rollback rate</li>
+          <li>Custom code complexity metrics (PMD)</li>
+        </ul>
+      </div>
+
+      <div class="gov-card">
+        <h4>🚀 Release Governance</h4>
+        <ul>
+          <li>Salesforce release calendar subscribed</li>
+          <li>Sandbox refresh 60 days before production push</li>
+          <li>All automated tests pass in staging</li>
+          <li>Business stakeholder UAT sign-off obtained</li>
+          <li>Rollback plan documented and tested</li>
+          <li>Post-release monitoring window defined</li>
+          <li>Change advisory board (CAB) approval</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <div>
+        <h4>Common Governance Failures in Salesforce Projects</h4>
+        <ul style="padding-left:16px;margin-top:6px;">
+          <li>No sandbox strategy — developers testing in production</li>
+          <li>Profiles used as permission sets (creates upgrade debt)</li>
+          <li>Record Types overused — use Dynamic Forms instead</li>
+          <li>Flows and Process Builders running in parallel on same object</li>
+          <li>No Architecture Decision Records — tribal knowledge only</li>
+          <li>AppExchange apps installed without security review</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CHECKLIST ═══════════ -->
+<section id="checklist">
+  <div class="container">
+    <div class="section-label">Printable Template</div>
+    <h2>TOGAF–Salesforce Architecture Readiness Checklist</h2>
+    <p class="section-intro">Use this checklist at project kickoff and at each major phase gate to ensure TOGAF alignment throughout the Salesforce engagement.</p>
+
+    <div class="checklist">
+      <div class="checklist-head">Salesforce Architecture Readiness — TOGAF Compliance Checklist</div>
+
+      <div class="checklist-section">
+        <h4>Preliminary &amp; Vision (Phase Pre &amp; A)</h4>
+        <div class="check-item"><div class="check-box"></div>Architecture principles documented and approved by CoE</div>
+        <div class="check-item"><div class="check-box"></div>Single-Org vs. multi-Org strategy decision recorded in ADR</div>
+        <div class="check-item"><div class="check-box"></div>Stakeholder register complete with RACI for Salesforce team</div>
+        <div class="check-item"><div class="check-box"></div>Business capability model created and mapped to Salesforce Clouds</div>
+        <div class="check-item"><div class="check-box"></div>Success metrics (KPIs) defined with target values and owners</div>
+      </div>
+
+      <div class="checklist-section">
+        <h4>Data &amp; Application Architecture (Phase C)</h4>
+        <div class="check-item"><div class="check-box"></div>Salesforce object model (ERD) documented in architecture repository</div>
+        <div class="check-item"><div class="check-box"></div>Master data management strategy defined (system of record per entity)</div>
+        <div class="check-item"><div class="check-box"></div>Sharing model (OWD, roles, sharing rules) documented and reviewed</div>
+        <div class="check-item"><div class="check-box"></div>Integration architecture diagram produced (all source → Salesforce flows)</div>
+        <div class="check-item"><div class="check-box"></div>Data dictionary published with owner, classification, and retention rules</div>
+        <div class="check-item"><div class="check-box"></div>Duplicate Rules and Matching Rules configured for key objects</div>
+      </div>
+
+      <div class="checklist-section">
+        <h4>Technology Architecture (Phase D)</h4>
+        <div class="check-item"><div class="check-box"></div>Sandbox strategy documented (Scratch, Dev, Partial, Full copies defined)</div>
+        <div class="check-item"><div class="check-box"></div>DevOps pipeline configured (source control → CI → sandbox → prod)</div>
+        <div class="check-item"><div class="check-box"></div>API integration standards defined (versioned REST, Named Credentials)</div>
+        <div class="check-item"><div class="check-box"></div>SSO / MFA configured; no shared service accounts</div>
+        <div class="check-item"><div class="check-box"></div>AppExchange security review passed for all third-party packages</div>
+      </div>
+
+      <div class="checklist-section">
+        <h4>Implementation Governance (Phase G)</h4>
+        <div class="check-item"><div class="check-box"></div>Code meets Apex best practices (bulkification, no SOQL in loops)</div>
+        <div class="check-item"><div class="check-box"></div>Test coverage ≥ 85% with meaningful assertions (not just coverage)</div>
+        <div class="check-item"><div class="check-box"></div>PMD static analysis run — zero critical issues</div>
+        <div class="check-item"><div class="check-box"></div>No hardcoded IDs, credentials, or environment-specific values</div>
+        <div class="check-item"><div class="check-box"></div>Change set / SF CLI deployment tested in staging before production</div>
+        <div class="check-item"><div class="check-box"></div>Architecture compliance review completed at sprint end</div>
+      </div>
+
+      <div class="checklist-section">
+        <h4>Security &amp; Privacy (TP-14)</h4>
+        <div class="check-item"><div class="check-box"></div>MFA enforced for all internal users</div>
+        <div class="check-item"><div class="check-box"></div>Platform Encryption enabled for regulated / PII fields</div>
+        <div class="check-item"><div class="check-box"></div>Event Monitoring configured for anomaly alerting</div>
+        <div class="check-item"><div class="check-box"></div>GDPR right-to-erasure process tested and documented</div>
+        <div class="check-item"><div class="check-box"></div>Connected App OAuth review complete (no over-permissioned scopes)</div>
+      </div>
+
+      <div class="checklist-section" style="border:none;">
+        <h4>Ongoing Governance (Phase H)</h4>
+        <div class="check-item"><div class="check-box"></div>Architecture Review Board meeting cadence established</div>
+        <div class="check-item"><div class="check-box"></div>Salesforce release readiness process defined (3× per year)</div>
+        <div class="check-item"><div class="check-box"></div>Org Health Check score baseline recorded; target set</div>
+        <div class="check-item"><div class="check-box"></div>Architecture artefacts stored in version-controlled repository</div>
+        <div class="check-item"><div class="check-box"></div>Annual licence optimisation review scheduled</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ REFERENCES ═══════════ -->
+<section id="references" style="background:#fff;">
+  <div class="container">
+    <div class="section-label">Learn More</div>
+    <h2>Reference Links &amp; Learning Resources</h2>
+    <p class="section-intro">The resources below are grouped by category. The Open Group provides the authoritative TOGAF specification; Salesforce Architect provides the platform-specific implementation guidance.</p>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:16px;margin-top:8px;">TOGAF Official Resources</h3>
+    <div class="ref-grid" style="margin-bottom:32px;">
+
+      <a class="ref-card ref-togaf" href="https://www.opengroup.org/togaf" target="_blank" rel="noopener">
+        <div class="ref-card-type">TOGAF Official</div>
+        <h4>The Open Group — TOGAF Standard</h4>
+        <p>The authoritative source for TOGAF 10, the Architecture Development Method (ADM), and all supporting guidance. Free membership gives access to the standard.</p>
+        <div class="ref-link">opengroup.org/togaf</div>
+      </a>
+
+      <a class="ref-card ref-togaf" href="https://www.opengroup.org/certifications/togaf" target="_blank" rel="noopener">
+        <div class="ref-card-type">TOGAF Official</div>
+        <h4>TOGAF Certification Programme</h4>
+        <p>TOGAF Foundation (Level 1) covers core concepts; TOGAF Practitioner (Level 2) covers ADM application. Recognized globally and by Salesforce architects.</p>
+        <div class="ref-link">opengroup.org/certifications/togaf</div>
+      </a>
+
+      <a class="ref-card ref-togaf" href="https://publications.opengroup.org/c220" target="_blank" rel="noopener">
+        <div class="ref-card-type">TOGAF Spec</div>
+        <h4>TOGAF 10 Full Specification</h4>
+        <p>The complete TOGAF 10 specification document including all ADM phases, Architecture Principles, Content Framework, and Reference Models.</p>
+        <div class="ref-link">publications.opengroup.org/c220</div>
+      </a>
+
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:16px;">Salesforce Architecture Resources</h3>
+    <div class="ref-grid" style="margin-bottom:32px;">
+
+      <a class="ref-card ref-sf" href="https://architect.salesforce.com" target="_blank" rel="noopener">
+        <div class="ref-card-type">Salesforce Architect</div>
+        <h4>Salesforce Architect Hub</h4>
+        <p>The official home for Salesforce architecture guidance, decision frameworks, reference architectures, and design patterns across all Salesforce Clouds.</p>
+        <div class="ref-link">architect.salesforce.com</div>
+      </a>
+
+      <a class="ref-card ref-sf" href="https://architect.salesforce.com/design/decision-guides/integration" target="_blank" rel="noopener">
+        <div class="ref-card-type">Salesforce Architect</div>
+        <h4>Integration Architecture Decision Guide</h4>
+        <p>When to use REST vs. SOAP vs. Bulk vs. Streaming vs. Platform Events vs. Change Data Capture — with pattern diagrams and decision trees.</p>
+        <div class="ref-link">architect.salesforce.com/design/decision-guides/integration</div>
+      </a>
+
+      <a class="ref-card ref-sf" href="https://architect.salesforce.com/design/decision-guides/data-model" target="_blank" rel="noopener">
+        <div class="ref-card-type">Salesforce Architect</div>
+        <h4>Data Model Decision Guide</h4>
+        <p>Covers when to use custom objects vs. standard objects, master-detail vs. lookup relationships, and large data volume (LDV) considerations.</p>
+        <div class="ref-link">architect.salesforce.com/design/decision-guides/data-model</div>
+      </a>
+
+      <a class="ref-card ref-sf" href="https://trailhead.salesforce.com/en/content/learn/trails/architect-salesforce-solutions" target="_blank" rel="noopener">
+        <div class="ref-card-type">Salesforce Trailhead</div>
+        <h4>Architect Salesforce Solutions Trail</h4>
+        <p>Free learning path covering Salesforce architecture fundamentals, design patterns, governance, and integration — aligned to the Salesforce Architect certification.</p>
+        <div class="ref-link">trailhead.salesforce.com</div>
+      </a>
+
+      <a class="ref-card ref-sf" href="https://architect.salesforce.com/design/reference-architectures" target="_blank" rel="noopener">
+        <div class="ref-card-type">Salesforce Architect</div>
+        <h4>Salesforce Reference Architectures</h4>
+        <p>Pre-built reference architecture diagrams for common scenarios: B2B Commerce, Insurance, Manufacturing, Healthcare, and more — all with TOGAF-style layer diagrams.</p>
+        <div class="ref-link">architect.salesforce.com/design/reference-architectures</div>
+      </a>
+
+      <a class="ref-card ref-sf" href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/" target="_blank" rel="noopener">
+        <div class="ref-card-type">Developer Docs</div>
+        <h4>Salesforce API Reference</h4>
+        <p>Full REST and SOAP API documentation — essential for Technology Architecture (TP-13 Interoperability) and defining integration standards for your architecture principles.</p>
+        <div class="ref-link">developer.salesforce.com/docs</div>
+      </a>
+
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:16px;">Tools &amp; Diagramming</h3>
+    <div class="ref-grid" style="margin-bottom:32px;">
+
+      <a class="ref-card ref-tool" href="https://www.lucidchart.com/pages/templates/salesforce-architecture-diagram" target="_blank" rel="noopener">
+        <div class="ref-card-type">Tool</div>
+        <h4>Lucidchart — Salesforce Templates</h4>
+        <p>Pre-built Salesforce architecture diagram templates including data models, integration flows, and org structure charts. Has Salesforce shape libraries built-in.</p>
+        <div class="ref-link">lucidchart.com/pages/templates</div>
+      </a>
+
+      <a class="ref-card ref-tool" href="https://www.ardoq.com/blog/togaf-salesforce" target="_blank" rel="noopener">
+        <div class="ref-card-type">Tool</div>
+        <h4>Ardoq — EA for Salesforce</h4>
+        <p>Enterprise Architecture tool with a Salesforce connector — automatically imports your Salesforce metadata and maps it to TOGAF architecture domains.</p>
+        <div class="ref-link">ardoq.com/blog/togaf-salesforce</div>
+      </a>
+
+      <a class="ref-card ref-tool" href="https://www.leanix.net/en/wiki/ea/togaf" target="_blank" rel="noopener">
+        <div class="ref-card-type">Tool</div>
+        <h4>LeanIX — TOGAF Reference</h4>
+        <p>EA platform with TOGAF templates, business capability maps, and technology portfolio management. Widely used alongside Salesforce for application portfolio governance.</p>
+        <div class="ref-link">leanix.net/en/wiki/ea/togaf</div>
+      </a>
+
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:16px;">Certifications to Pursue</h3>
+    <div class="ref-grid" style="margin-bottom:32px;">
+
+      <a class="ref-card ref-cert" href="https://www.salesforce.com/uk/campaign/certifications/salesforce-architect-certifications/" target="_blank" rel="noopener">
+        <div class="ref-card-type">Certification</div>
+        <h4>Salesforce Certified Technical Architect (CTA)</h4>
+        <p>The highest Salesforce technical credential. Covers all architecture domains in a review board format — deeply aligned with TOGAF ADM phases and governance principles.</p>
+        <div class="ref-link">salesforce.com/certifications</div>
+      </a>
+
+      <a class="ref-card ref-cert" href="https://trailhead.salesforce.com/credentials/applicationarchitect" target="_blank" rel="noopener">
+        <div class="ref-card-type">Certification</div>
+        <h4>Salesforce Certified Application Architect</h4>
+        <p>Prerequisite to CTA. Combines Data Architecture, Sharing & Visibility, Development Lifecycle, and Integration Architecture exams — TOGAF Application Principles alignment.</p>
+        <div class="ref-link">trailhead.salesforce.com/credentials/applicationarchitect</div>
+      </a>
+
+      <a class="ref-card ref-cert" href="https://www.opengroup.org/certifications/togaf" target="_blank" rel="noopener">
+        <div class="ref-card-type">Certification</div>
+        <h4>TOGAF Foundation + Practitioner (Level 1 &amp; 2)</h4>
+        <p>The TOGAF certification is widely recognised and pairs perfectly with Salesforce Architect credentials for senior EA roles at consulting firms and enterprises.</p>
+        <div class="ref-link">opengroup.org/certifications/togaf</div>
+      </a>
+
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:16px;">Community &amp; Deep-Dive Reading</h3>
+    <div class="ref-grid">
+
+      <a class="ref-card ref-blog" href="https://architect.salesforce.com/well-architected/overview" target="_blank" rel="noopener">
+        <div class="ref-card-type">Deep Dive</div>
+        <h4>Salesforce Well-Architected Framework</h4>
+        <p>Salesforce's own quality framework (Trusted, Easy, Adaptable, Aligned) that complements TOGAF by providing opinionated best practices per architecture dimension.</p>
+        <div class="ref-link">architect.salesforce.com/well-architected</div>
+      </a>
+
+      <a class="ref-card ref-blog" href="https://trailhead.salesforce.com/en/content/learn/modules/coe_starter_kit" target="_blank" rel="noopener">
+        <div class="ref-card-type">Deep Dive</div>
+        <h4>Salesforce CoE Starter Kit</h4>
+        <p>Salesforce's official CoE playbook covering governance structure, operating model, team roles, and processes — the practical implementation of TOGAF's governance principles.</p>
+        <div class="ref-link">trailhead.salesforce.com — CoE Starter Kit</div>
+      </a>
+
+      <a class="ref-card ref-blog" href="https://help.salesforce.com/s/articleView?id=sf.security_overview.htm" target="_blank" rel="noopener">
+        <div class="ref-card-type">Deep Dive</div>
+        <h4>Salesforce Security Guide</h4>
+        <p>Full security architecture documentation covering profiles, permission sets, sharing model, encryption, and compliance — maps directly to TOGAF TP-14 Security principle.</p>
+        <div class="ref-link">help.salesforce.com — Security Overview</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ Q & A ═══════════ -->
+<section id="qa">
+  <div class="container">
+    <div class="section-label">Interview &amp; Exam Prep</div>
+    <h2>TOGAF Q &amp; A — Applied to Salesforce</h2>
+    <p class="section-intro">20 questions spanning TOGAF fundamentals, ADM phases, architecture principles, and Salesforce-specific scenarios. Each answer includes an explanation and, where applicable, an inline diagram. Click a question to reveal the answer.</p>
+
+    <style>
+      /* ── Q&A STYLES ── */
+      .qa-category-label {
+        font-size: 11px; font-weight: 700; letter-spacing: 2px;
+        text-transform: uppercase; color: var(--teal);
+        margin: 40px 0 14px; padding-bottom: 6px;
+        border-bottom: 2px solid var(--teal-light);
+      }
+      .qa-item {
+        background: #fff;
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,.05);
+      }
+      .qa-question {
+        display: flex; align-items: flex-start; gap: 14px;
+        padding: 18px 22px; cursor: pointer;
+        user-select: none;
+        transition: background .15s;
+      }
+      .qa-question:hover { background: var(--gray-50); }
+      .qa-q-num {
+        min-width: 28px; height: 28px; border-radius: 50%;
+        background: var(--blue-mid); color: #fff;
+        font-size: 12px; font-weight: 700;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; margin-top: 1px;
+      }
+      .qa-q-text { font-size: 14px; font-weight: 600; color: var(--blue-dark); flex: 1; line-height: 1.45; }
+      .qa-chevron {
+        font-size: 18px; color: var(--gray-300);
+        transition: transform .25s; flex-shrink: 0; margin-top: 3px;
+      }
+      .qa-item.open .qa-chevron { transform: rotate(180deg); }
+      .qa-answer {
+        display: none;
+        border-top: 1px solid var(--gray-200);
+        padding: 20px 22px 22px;
+        background: var(--gray-50);
+      }
+      .qa-item.open .qa-answer { display: block; }
+      .qa-answer-label {
+        font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+        text-transform: uppercase; color: var(--green);
+        margin-bottom: 8px;
+      }
+      .qa-answer p { font-size: 13.5px; color: var(--gray-700); line-height: 1.6; margin-bottom: 10px; }
+      .qa-answer ul { padding-left: 18px; margin-bottom: 10px; }
+      .qa-answer li { font-size: 13.5px; color: var(--gray-700); line-height: 1.55; margin-bottom: 5px; }
+      .qa-answer strong { color: var(--blue-dark); }
+
+      /* difficulty badges */
+      .diff-badge {
+        display: inline-block; font-size: 10px; font-weight: 700;
+        padding: 1px 7px; border-radius: 999px; margin-left: 8px;
+        vertical-align: middle;
+      }
+      .diff-basic    { background: #dcfce7; color: #15803d; }
+      .diff-medium   { background: #fef3c7; color: #92400e; }
+      .diff-advanced { background: #fee2e2; color: #b91c1c; }
+
+      /* inline diagrams */
+      .qa-diagram {
+        background: #fff; border: 2px solid var(--gray-200);
+        border-radius: 10px; padding: 20px; margin: 14px 0;
+        overflow-x: auto;
+      }
+      .qa-diagram-title {
+        font-size: 11px; font-weight: 700; letter-spacing: 1px;
+        text-transform: uppercase; color: var(--gray-600);
+        margin-bottom: 14px; text-align: center;
+      }
+
+      /* flow diagram */
+      .flow-row {
+        display: flex; align-items: center;
+        flex-wrap: wrap; gap: 6px; justify-content: center;
+      }
+      .flow-box {
+        border-radius: 6px; padding: 8px 14px;
+        font-size: 12px; font-weight: 600; text-align: center;
+        min-width: 100px; line-height: 1.35;
+      }
+      .flow-arrow { font-size: 18px; color: var(--gray-300); }
+      .flow-diamond {
+        width: 90px; height: 50px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 11px; font-weight: 700; text-align: center;
+        position: relative; padding: 4px;
+      }
+      .flow-diamond::before {
+        content: ''; position: absolute; inset: 0;
+        background: #fef3c7; border: 2px solid #d97706;
+        transform: rotate(45deg) scale(.85);
+        border-radius: 4px;
+      }
+      .flow-diamond span { position: relative; z-index: 1; font-size: 11px; color: #92400e; }
+
+      /* comparison table */
+      .cmp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      .cmp-table th {
+        background: var(--blue-dark); color: #fff;
+        padding: 10px 14px; text-align: left; font-weight: 600;
+      }
+      .cmp-table td {
+        padding: 9px 14px; border-bottom: 1px solid var(--gray-200);
+        color: var(--gray-700); vertical-align: top;
+      }
+      .cmp-table tr:nth-child(even) td { background: var(--gray-50); }
+      .cmp-table td:first-child { font-weight: 600; color: var(--blue-dark); }
+
+      /* matrix grid */
+      .mini-matrix {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+        gap: 10px; margin: 10px 0;
+      }
+      .mini-cell {
+        border-radius: 8px; padding: 10px 12px;
+        font-size: 12px; font-weight: 600; text-align: center;
+        line-height: 1.4;
+      }
+
+      /* ADM mini cycle */
+      .adm-mini-row {
+        display: flex; flex-wrap: wrap; gap: 6px;
+        justify-content: center; align-items: center;
+      }
+      .adm-mini-box {
+        border-radius: 6px; padding: 6px 12px;
+        font-size: 11px; font-weight: 700; text-align: center;
+        border: 2px solid; min-width: 80px;
+      }
+      .adm-mini-arrow { font-size: 14px; color: var(--gray-300); }
+
+      /* highlight box */
+      .highlight-box {
+        border-radius: 8px; padding: 14px 18px; margin: 12px 0;
+        border-left: 4px solid;
+      }
+      .highlight-box.blue  { background: var(--blue-light);   border-color: var(--blue-mid);  }
+      .highlight-box.green { background: var(--green-light);  border-color: var(--green);     }
+      .highlight-box.teal  { background: var(--teal-light);   border-color: var(--teal);      }
+      .highlight-box.orange{ background: var(--orange-light); border-color: var(--orange);    }
+      .highlight-box.purple{ background: var(--purple-light); border-color: var(--purple);    }
+      .highlight-box h5 { font-size: 12px; font-weight: 700; color: var(--blue-dark); margin-bottom: 4px; }
+      .highlight-box p, .highlight-box li { font-size: 13px; color: var(--gray-700); }
+    </style>
+
+    <!-- ─── CATEGORY 1: FUNDAMENTALS ─── -->
+    <div class="qa-category-label">Category 1 — TOGAF Fundamentals</div>
+
+    <!-- Q1 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">1</div>
+        <div class="qa-q-text">What is TOGAF and what problem does it solve? <span class="diff-badge diff-basic">Basic</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p><strong>TOGAF (The Open Group Architecture Framework)</strong> is a vendor-neutral enterprise architecture methodology and framework maintained by The Open Group. It provides a common language, process, and set of tools for designing, planning, implementing, and governing enterprise information technology architecture.</p>
+        <p><strong>Problem it solves:</strong> Without a framework, large organisations build systems in silos — different departments make incompatible technology choices, data is duplicated, integrations proliferate, and change becomes expensive. TOGAF provides a structured approach to align IT investments with business strategy.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Without vs. With TOGAF</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div style="background:#fee2e2;border-radius:8px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:#b91c1c;margin-bottom:8px;">❌ Without TOGAF</div>
+              <ul style="padding-left:14px;font-size:12px;color:#7f1d1d;">
+                <li>Siloed system decisions</li>
+                <li>Duplicate data and integrations</li>
+                <li>No shared language across teams</li>
+                <li>Reactive, costly change</li>
+                <li>Shadow IT proliferation</li>
+              </ul>
+            </div>
+            <div style="background:#dcfce7;border-radius:8px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:#15803d;margin-bottom:8px;">✅ With TOGAF</div>
+              <ul style="padding-left:14px;font-size:12px;color:#14532d;">
+                <li>Governed architecture decisions</li>
+                <li>Shared data models and standards</li>
+                <li>Common framework language</li>
+                <li>Proactive, structured change</li>
+                <li>Controlled technology portfolio</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p><strong>Salesforce context:</strong> A company running 3 separate Salesforce Orgs (one per region) without TOGAF governance ends up with 3 different data models, 3 sets of integrations, and no unified customer view. TOGAF gives the architecture board the structure to mandate a single-Org strategy and shared data standards.</p>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">2</div>
+        <div class="qa-q-text">Describe the TOGAF ADM and why it is iterative. <span class="diff-badge diff-basic">Basic</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>The <strong>Architecture Development Method (ADM)</strong> is TOGAF's step-by-step process for developing and managing an enterprise architecture. It consists of a central Requirements Management process and nine phases arranged in a cycle:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">ADM Phases with Salesforce Mapping</div>
+          <div class="adm-mini-row">
+            <div class="adm-mini-box" style="background:#e8f1fb;border-color:var(--blue-mid);color:var(--blue-dark);">Pre<br><span style="font-weight:400;font-size:10px;">CoE Setup</span></div>
+            <div class="adm-mini-arrow">→</div>
+            <div class="adm-mini-box" style="background:#fff3e8;border-color:var(--orange);color:#92400e;">A<br><span style="font-weight:400;font-size:10px;">SF Vision</span></div>
+            <div class="adm-mini-arrow">→</div>
+            <div class="adm-mini-box" style="background:#e0f7fd;border-color:var(--teal);color:#0c4a6e;">B<br><span style="font-weight:400;font-size:10px;">Processes</span></div>
+            <div class="adm-mini-arrow">→</div>
+            <div class="adm-mini-box" style="background:#e8f8ee;border-color:var(--green);color:#14532d;">C<br><span style="font-weight:400;font-size:10px;">Data Model</span></div>
+            <div class="adm-mini-arrow">→</div>
+            <div class="adm-mini-box" style="background:#f3eeff;border-color:var(--purple);color:#4c1d95;">D<br><span style="font-weight:400;font-size:10px;">Platform</span></div>
+            <div class="adm-mini-arrow">→</div>
+            <div class="adm-mini-box" style="background:#fef3c7;border-color:#d97706;color:#92400e;">E<br><span style="font-weight:400;font-size:10px;">Build/Buy</span></div>
+            <div class="adm-mini-arrow">→</div>
+            <div class="adm-mini-box" style="background:#ffe4e6;border-color:#e11d48;color:#9f1239;">F<br><span style="font-weight:400;font-size:10px;">Migration</span></div>
+            <div class="adm-mini-arrow">→</div>
+            <div class="adm-mini-box" style="background:#f0fdf4;border-color:#15803d;color:#14532d;">G<br><span style="font-weight:400;font-size:10px;">Govern</span></div>
+            <div class="adm-mini-arrow">→</div>
+            <div class="adm-mini-box" style="background:#fdf4ff;border-color:#a21caf;color:#701a75;">H<br><span style="font-weight:400;font-size:10px;">Change Mgmt</span></div>
+          </div>
+          <p style="text-align:center;font-size:11px;color:#9ca3af;margin-top:10px;">Phase H feeds back into Phase A — the cycle repeats as the architecture evolves</p>
+        </div>
+        <p><strong>Why iterative?</strong> Enterprise architecture never has a final state. Phase H feeds back into a new cycle at Phase A when business goals shift, new technology emerges, or a major change (e.g., adding Agentforce AI to an existing Service Cloud deployment) demands a fresh architecture vision.</p>
+        <div class="highlight-box green">
+          <h5>Salesforce Example of Iteration</h5>
+          <p>Wave 1: Sales Cloud (Phases A–H). Wave 2 trigger: business wants 360° customer view → re-enter Phase A for Data Cloud integration → proceed through ADM again for the data architecture domain only.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">3</div>
+        <div class="qa-q-text">What are the four architecture domains in TOGAF and how do they map to Salesforce? <span class="diff-badge diff-basic">Basic</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>TOGAF defines four domains, all of which have direct Salesforce equivalents:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Four Architecture Domains — Salesforce Mapping</div>
+          <table class="cmp-table">
+            <thead><tr><th>Domain</th><th>TOGAF Scope</th><th>Salesforce Equivalent</th><th>Key Artefact</th></tr></thead>
+            <tbody>
+              <tr><td>Business</td><td>Strategy, capabilities, processes, org design</td><td>Lead-to-Cash process maps, CoE operating model, capability model</td><td>Capability Map</td></tr>
+              <tr><td>Data</td><td>Logical &amp; physical data models, data management</td><td>Salesforce object model (ERD), Data Cloud, MDM strategy</td><td>Entity Relationship Diagram</td></tr>
+              <tr><td>Application</td><td>Application portfolio, software interactions</td><td>Sales Cloud, Service Cloud, Marketing Cloud, LWC components, Flows</td><td>Application Portfolio Map</td></tr>
+              <tr><td>Technology</td><td>Hardware, software, networks, DevOps</td><td>MuleSoft, Salesforce APIs, DevOps Center, Sandbox strategy, SSO</td><td>Integration Architecture Diagram</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>A key principle is that <strong>business architecture drives all other domains</strong> — you design the data model based on the process, not the other way around. In a Salesforce context this means: map your Lead-to-Cash process first, then design the Opportunity object fields and relationships, then determine which Cloud and APIs support it.</p>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">4</div>
+        <div class="qa-q-text">What is the Architecture Content Framework (ACF) and what does it produce? <span class="diff-badge diff-medium">Medium</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>The <strong>Architecture Content Framework (ACF)</strong> is TOGAF's classification system for the work products an enterprise architecture produces. It has three main categories:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">ACF Content Types → Salesforce Deliverables</div>
+          <div class="mini-matrix">
+            <div class="mini-cell" style="background:#e8f1fb;color:var(--blue-dark);">📄 Deliverable<br><span style="font-weight:400;font-size:11px;">Contractual output per phase (e.g., Architecture Definition Document)</span></div>
+            <div class="mini-cell" style="background:#e0f7fd;color:#0c4a6e;">🏛 Building Block<br><span style="font-weight:400;font-size:11px;">Reusable component (e.g., Account object, Integration pattern)</span></div>
+            <div class="mini-cell" style="background:#e8f8ee;color:#14532d;">🗺 Artefact<br><span style="font-weight:400;font-size:11px;">Architectural work product: diagrams, catalogs, matrices</span></div>
+          </div>
+        </div>
+        <p><strong>Salesforce deliverables per ACF:</strong></p>
+        <ul>
+          <li><strong>Deliverables:</strong> Architecture Vision document, Solution Architecture document, Data Migration Strategy, Release Roadmap</li>
+          <li><strong>Architecture Building Blocks (ABBs):</strong> Standard Salesforce objects (Account, Opportunity), reusable MuleSoft flows, reusable LWC components</li>
+          <li><strong>Solution Building Blocks (SBBs):</strong> Specific Sales Cloud configuration, custom Apex trigger framework, Named Credential setup</li>
+          <li><strong>Artefacts:</strong> Salesforce ERD, Integration Architecture diagram, Role Hierarchy diagram, Org topology map</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ─── CATEGORY 2: ADM PHASES ─── -->
+    <div class="qa-category-label">Category 2 — ADM Phase Deep Dives</div>
+
+    <!-- Q5 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">5</div>
+        <div class="qa-q-text">What is the purpose of Phase A (Architecture Vision) and what does it produce in a Salesforce project? <span class="diff-badge diff-basic">Basic</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p><strong>Phase A: Architecture Vision</strong> aligns stakeholders on the scope, goals, and expected outcomes of the architecture effort <em>before</em> any technical work begins. It answers: "What are we trying to achieve and why?"</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Phase A Inputs → Activities → Outputs</div>
+          <div class="flow-row">
+            <div class="flow-box" style="background:#e8f1fb;border:2px solid var(--blue-mid);color:var(--blue-dark);">Inputs<br><span style="font-size:10px;font-weight:400;">Business goals<br>Existing arch<br>Constraints</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#fef3c7;border:2px solid #d97706;color:#92400e;">Activities<br><span style="font-size:10px;font-weight:400;">Stakeholder mapping<br>Scope definition<br>KPI setting</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#e8f8ee;border:2px solid var(--green);color:#14532d;">Outputs<br><span style="font-size:10px;font-weight:400;">Architecture Vision doc<br>Statement of Arch Work<br>Stakeholder Register</span></div>
+          </div>
+        </div>
+        <p><strong>In a Salesforce project, Phase A produces:</strong></p>
+        <ul>
+          <li><strong>Architecture Vision document:</strong> 1–2 page summary of the Salesforce solution, target state, and business value (e.g., "Unified customer 360 view across APAC in 12 months")</li>
+          <li><strong>Statement of Architecture Work:</strong> Scope, timeline, resource commitment, and success metrics</li>
+          <li><strong>Stakeholder Register:</strong> RACI matrix — CIO (sponsor), Sales VP (process owner), Salesforce Admin (implementer), End Users (impacted)</li>
+          <li><strong>High-level Capability Map:</strong> Which Salesforce Clouds address which business capabilities</li>
+        </ul>
+        <div class="highlight-box orange">
+          <h5>Common Mistake</h5>
+          <p>Teams often skip Phase A and jump straight to configuring Salesforce. This leads to scope creep, missed stakeholders (e.g., Legal for GDPR), and misaligned KPIs discovered after go-live.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">6</div>
+        <div class="qa-q-text">How does Phase C (Information Systems Architecture) differ from Phase D (Technology Architecture) in the context of Salesforce? <span class="diff-badge diff-medium">Medium</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>This is a common area of confusion. The distinction is <strong>logical vs. physical</strong>:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Phase C vs. Phase D — Salesforce Perspective</div>
+          <table class="cmp-table">
+            <thead><tr><th>Aspect</th><th>Phase C — Information Systems</th><th>Phase D — Technology</th></tr></thead>
+            <tbody>
+              <tr><td>Focus</td><td>WHAT data and applications are needed</td><td>HOW they are implemented on the platform</td></tr>
+              <tr><td>Question answered</td><td>"What objects, apps, and integrations do we need?"</td><td>"What platform, edition, tools, and infrastructure?"</td></tr>
+              <tr><td>Data example</td><td>Define Account-Contact-Opportunity model, data ownership, retention rules</td><td>Choose Salesforce Enterprise vs. Unlimited edition for storage limits; configure encryption</td></tr>
+              <tr><td>Application example</td><td>Define that Sales Cloud + Service Cloud are needed, with a CPQ integration</td><td>Choose Salesforce CPQ vs. Revenue Cloud; design sandbox strategy; select DevOps tool</td></tr>
+              <tr><td>Integration example</td><td>Define that SAP ERP must sync Accounts bidirectionally every 15 minutes</td><td>Choose MuleSoft Anypoint; design API specs; choose REST Bulk API with CDC trigger</td></tr>
+              <tr><td>Artefacts</td><td>ERD, Application Portfolio Map, Integration Inventory</td><td>Platform Architecture Diagram, Sandbox Strategy, Network Topology</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-box teal">
+          <h5>Rule of Thumb</h5>
+          <p>Phase C can be drawn on a whiteboard without knowing which specific Salesforce edition you'll use. Phase D requires that decision to be made.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">7</div>
+        <div class="qa-q-text">What is the role of Requirements Management in TOGAF and how does it relate to Agile delivery on Salesforce? <span class="diff-badge diff-medium">Medium</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p><strong>Requirements Management</strong> is not a phase but a continuous process that sits at the centre of the ADM cycle, feeding into and receiving from every phase. It ensures architecture decisions always trace back to documented business requirements.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Requirements Management — Central to ADM</div>
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;">
+            <div>
+              <div style="background:#e8f1fb;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:8px;">Phase A: Business goals feed requirements</div>
+              <div style="background:#e0f7fd;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:8px;">Phase B/C: Process requirements shape data model</div>
+              <div style="background:#e8f8ee;border-radius:8px;padding:10px 12px;font-size:12px;">Phase D: Non-functional requirements guide platform choice</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="background:var(--blue-dark);color:#fff;border-radius:50%;width:80px;height:80px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;text-align:center;margin:0 auto;">REQ<br>MGMT</div>
+              <div style="font-size:10px;color:#9ca3af;margin-top:6px;">Always active</div>
+            </div>
+            <div>
+              <div style="background:#f3eeff;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:8px;">Phase E/F: Prioritisation drives roadmap sequencing</div>
+              <div style="background:#fef3c7;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:8px;">Phase G: Change requests go through req. validation</div>
+              <div style="background:#fdf4ff;border-radius:8px;padding:10px 12px;font-size:12px;">Phase H: New requirements trigger new ADM cycle</div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Agile alignment:</strong> In a Salesforce Agile delivery, Requirements Management maps directly to the <strong>Product Backlog</strong>. Each user story must trace to an architecture requirement. Tools like Jira, ADO, or Salesforce's own Agile Accelerator can be used to tag stories with architecture domain (Business / Data / Application / Technology) for traceability.</p>
+        <ul>
+          <li>Epic = Architecture Work Package from Phase E/F</li>
+          <li>Story = Specific requirement validated against Phase C/D design</li>
+          <li>Acceptance Criteria = Architecture compliance (e.g., "must use Platform Events, not scheduled batch")</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">8</div>
+        <div class="qa-q-text">What happens in Phase G (Implementation Governance) and what Salesforce mechanisms enforce it? <span class="diff-badge diff-medium">Medium</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p><strong>Phase G: Implementation Governance</strong> ensures that what gets built matches the architecture that was designed. It is NOT a delivery phase — it is an oversight and compliance phase that runs alongside delivery.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Phase G Governance Loop</div>
+          <div class="flow-row">
+            <div class="flow-box" style="background:#e8f8ee;border:2px solid var(--green);color:#14532d;">Sprint Delivery<br><span style="font-size:10px;font-weight:400;">Dev team builds</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-diamond"><span>Arch<br>Compliant?</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div class="flow-arrow" style="transform:none;">→ YES</div>
+              <div class="flow-arrow" style="transform:rotate(90deg);color:#e11d48;">↓ NO</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div class="flow-box" style="background:#e8f8ee;border:2px solid var(--green);color:#14532d;">Architecture Certificate<br>issued → Deploy</div>
+              <div class="flow-box" style="background:#fee2e2;border:2px solid #e11d48;color:#b91c1c;">Architecture Waiver<br>or Rework Required</div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Salesforce enforcement mechanisms:</strong></p>
+        <ul>
+          <li><strong>PMD (Apex Static Analysis):</strong> Automated code quality checks — catches SOQL in loops, bulkification violations, hardcoded IDs</li>
+          <li><strong>Salesforce DevOps Center / Copado:</strong> Deployment gates requiring peer review and approvals before promotion to production</li>
+          <li><strong>Unit Test Requirements:</strong> Salesforce enforces 75% code coverage minimum; architecture standard should be 85%+ with meaningful assertions</li>
+          <li><strong>Architecture Review Board (ARB):</strong> Human gate at the end of each sprint — architect signs off on Phase C/D compliance</li>
+          <li><strong>Org Health Check:</strong> Automated weekly score showing security drift from architecture baseline</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ─── CATEGORY 3: ARCHITECTURE PRINCIPLES ─── -->
+    <div class="qa-category-label">Category 3 — Architecture Principles in Practice</div>
+
+    <!-- Q9 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">9</div>
+        <div class="qa-q-text">A project team wants to use a direct database connection to Salesforce instead of APIs. Which TOGAF principle does this violate, and how would you respond? <span class="diff-badge diff-medium">Medium</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>This violates <strong>AP-9: Technology Independence</strong> — "Applications are independent of specific technology choices and can operate on a variety of technology platforms."</p>
+        <p>Salesforce does not expose a direct database layer (and this is by design — the platform abstracts infrastructure entirely). Even if a workaround were found, it would also violate:</p>
+        <ul>
+          <li><strong>TP-13: Interoperability</strong> — standards-based API contracts must be used</li>
+          <li><strong>TP-14: Security &amp; Privacy</strong> — direct DB access bypasses Salesforce's permission model, encryption, and audit trail</li>
+          <li><strong>TP-11: Requirements-Based Change</strong> — the design choice has no traceable business justification</li>
+        </ul>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Wrong vs. Correct Integration Pattern</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div style="background:#fee2e2;border-radius:8px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:#b91c1c;margin-bottom:8px;">❌ Anti-pattern (violates AP-9, TP-13, TP-14)</div>
+              <div class="flow-row" style="justify-content:flex-start;gap:4px;">
+                <div class="flow-box" style="background:#fca5a5;border:none;color:#7f1d1d;font-size:11px;min-width:60px;padding:5px 8px;">ERP</div>
+                <div style="font-size:12px;color:#dc2626;">──DB→</div>
+                <div class="flow-box" style="background:#fca5a5;border:none;color:#7f1d1d;font-size:11px;min-width:60px;padding:5px 8px;">SF DB<br>(not possible)</div>
+              </div>
+              <div style="font-size:11px;color:#b91c1c;margin-top:8px;">Bypasses TOGAF + Salesforce security model</div>
+            </div>
+            <div style="background:#dcfce7;border-radius:8px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:#15803d;margin-bottom:8px;">✅ Correct (AP-9, TP-13 compliant)</div>
+              <div class="flow-row" style="justify-content:flex-start;gap:4px;flex-wrap:nowrap;">
+                <div class="flow-box" style="background:#86efac;border:none;color:#14532d;font-size:11px;min-width:50px;padding:5px 6px;">ERP</div>
+                <div style="font-size:11px;color:#15803d;">→REST/</div>
+                <div class="flow-box" style="background:#86efac;border:none;color:#14532d;font-size:11px;min-width:60px;padding:5px 6px;">MuleSoft</div>
+                <div style="font-size:11px;color:#15803d;">→API→</div>
+                <div class="flow-box" style="background:#86efac;border:none;color:#14532d;font-size:11px;min-width:50px;padding:5px 6px;">Salesforce</div>
+              </div>
+              <div style="font-size:11px;color:#15803d;margin-top:8px;">Versioned API, Named Credentials, full audit</div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Response to the team:</strong> Document this as an Architecture Decision Record (ADR) with status "Rejected", record the principles violated, and present the REST API / MuleSoft alternative with estimated effort. Escalate to the ARB if the team pushes back.</p>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">10</div>
+        <div class="qa-q-text">Explain the "Data is an Asset" principle and describe how Salesforce Data Cloud implements it. <span class="diff-badge diff-medium">Medium</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p><strong>DP-5: Data is an Asset</strong> states that data has economic value and must be managed with the same rigour as physical or financial assets — with defined ownership, quality standards, access controls, and lifecycle policies.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Data as an Asset — Five Pillars</div>
+          <div class="mini-matrix">
+            <div class="mini-cell" style="background:#e8f1fb;color:var(--blue-dark);">👤 Ownership<br><span style="font-weight:400;font-size:11px;">Named data steward per object</span></div>
+            <div class="mini-cell" style="background:#e0f7fd;color:#0c4a6e;">✅ Quality<br><span style="font-weight:400;font-size:11px;">Validation rules, duplicate mgmt</span></div>
+            <div class="mini-cell" style="background:#e8f8ee;color:#14532d;">🔒 Security<br><span style="font-weight:400;font-size:11px;">Field-level encryption, sharing rules</span></div>
+            <div class="mini-cell" style="background:#f3eeff;color:#4c1d95;">📋 Lifecycle<br><span style="font-weight:400;font-size:11px;">Retention, archiving, deletion policies</span></div>
+            <div class="mini-cell" style="background:#fef3c7;color:#92400e;">📊 Value<br><span style="font-weight:400;font-size:11px;">Analytics, AI predictions, reporting</span></div>
+          </div>
+        </div>
+        <p><strong>Salesforce Data Cloud (formerly Customer Data Platform):</strong> is the native Salesforce implementation of this principle at an enterprise scale. It:</p>
+        <ul>
+          <li><strong>Ingests</strong> customer data from multiple Salesforce Clouds, external systems, and data lakes into a unified customer profile</li>
+          <li><strong>Resolves identity</strong> using deterministic and probabilistic matching across data sources (one customer = one 360° record)</li>
+          <li><strong>Governs</strong> data with consent management and data space segmentation (GDPR compliance)</li>
+          <li><strong>Activates</strong> data for Marketing Cloud personalisation, Service Cloud case context, and Agentforce AI grounding</li>
+          <li><strong>Measures value</strong> by connecting data to business outcomes via CRM Analytics dashboards</li>
+        </ul>
+        <div class="highlight-box blue">
+          <h5>Architecture Implication</h5>
+          <p>Without the "Data is an Asset" principle enforced, organisations let CRM data degrade: duplicate accounts, stale contacts, missing fields. Salesforce Health Check and Optimizer report on this — architects should set a minimum data quality score target (e.g., 80/100) in the architecture principles document.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">11</div>
+        <div class="qa-q-text">How would you apply the "Business Continuity" principle (BP-3) to a Salesforce integration architecture? <span class="diff-badge diff-medium">Medium</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p><strong>BP-3: Business Continuity</strong> requires that enterprise operations are maintained during system interruptions. For a Salesforce integration, this means designing every external connection to degrade gracefully, not fail catastrophically.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Resilient Salesforce Integration Architecture</div>
+          <div class="flow-row">
+            <div class="flow-box" style="background:#e8f1fb;border:2px solid var(--blue-mid);color:var(--blue-dark);">External System<br><span style="font-size:10px;font-weight:400;">(ERP, Legacy, Third-party)</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#fef3c7;border:2px solid #d97706;color:#92400e;">Message Queue<br><span style="font-size:10px;font-weight:400;">Platform Events / MQ</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#e8f8ee;border:2px solid var(--green);color:#14532d;">MuleSoft<br><span style="font-size:10px;font-weight:400;">Retry + Dead-letter queue</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#e0f7fd;border:2px solid var(--teal);color:#0c4a6e;">Salesforce API<br><span style="font-size:10px;font-weight:400;">Bulk / REST versioned</span></div>
+          </div>
+          <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;">
+            <div style="background:#dcfce7;border-radius:6px;padding:8px 10px;font-size:11px;color:#14532d;"><strong>✅ Async</strong><br>Platform Events decouple caller from SF downtime</div>
+            <div style="background:#dcfce7;border-radius:6px;padding:8px 10px;font-size:11px;color:#14532d;"><strong>✅ Retry</strong><br>MuleSoft retries on transient failures (max 3× exp. backoff)</div>
+            <div style="background:#dcfce7;border-radius:6px;padding:8px 10px;font-size:11px;color:#14532d;"><strong>✅ Dead-letter</strong><br>Failed messages routed to DLQ for manual reprocessing</div>
+            <div style="background:#dcfce7;border-radius:6px;padding:8px 10px;font-size:11px;color:#14532d;"><strong>✅ Backup</strong><br>OwnBackup / Salesforce Shield daily backup</div>
+          </div>
+        </div>
+        <p><strong>RTO/RPO targets</strong> should be documented per Cloud product in the architecture principles document:</p>
+        <ul>
+          <li>Sales Cloud CRM: RTO 4 hours, RPO 1 hour</li>
+          <li>Marketing Cloud sends: RTO 2 hours (revenue impact), RPO 30 min</li>
+          <li>Service Cloud case management: RTO 1 hour, RPO 15 min</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ─── CATEGORY 4: ADVANCED ─── -->
+    <div class="qa-category-label">Category 4 — Advanced &amp; Scenario Questions</div>
+
+    <!-- Q12 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">12</div>
+        <div class="qa-q-text">A business stakeholder asks to add 15 new custom fields to the Account object for a single team's reporting needs. How do you evaluate this through a TOGAF lens? <span class="diff-badge diff-advanced">Advanced</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>This is a classic <strong>architecture governance scenario</strong> requiring evaluation through multiple TOGAF principles:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Governance Decision Framework for Metadata Change Requests</div>
+          <div class="flow-row">
+            <div class="flow-box" style="background:#e8f1fb;border:2px solid var(--blue-mid);color:var(--blue-dark);min-width:110px;">Request Received<br><span style="font-size:10px;font-weight:400;">15 Account fields<br>for reporting</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-diamond"><span>Biz<br>Justify?</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-diamond"><span>Enterprise<br>or 1 Team?</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-diamond"><span>Alts<br>exist?</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#e8f8ee;border:2px solid var(--green);color:#14532d;min-width:100px;">ADR Decision<br><span style="font-size:10px;font-weight:400;">Approve / Reject / Modify</span></div>
+          </div>
+        </div>
+        <p><strong>TOGAF principles triggered:</strong></p>
+        <ul>
+          <li><strong>BP-2 (Maximise Enterprise Benefit):</strong> 15 fields for one team's use case pollutes the Account object for all other teams. Enterprise benefit must outweigh single-team benefit.</li>
+          <li><strong>TP-11 (Requirements-Based Change):</strong> Each field must trace to a documented requirement. Generic "might be useful" fields are rejected.</li>
+          <li><strong>DP-8 (Data Trustee):</strong> Who owns these fields? What are the quality standards? Who populates them?</li>
+        </ul>
+        <p><strong>Recommended response:</strong></p>
+        <ul>
+          <li>Evaluate alternatives first: Can CRM Analytics or a custom object handle this without polluting Account?</li>
+          <li>Apply the "last 15% rule" — Account is often already over 80% field utilisation. Check the limit (800 custom fields per object).</li>
+          <li>If fields are approved, group them in a dedicated Field Section and assign a data steward for each.</li>
+          <li>Document the decision in an ADR with justification and review date (fields not populated within 12 months are candidates for deletion).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">13</div>
+        <div class="qa-q-text">What is an Architecture Decision Record (ADR) and write one for the choice between a single Salesforce Org vs. multiple Orgs? <span class="diff-badge diff-advanced">Advanced</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>An <strong>Architecture Decision Record (ADR)</strong> is a short document that captures a significant architecture decision, its context, rationale, and consequences. It is part of TOGAF's governance artefacts and prevents revisiting the same decisions repeatedly.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">ADR Template — Sample: Salesforce Org Strategy</div>
+          <div style="background:#f9fafb;border:1px solid var(--gray-200);border-radius:8px;padding:16px;font-size:13px;color:var(--gray-700);">
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--gray-200);">
+              <strong>ADR-001</strong><span>Salesforce Org Strategy — Single vs. Multi</span>
+              <strong>Date:</strong><span>2025-10-05</span>
+              <strong>Status:</strong><span><span class="badge badge-high">Accepted</span></span>
+              <strong>Deciders:</strong><span>Enterprise Architect, CIO, Salesforce CoE Lead</span>
+            </div>
+            <strong>Context:</strong>
+            <p style="margin:4px 0 10px;">The organisation has 3 regions (EMEA, APAC, Americas) each with independent Salesforce Org instances acquired through M&amp;A. The business wants a single 360° customer view and unified reporting. Options evaluated: keep 3 Orgs, merge to 1 global Org, or use a hub-and-spoke with a central Data Cloud Org.</p>
+            <strong>Decision:</strong>
+            <p style="margin:4px 0 10px;">Migrate to a single global Salesforce Org over 18 months. Use Salesforce Data Cloud as the interim unified customer view during migration. Regional customisation handled via Record Types and Permission Set Groups, not separate Orgs.</p>
+            <strong>Rationale:</strong>
+            <ul style="margin:4px 0 10px;">
+              <li>Aligns with BP-2 (Enterprise Benefit) — eliminates 3× licensing overhead and integration duplication</li>
+              <li>Aligns with DP-5 (Data is an Asset) — single Account-Contact model, no cross-Org data sync lag</li>
+              <li>Reduces total integration count from 47 (3 Orgs × ~15 each) to 17</li>
+            </ul>
+            <strong>Consequences:</strong>
+            <ul style="margin:4px 0 10px;">
+              <li>18-month migration programme required; business disruption risk during data consolidation</li>
+              <li>Regional admin autonomy reduced — must work within global CoE governance</li>
+              <li>Positive: single DevOps pipeline, unified reporting, lower AppExchange licensing</li>
+            </ul>
+            <strong>Alternatives Rejected:</strong>
+            <ul style="margin:4px 0 6px;">
+              <li><em>Keep 3 Orgs:</em> Rejected — cross-Org data sync is expensive, no unified customer view possible</li>
+              <li><em>Hub-and-spoke:</em> Rejected — adds complexity without reducing licensing cost</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">14</div>
+        <div class="qa-q-text">What is a TOGAF Architecture Roadmap and how would you build one for a phased Salesforce rollout? <span class="diff-badge diff-medium">Medium</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>A <strong>TOGAF Architecture Roadmap</strong> is a time-sequenced plan that bridges the gap between the current (as-is) architecture and the target (to-be) architecture. It is produced in Phases E and F of the ADM.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Salesforce Phased Roadmap — TOGAF Structure</div>
+          <div style="overflow-x:auto;">
+            <table class="cmp-table" style="min-width:600px;">
+              <thead>
+                <tr>
+                  <th>Work Package</th>
+                  <th>Wave 1 (Q1–Q2)</th>
+                  <th>Wave 2 (Q3–Q4)</th>
+                  <th>Wave 3 (Year 2)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Business Arch</td>
+                  <td>Lead-to-Opportunity process</td>
+                  <td>Case-to-Resolution process</td>
+                  <td>Quote-to-Cash (CPQ)</td>
+                </tr>
+                <tr>
+                  <td>Data Arch</td>
+                  <td>Account / Contact / Opp model</td>
+                  <td>Case / Entitlement model + Data Cloud</td>
+                  <td>Product / Price Book / Contract</td>
+                </tr>
+                <tr>
+                  <td>Application Arch</td>
+                  <td>Sales Cloud Enterprise</td>
+                  <td>Service Cloud + Field Service</td>
+                  <td>Revenue Cloud + CPQ</td>
+                </tr>
+                <tr>
+                  <td>Technology Arch</td>
+                  <td>SSO + MFA + DevOps pipeline</td>
+                  <td>MuleSoft ERP integration</td>
+                  <td>Agentforce AI agents</td>
+                </tr>
+                <tr>
+                  <td>Governance</td>
+                  <td>CoE charter + ARB established</td>
+                  <td>GDPR compliance review</td>
+                  <td>Annual architecture review</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p><strong>Key TOGAF guidance for roadmap sequencing:</strong></p>
+        <ul>
+          <li>Resolve cross-domain dependencies first (e.g., data model must be stable before integrations are built)</li>
+          <li>Each work package should have a measurable "value metric" — don't have a wave with no business outcome</li>
+          <li>Transition architectures are documented for each wave — the system is architecturally valid at every stage, not just at the end</li>
+          <li>The roadmap is a living document — reviewed and updated at Phase H every quarter</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">15</div>
+        <div class="qa-q-text">How does TOGAF's Preliminary Phase relate to setting up a Salesforce Centre of Excellence (CoE)? <span class="diff-badge diff-medium">Medium</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>The <strong>Preliminary Phase</strong> prepares the organisation to undertake enterprise architecture work. Its deliverable is not architecture itself, but the <em>capability to do architecture</em>. Setting up a Salesforce CoE is the exact Salesforce equivalent.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">TOGAF Preliminary Phase → Salesforce CoE Mapping</div>
+          <table class="cmp-table">
+            <thead><tr><th>TOGAF Preliminary Task</th><th>Salesforce CoE Equivalent</th></tr></thead>
+            <tbody>
+              <tr><td>Define scope of the EA capability</td><td>CoE charter: which Clouds, regions, and business units are in scope</td></tr>
+              <tr><td>Identify architecture principles</td><td>Document and publish the 14 TOGAF principles adapted to Salesforce context</td></tr>
+              <tr><td>Establish governance framework</td><td>Architecture Review Board (ARB) terms of reference, ARB meeting cadence</td></tr>
+              <tr><td>Select tools and methods</td><td>Choose EA tool (LeanIX/Ardoq), DevOps tool (Copado), diagramming tool (Lucidchart)</td></tr>
+              <tr><td>Agree on architecture repository</td><td>Architecture artefacts stored in Confluence / SharePoint with version control</td></tr>
+              <tr><td>Baseline existing architecture</td><td>Salesforce Org Health Check, Optimizer report, API usage baseline</td></tr>
+              <tr><td>Obtain executive sponsorship</td><td>CIO/CTO signs off CoE operating model and budget</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-box purple">
+          <h5>Salesforce CoE Starter Kit</h5>
+          <p>Salesforce provides a free CoE Starter Kit on Trailhead that aligns closely with the TOGAF Preliminary Phase deliverables. It includes operating model templates, governance frameworks, and role definitions — saving 2–3 months of setup time.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">16</div>
+        <div class="qa-q-text">Explain the difference between an Architecture Building Block (ABB) and a Solution Building Block (SBB) with Salesforce examples. <span class="diff-badge diff-advanced">Advanced</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>This distinction is fundamental to TOGAF's content framework:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">ABB vs. SBB — From Abstract to Concrete</div>
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;">
+            <div style="background:var(--blue-light);border-radius:10px;padding:16px;">
+              <div style="font-size:13px;font-weight:700;color:var(--blue-dark);margin-bottom:8px;">Architecture Building Block (ABB)</div>
+              <div style="font-size:12px;color:var(--blue-dark);margin-bottom:6px;font-style:italic;">Abstract — what capability is needed</div>
+              <ul style="padding-left:14px;font-size:12px;color:#1e40af;">
+                <li>"Customer Identity Management"</li>
+                <li>"Integration Middleware"</li>
+                <li>"Sales Pipeline Tracking"</li>
+                <li>"Real-time Event Processing"</li>
+                <li>"Analytics and Reporting"</li>
+              </ul>
+            </div>
+            <div style="text-align:center;font-size:24px;color:var(--gray-300);">→</div>
+            <div style="background:var(--green-light);border-radius:10px;padding:16px;">
+              <div style="font-size:13px;font-weight:700;color:#14532d;margin-bottom:8px;">Solution Building Block (SBB)</div>
+              <div style="font-size:12px;color:#14532d;margin-bottom:6px;font-style:italic;">Concrete — the specific product/config chosen</div>
+              <ul style="padding-left:14px;font-size:12px;color:#15803d;">
+                <li>Salesforce Identity + MFA + SSO</li>
+                <li>MuleSoft Anypoint Platform v4.4</li>
+                <li>Salesforce Sales Cloud Opportunity object + pipeline reports</li>
+                <li>Salesforce Platform Events + CDC</li>
+                <li>CRM Analytics Studio (Einstein Analytics)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p><strong>Why this matters in practice:</strong> ABBs allow you to communicate architecture requirements to business stakeholders without getting lost in vendor specifics. An ABB can also be fulfilled by different SBBs over time — e.g., "Integration Middleware" ABB was fulfilled by WebMethods in 2015, then MuleSoft in 2020, then MuleSoft Flex Gateway in 2024 — the architecture principle is unchanged but the implementation evolved.</p>
+        <div class="highlight-box teal">
+          <h5>Exam Tip</h5>
+          <p>ABBs are in the Architecture Definition Document (produced in Phase B/C/D). SBBs are in the Solution Architecture Document (produced in Phase E/F when implementation decisions are made).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q17 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">17</div>
+        <div class="qa-q-text">How does TOGAF handle architecture compliance vs. full conformance, and when would you grant an Architecture Waiver? <span class="diff-badge diff-advanced">Advanced</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>TOGAF defines a spectrum of architecture compliance from <strong>Irrelevant</strong> to <strong>Non-conformant</strong>. Not every project needs full conformance — the goal is controlled, documented deviation where justified.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Architecture Compliance Spectrum</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0;border-radius:8px;overflow:hidden;">
+            <div style="background:#fee2e2;padding:12px 10px;flex:1;min-width:80px;text-align:center;">
+              <div style="font-size:11px;font-weight:700;color:#b91c1c;">Non-conformant</div>
+              <div style="font-size:10px;color:#7f1d1d;margin-top:4px;">Violates principles; no waiver; must remediate</div>
+            </div>
+            <div style="background:#fef3c7;padding:12px 10px;flex:1;min-width:80px;text-align:center;">
+              <div style="font-size:11px;font-weight:700;color:#92400e;">Consistent</div>
+              <div style="font-size:10px;color:#78350f;margin-top:4px;">Doesn't contradict; not explicitly consistent</div>
+            </div>
+            <div style="background:#e0f7fd;padding:12px 10px;flex:1;min-width:80px;text-align:center;">
+              <div style="font-size:11px;font-weight:700;color:#0c4a6e;">Compliant</div>
+              <div style="font-size:10px;color:#164e63;margin-top:4px;">Meets all applicable principles</div>
+            </div>
+            <div style="background:#dcfce7;padding:12px 10px;flex:1;min-width:80px;text-align:center;">
+              <div style="font-size:11px;font-weight:700;color:#15803d;">Fully Conformant</div>
+              <div style="font-size:10px;color:#14532d;margin-top:4px;">Implements all principles explicitly</div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Architecture Waiver — when to grant:</strong></p>
+        <ul>
+          <li><strong>Legitimate business constraint:</strong> A legacy system cannot be changed in time for a compliance deadline — temporary deviation is granted with a sunset date</li>
+          <li><strong>AppExchange package:</strong> A vetted ISV package doesn't conform to your coding standards but provides proven functionality. Waiver granted with condition: "must be reviewed at next major AppExchange version update"</li>
+          <li><strong>Salesforce Platform Event:</strong> A team uses scheduled batch instead of Platform Events due to data volume constraints (100k events/hour limit). Waiver granted pending Data Cloud resolution</li>
+        </ul>
+        <p><strong>Waiver template must include:</strong> principle being waived, business justification, risk assessment, compensating controls, and expiry/review date.</p>
+        <div class="highlight-box orange">
+          <h5>Important</h5>
+          <p>A waiver is not forgiveness — it is a documented, time-bounded exception with accountability. If waivers accumulate without review, it signals that your architecture principles are too strict and need recalibration.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q18 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">18</div>
+        <div class="qa-q-text">Compare TOGAF's approach to integration architecture with Salesforce's MuleSoft API-led connectivity model. Are they aligned? <span class="diff-badge diff-advanced">Advanced</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p><strong>Yes — they are closely aligned</strong>. MuleSoft's API-led connectivity model is an operational implementation of TOGAF's Technology Architecture principles, specifically TP-13 (Interoperability) and AP-9 (Technology Independence).</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">TOGAF Architecture Layers ↔ MuleSoft API-led Connectivity</div>
+          <table class="cmp-table">
+            <thead><tr><th>TOGAF Domain</th><th>MuleSoft Layer</th><th>Purpose</th><th>Salesforce Example</th></tr></thead>
+            <tbody>
+              <tr><td>Business Architecture</td><td>Experience APIs</td><td>Expose capabilities for specific channels/users</td><td>Salesforce Lightning page calls Experience API for 360° customer view</td></tr>
+              <tr><td>Application Architecture</td><td>Process APIs</td><td>Orchestrate business processes across systems</td><td>Lead-to-Account sync: Salesforce → ERP → MDM</td></tr>
+              <tr><td>Technology Architecture</td><td>System APIs</td><td>Wrap and abstract individual systems</td><td>SAP System API, Salesforce System API, Marketo System API</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">API-led Architecture Diagram</div>
+          <div class="flow-row" style="flex-direction:column;align-items:stretch;gap:8px;">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+              <div class="flow-box" style="background:#e8f1fb;border:2px solid var(--blue-mid);color:var(--blue-dark);font-size:11px;min-width:90px;">Mobile App</div>
+              <div class="flow-box" style="background:#e8f1fb;border:2px solid var(--blue-mid);color:var(--blue-dark);font-size:11px;min-width:90px;">Lightning UI</div>
+              <div class="flow-box" style="background:#e8f1fb;border:2px solid var(--blue-mid);color:var(--blue-dark);font-size:11px;min-width:90px;">Partner Portal</div>
+            </div>
+            <div style="text-align:center;font-size:20px;color:var(--gray-300);">↓ Experience APIs ↓</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+              <div class="flow-box" style="background:#e0f7fd;border:2px solid var(--teal);color:#0c4a6e;font-size:11px;min-width:90px;">Customer 360 API</div>
+              <div class="flow-box" style="background:#e0f7fd;border:2px solid var(--teal);color:#0c4a6e;font-size:11px;min-width:90px;">Order Process API</div>
+            </div>
+            <div style="text-align:center;font-size:20px;color:var(--gray-300);">↓ Process APIs ↓</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+              <div class="flow-box" style="background:#e8f8ee;border:2px solid var(--green);color:#14532d;font-size:11px;min-width:90px;">SF System API</div>
+              <div class="flow-box" style="background:#e8f8ee;border:2px solid var(--green);color:#14532d;font-size:11px;min-width:90px;">SAP System API</div>
+              <div class="flow-box" style="background:#e8f8ee;border:2px solid var(--green);color:#14532d;font-size:11px;min-width:90px;">MDM System API</div>
+            </div>
+            <div style="text-align:center;font-size:20px;color:var(--gray-300);">↓ System APIs ↓</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+              <div class="flow-box" style="background:#f3eeff;border:2px solid var(--purple);color:#4c1d95;font-size:11px;min-width:90px;">Salesforce Org</div>
+              <div class="flow-box" style="background:#f3eeff;border:2px solid var(--purple);color:#4c1d95;font-size:11px;min-width:90px;">SAP ECC</div>
+              <div class="flow-box" style="background:#f3eeff;border:2px solid var(--purple);color:#4c1d95;font-size:11px;min-width:90px;">MDM Platform</div>
+            </div>
+          </div>
+        </div>
+        <p>The alignment is so strong that many organisations use TOGAF to govern <em>which</em> APIs belong at which layer, and MuleSoft Anypoint Exchange as the <strong>Architecture Repository</strong> for API specifications.</p>
+      </div>
+    </div>
+
+    <!-- Q19 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">19</div>
+        <div class="qa-q-text">How would you structure a TOGAF-aligned Architecture Review for a new Agentforce AI feature request? <span class="diff-badge diff-advanced">Advanced</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>An <strong>Architecture Review</strong> for a new Agentforce AI feature is a Phase G activity. It evaluates compliance with existing architecture before the feature is deployed to production.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Architecture Review — Agentforce AI Feature Checklist</div>
+          <table class="cmp-table">
+            <thead><tr><th>Domain</th><th>Review Question</th><th>TOGAF Principle</th><th>Pass Criteria</th></tr></thead>
+            <tbody>
+              <tr><td>Business</td><td>Is there a documented business case?</td><td>BP-2 Enterprise Benefit</td><td>Business case with ROI estimate approved by sponsor</td></tr>
+              <tr><td>Business</td><td>Is the AI agent's process scope defined?</td><td>BP-1 Primacy of Principles</td><td>Agent scope document (which cases it handles vs. escalates)</td></tr>
+              <tr><td>Data</td><td>What data does the agent access?</td><td>DP-5 Data as Asset, DP-6 Data Shared</td><td>Data lineage document; no PII accessed without mask</td></tr>
+              <tr><td>Data</td><td>Are AI outputs auditable?</td><td>DP-8 Data Trustee</td><td>Einstein Trust Layer enabled; all LLM calls logged</td></tr>
+              <tr><td>Application</td><td>How does the agent integrate with Service Cloud?</td><td>AP-9 Tech Independence</td><td>Uses Agentforce standard APIs, not custom flow workarounds</td></tr>
+              <tr><td>Technology</td><td>Is the agent tested for bias/hallucination?</td><td>TP-14 Security &amp; Privacy</td><td>Prompt injection tests passed; grounding via Data Cloud verified</td></tr>
+              <tr><td>Technology</td><td>Can the feature be rolled back?</td><td>BP-3 Business Continuity</td><td>Rollback plan: feature flag to disable agent, route to human</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-box blue">
+          <h5>Agentforce-Specific TOGAF Consideration</h5>
+          <p>AI agents introduce new architecture concerns TOGAF doesn't explicitly cover: model drift, prompt injection, and AI hallucination. These should be added as domain-specific extensions to your architecture principles document under TP-14 (Security). Salesforce's Einstein Trust Layer provides the technical guardrails; your architecture governance ensures it is mandated.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q20 -->
+    <div class="qa-item" onclick="this.classList.toggle('open')">
+      <div class="qa-question">
+        <div class="qa-q-num">20</div>
+        <div class="qa-q-text">How does the Salesforce Well-Architected Framework relate to and complement TOGAF? <span class="diff-badge diff-advanced">Advanced</span></div>
+        <div class="qa-chevron">▼</div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Answer</div>
+        <p>The <strong>Salesforce Well-Architected Framework</strong> and TOGAF are complementary, not competing. TOGAF provides the macro-level process and governance for enterprise architecture; the Well-Architected Framework provides Salesforce-specific quality standards within that governance envelope.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">TOGAF vs. Salesforce Well-Architected — Scope Comparison</div>
+          <table class="cmp-table">
+            <thead><tr><th>Dimension</th><th>TOGAF</th><th>Salesforce Well-Architected</th></tr></thead>
+            <tbody>
+              <tr><td>Scope</td><td>Entire enterprise technology portfolio</td><td>Salesforce platform and implementations specifically</td></tr>
+              <tr><td>Focus</td><td>Process, governance, principles, artefacts</td><td>Technical quality: Trusted, Easy, Adaptable, Aligned</td></tr>
+              <tr><td>Audience</td><td>Enterprise Architects, CTO, Architecture Board</td><td>Solution Architects, Salesforce developers/admins</td></tr>
+              <tr><td>Pillars</td><td>ADM Phases + 14 Principles</td><td>Trusted + Easy + Adaptable + Aligned (TEAA)</td></tr>
+              <tr><td>Overlap</td><td colspan="2" style="font-style:italic;">TP-14 (Security) ≈ Trusted; AP-10 (Ease of Use) ≈ Easy; AP-9 (Tech Independence) ≈ Adaptable; BP-1/BP-2 ≈ Aligned</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">How They Work Together</div>
+          <div class="flow-row">
+            <div class="flow-box" style="background:#e8f1fb;border:2px solid var(--blue-mid);color:var(--blue-dark);">TOGAF ADM<br><span style="font-size:10px;font-weight:400;">Defines WHAT to architect<br>and governance process</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#e0f7fd;border:2px solid var(--teal);color:#0c4a6e;">Architecture Principles<br><span style="font-size:10px;font-weight:400;">14 TOGAF principles<br>adapted for Salesforce</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#e8f8ee;border:2px solid var(--green);color:#14532d;">Well-Architected<br><span style="font-size:10px;font-weight:400;">HOW to implement<br>with quality on Salesforce</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#f3eeff;border:2px solid var(--purple);color:#4c1d95;">ARB Compliance Review<br><span style="font-size:10px;font-weight:400;">Phase G gate checks<br>both frameworks</span></div>
+          </div>
+        </div>
+        <p><strong>Practical combination:</strong> Use TOGAF to govern <em>whether</em> something gets built and <em>why</em>. Use Well-Architected to govern <em>how well</em> it gets built. An Architecture Review Board session should run both checklists: TOGAF principle compliance first, then Well-Architected quality assessment for Salesforce-specific concerns.</p>
+        <div class="highlight-box green">
+          <h5>Career Advice</h5>
+          <p>For senior Salesforce Architect roles (especially CTA), having TOGAF Foundation certification alongside Salesforce Application Architect credentials demonstrates you can operate at the enterprise governance level, not just the platform implementation level. The two certifications are highly complementary.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // All accordion items are handled via the onclick toggle on .qa-item
+  // No additional JS needed — pure CSS display toggle
+</script>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <p><strong>TOGAF Principles in Salesforce Projects</strong> — Architecture Reference Guide</p>
+    <p>TOGAF® is a registered trademark of The Open Group. Salesforce® is a registered trademark of Salesforce, Inc.</p>
+    <p style="margin-top:12px;">
+      <a href="https://www.opengroup.org/togaf" target="_blank">The Open Group — TOGAF</a> &nbsp;·&nbsp;
+      <a href="https://architect.salesforce.com" target="_blank">Salesforce Architect Hub</a> &nbsp;·&nbsp;
+      <a href="https://trailhead.salesforce.com" target="_blank">Salesforce Trailhead</a>
+    </p>
+    <p style="margin-top:16px;opacity:.5;font-size:11px;">Generated as an educational architecture reference. Always consult current TOGAF 10 specification and Salesforce documentation for the latest guidance.</p>
+  </div>
+</footer>
+
+</body>
+</html>

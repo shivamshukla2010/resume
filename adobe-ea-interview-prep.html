@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adobe Enterprise Architect — Interview Prep Guide</title>
+  <style>
+    :root {
+      --red: #eb1000;
+      --red-dark: #b50c00;
+      --red-light: #fff0ef;
+      --red-mid: #f54a36;
+      --blue-dark: #0b2e5e;
+      --blue-mid: #1a5faa;
+      --blue-light: #e8f1fb;
+      --teal: #00a1c9;
+      --teal-light: #e0f7fd;
+      --orange: #f97316;
+      --orange-light: #fff3e8;
+      --green: #16a34a;
+      --green-light: #e8f8ee;
+      --purple: #7c3aed;
+      --purple-light: #f3eeff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--gray-50); color: var(--gray-800); line-height: 1.6; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #1a0000 0%, var(--red-dark) 50%, var(--red-mid) 100%);
+      color: #fff; padding: 52px 40px 44px; text-align: center;
+    }
+    .hero-badge {
+      display: inline-block; background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
+      padding: 4px 16px; font-size: 11px; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .adobe-logo {
+      font-size: 32px; font-weight: 900; letter-spacing: -1px;
+      margin-bottom: 12px; color: #fff;
+    }
+    .adobe-logo span { color: rgba(255,255,255,0.55); font-size: 18px; font-weight: 400; }
+    .hero h1 { font-size: clamp(22px,3.5vw,38px); font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .hero p { font-size: 15px; opacity: .85; max-width: 700px; margin: 0 auto 24px; }
+    .hero-stats {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px;
+    }
+    .hero-stat {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px; padding: 10px 18px; text-align: center;
+    }
+    .hero-stat-num { font-size: 22px; font-weight: 800; display: block; }
+    .hero-stat-label { font-size: 11px; opacity: .75; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px; padding: 7px 14px; font-size: 13px; color: #fff;
+      text-decoration: none; transition: background .2s;
+    }
+    .back-link:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── NAV ── */
+    .sticky-nav {
+      position: sticky; top: 0; z-index: 100; background: #fff;
+      border-bottom: 3px solid var(--red); padding: 0 24px; overflow-x: auto; white-space: nowrap;
+    }
+    .sticky-nav ul { display: inline-flex; list-style: none; }
+    .sticky-nav a {
+      display: block; padding: 13px 16px; font-size: 13px; font-weight: 600;
+      color: var(--gray-600); text-decoration: none;
+      border-bottom: 3px solid transparent; transition: color .2s, border-color .2s;
+    }
+    .sticky-nav a:hover { color: var(--red); border-bottom-color: var(--red); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 52px 0; }
+    section:nth-child(even) { background: #fff; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--red); margin-bottom: 8px;
+    }
+    h2 { font-size: clamp(20px,3vw,30px); font-weight: 700; color: var(--blue-dark); margin-bottom: 12px; }
+    .section-intro { font-size: 15px; color: var(--gray-600); max-width: 820px; margin-bottom: 36px; }
+
+    /* ── JD BREAKDOWN ── */
+    .jd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 36px; }
+    .jd-card {
+      background: #fff; border: 1px solid var(--gray-200); border-radius: 10px;
+      overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    }
+    .jd-card-head {
+      padding: 14px 18px; display: flex; align-items: center; gap: 10px;
+    }
+    .jd-icon {
+      width: 38px; height: 38px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+    }
+    .jd-card-head h4 { font-size: 13px; font-weight: 700; color: var(--blue-dark); }
+    .jd-card-body { padding: 0 18px 16px; }
+    .jd-card-body ul { padding-left: 16px; }
+    .jd-card-body li { font-size: 12.5px; color: var(--gray-700); margin-bottom: 4px; line-height: 1.5; }
+    .jd-var-red .jd-card-head { background: var(--red-light); }
+    .jd-var-red .jd-icon { background: var(--red); color: #fff; }
+    .jd-var-blue .jd-card-head { background: var(--blue-light); }
+    .jd-var-blue .jd-icon { background: var(--blue-mid); color: #fff; }
+    .jd-var-teal .jd-card-head { background: var(--teal-light); }
+    .jd-var-teal .jd-icon { background: var(--teal); color: #fff; }
+    .jd-var-purple .jd-card-head { background: var(--purple-light); }
+    .jd-var-purple .jd-icon { background: var(--purple); color: #fff; }
+    .jd-var-green .jd-card-head { background: var(--green-light); }
+    .jd-var-green .jd-icon { background: var(--green); color: #fff; }
+    .jd-var-orange .jd-card-head { background: var(--orange-light); }
+    .jd-var-orange .jd-icon { background: var(--orange); color: #fff; }
+
+    /* ── SKILL MATRIX ── */
+    .skill-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; margin-bottom: 32px; }
+    .skill-cell {
+      background: #fff; border: 1px solid var(--gray-200); border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .skill-cell-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-600); margin-bottom: 6px; }
+    .skill-bar-wrap { background: var(--gray-100); border-radius: 999px; height: 7px; margin-bottom: 4px; }
+    .skill-bar { height: 7px; border-radius: 999px; }
+    .skill-cell-name { font-size: 12px; font-weight: 600; color: var(--blue-dark); margin-bottom: 6px; }
+    .skill-cell-desc { font-size: 11px; color: var(--gray-600); }
+
+    /* ── Q&A ── */
+    .qa-category-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--red);
+      margin: 36px 0 14px; padding-bottom: 6px;
+      border-bottom: 2px solid var(--red-light);
+    }
+    .qa-item {
+      background: #fff; border: 1px solid var(--gray-200);
+      border-radius: 10px; margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+      overflow: hidden;
+    }
+    .qa-question {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 17px 20px; cursor: pointer; user-select: none;
+      transition: background .15s;
+    }
+    .qa-question:hover { background: var(--gray-50); }
+    .qa-q-num {
+      min-width: 28px; height: 28px; border-radius: 50%;
+      background: var(--red); color: #fff;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .qa-q-text { font-size: 14px; font-weight: 600; color: var(--blue-dark); flex: 1; line-height: 1.45; }
+    .qa-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .qa-chevron { font-size: 16px; color: var(--gray-300); transition: transform .25s; }
+    .qa-item.open .qa-chevron { transform: rotate(180deg); }
+    .qa-answer {
+      display: none; border-top: 1px solid var(--gray-200);
+      padding: 20px; background: var(--gray-50);
+    }
+    .qa-item.open .qa-answer { display: block; }
+    .qa-answer-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--green); margin-bottom: 10px;
+    }
+    .qa-answer p { font-size: 13.5px; color: var(--gray-700); line-height: 1.6; margin-bottom: 10px; }
+    .qa-answer ul, .qa-answer ol { padding-left: 18px; margin-bottom: 10px; }
+    .qa-answer li { font-size: 13.5px; color: var(--gray-700); line-height: 1.55; margin-bottom: 5px; }
+    .qa-answer strong { color: var(--blue-dark); }
+
+    /* difficulty + type badges */
+    .diff-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 999px;
+    }
+    .diff-basic    { background: #dcfce7; color: #15803d; }
+    .diff-medium   { background: #fef3c7; color: #92400e; }
+    .diff-advanced { background: #fee2e2; color: #b91c1c; }
+    .type-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 999px;
+    }
+    .type-strategy  { background: var(--blue-light); color: var(--blue-dark); }
+    .type-technical { background: var(--purple-light); color: #4c1d95; }
+    .type-leadership{ background: var(--orange-light); color: #92400e; }
+    .type-scenario  { background: var(--teal-light); color: #0c4a6e; }
+    .type-adobe     { background: var(--red-light); color: var(--red-dark); }
+
+    /* diagrams */
+    .qa-diagram {
+      background: #fff; border: 2px solid var(--gray-200); border-radius: 10px;
+      padding: 18px; margin: 12px 0; overflow-x: auto;
+    }
+    .qa-diagram-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--gray-600);
+      margin-bottom: 14px; text-align: center;
+    }
+    .flow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; justify-content: center; }
+    .flow-box {
+      border-radius: 6px; padding: 8px 12px;
+      font-size: 12px; font-weight: 600; text-align: center;
+      min-width: 90px; line-height: 1.35; border: 2px solid;
+    }
+    .flow-arrow { font-size: 18px; color: var(--gray-300); }
+    .cmp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .cmp-table th { background: var(--blue-dark); color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
+    .cmp-table td { padding: 9px 14px; border-bottom: 1px solid var(--gray-200); color: var(--gray-700); vertical-align: top; }
+    .cmp-table tr:nth-child(even) td { background: var(--gray-50); }
+    .cmp-table td:first-child { font-weight: 600; color: var(--blue-dark); }
+    .mini-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px; }
+    .mini-cell { border-radius: 8px; padding: 10px 12px; font-size: 12px; font-weight: 600; text-align: center; line-height: 1.4; }
+    .highlight-box { border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-left: 4px solid; }
+    .highlight-box.red    { background: var(--red-light); border-color: var(--red); }
+    .highlight-box.blue   { background: var(--blue-light); border-color: var(--blue-mid); }
+    .highlight-box.green  { background: var(--green-light); border-color: var(--green); }
+    .highlight-box.teal   { background: var(--teal-light); border-color: var(--teal); }
+    .highlight-box.orange { background: var(--orange-light); border-color: var(--orange); }
+    .highlight-box.purple { background: var(--purple-light); border-color: var(--purple); }
+    .highlight-box h5 { font-size: 12px; font-weight: 700; color: var(--blue-dark); margin-bottom: 4px; }
+    .highlight-box p, .highlight-box li { font-size: 13px; color: var(--gray-700); }
+    .star-answer {
+      background: linear-gradient(135deg,#fffdf0,#fef9c3);
+      border: 1px solid #fde68a; border-radius: 8px;
+      padding: 14px 18px; margin: 12px 0;
+    }
+    .star-answer-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #92400e; margin-bottom: 6px; }
+    .star-answer p { font-size: 13px; color: #78350f; line-height: 1.55; }
+
+    /* prep tips */
+    .tip-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 16px; margin-bottom: 32px; }
+    .tip-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 10px; padding: 18px; }
+    .tip-card h4 { font-size: 14px; font-weight: 700; color: var(--blue-dark); margin-bottom: 10px; border-bottom: 2px solid var(--red-light); padding-bottom: 7px; }
+    .tip-card p, .tip-card li { font-size: 13px; color: var(--gray-700); line-height: 1.55; }
+    .tip-card ul { padding-left: 16px; }
+    .tip-card li { margin-bottom: 4px; }
+
+    footer {
+      background: var(--gray-900); color: var(--gray-300);
+      text-align: center; padding: 32px 24px; font-size: 13px;
+    }
+    footer a { color: var(--teal); text-decoration: none; }
+    footer p { margin-bottom: 6px; }
+
+    @media(max-width:640px) {
+      .hero { padding: 36px 20px; }
+      .container { padding: 0 16px; }
+      section { padding: 40px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-badge">Interview Preparation Guide</div>
+  <div class="adobe-logo">Adobe <span>Enterprise Architect</span></div>
+  <h1>Interview Q&amp;A — Strategy, Architecture &amp; Leadership</h1>
+  <p>Role-specific preparation for the Adobe Enterprise Architect position, covering digital experience strategy, AEP/AEC architecture, AI &amp; cloud patterns, TOGAF governance, and executive communication.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num">30</span><span class="hero-stat-label">Questions</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">6</span><span class="hero-stat-label">Categories</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">5</span><span class="hero-stat-label">Architecture Diagrams</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">STAR</span><span class="hero-stat-label">Behavioural Answers</span></div>
+  </div>
+  <a class="back-link" href="togaf-salesforce-architecture.html">← Back to TOGAF Principles Guide</a>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="sticky-nav">
+  <ul>
+    <li><a href="#jd">JD Breakdown</a></li>
+    <li><a href="#strategy">Strategy</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#ai">AI &amp; Data</a></li>
+    <li><a href="#adobe-platform">Adobe Platform</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#scenario">Scenarios</a></li>
+    <li><a href="#prep">Prep Tips</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ JD BREAKDOWN ═══ -->
+<section id="jd">
+  <div class="container">
+    <div class="section-label">Role Analysis</div>
+    <h2>What Adobe is Really Looking For</h2>
+    <p class="section-intro">Breaking the JD into its six core competency areas. Each maps to interview question categories below — know which pillar a question is testing when you answer it.</p>
+
+    <div class="jd-grid">
+      <div class="jd-card jd-var-red">
+        <div class="jd-card-head">
+          <div class="jd-icon">🎯</div>
+          <h4>Digital &amp; AI Strategy</h4>
+        </div>
+        <div class="jd-card-body">
+          <ul>
+            <li>Multi-year architecture roadmaps</li>
+            <li>Translating business priorities to tech strategy</li>
+            <li>Value hypotheses and ROI benchmarks</li>
+            <li>Customer experience transformation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="jd-card jd-var-blue">
+        <div class="jd-card-head">
+          <div class="jd-icon">🏛</div>
+          <h4>Enterprise Architecture Build</h4>
+        </div>
+        <div class="jd-card-body">
+          <ul>
+            <li>TOGAF, API-first, event-driven, microservices</li>
+            <li>Scalable, secure, resilient architectures</li>
+            <li>Reference architectures and standards</li>
+            <li>Cloud-native patterns (Azure / AWS)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="jd-card jd-var-teal">
+        <div class="jd-card-head">
+          <div class="jd-icon">☁️</div>
+          <h4>Adobe Platform Expertise</h4>
+        </div>
+        <div class="jd-card-body">
+          <ul>
+            <li>Adobe Experience Platform (AEP)</li>
+            <li>Adobe Experience Cloud (AEC)</li>
+            <li>Real-time CDP, Journey Optimizer</li>
+            <li>Customer Data &amp; identity management</li>
+          </ul>
+        </div>
+      </div>
+      <div class="jd-card jd-var-purple">
+        <div class="jd-card-head">
+          <div class="jd-icon">🤖</div>
+          <h4>AI &amp; Data Architecture</h4>
+        </div>
+        <div class="jd-card-body">
+          <ul>
+            <li>LLMs, RAG, prompt engineering</li>
+            <li>Agentic architectures, AI governance</li>
+            <li>Real-time decisioning, personalisation</li>
+            <li>Observability and responsible AI</li>
+          </ul>
+        </div>
+      </div>
+      <div class="jd-card jd-var-orange">
+        <div class="jd-card-head">
+          <div class="jd-icon">🤝</div>
+          <h4>Executive Leadership</h4>
+        </div>
+        <div class="jd-card-body">
+          <ul>
+            <li>C-suite trusted advisor</li>
+            <li>Influence without authority</li>
+            <li>Stakeholder alignment across functions</li>
+            <li>Architecture review workshops</li>
+          </ul>
+        </div>
+      </div>
+      <div class="jd-card jd-var-green">
+        <div class="jd-card-head">
+          <div class="jd-icon">📈</div>
+          <h4>Adobe Practice Growth</h4>
+        </div>
+        <div class="jd-card-body">
+          <ul>
+            <li>Reusable frameworks &amp; accelerators</li>
+            <li>Mentoring architects &amp; consultants</li>
+            <li>Pre-sales &amp; proposal support</li>
+            <li>Contributing to EA practice direction</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS PRIORITY MATRIX -->
+    <div class="qa-diagram">
+      <div class="qa-diagram-title">Skill Priority Matrix — Interview Focus Areas</div>
+      <table class="cmp-table">
+        <thead><tr><th>Skill Area</th><th>Weight in Role</th><th>Interview Signal</th><th>Prepare With</th></tr></thead>
+        <tbody>
+          <tr><td>Enterprise Architecture (TOGAF)</td><td>⭐⭐⭐⭐⭐ Critical</td><td>ADM phases, governance, ADRs, principles</td><td>TOGAF guide + this page Q1–Q7</td></tr>
+          <tr><td>Adobe Experience Platform (AEP)</td><td>⭐⭐⭐⭐⭐ Critical</td><td>Real-time CDP, data model, identity, schemas</td><td>Q14–Q18</td></tr>
+          <tr><td>AI / LLM Architecture</td><td>⭐⭐⭐⭐⭐ Critical</td><td>RAG, agentic AI, governance, responsible AI</td><td>Q8–Q13</td></tr>
+          <tr><td>Cloud Architecture (Azure/AWS)</td><td>⭐⭐⭐⭐ High</td><td>Cloud-native, event-driven, microservices</td><td>Q4–Q7</td></tr>
+          <tr><td>Executive Communication</td><td>⭐⭐⭐⭐ High</td><td>Explain trade-offs, influence decisions</td><td>Q19–Q22</td></tr>
+          <tr><td>Digital Transformation Leadership</td><td>⭐⭐⭐ Medium</td><td>STAR answers, transformation stories</td><td>Q23–Q27</td></tr>
+          <tr><td>Pre-sales / Practice Building</td><td>⭐⭐⭐ Medium</td><td>Reference architectures, proposals</td><td>Q28–Q30</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STRATEGY ═══ -->
+<section id="strategy">
+  <div class="container">
+    <div class="section-label">Category 1</div>
+    <h2>Digital &amp; AI Strategy Questions</h2>
+    <p class="section-intro">These questions test your ability to think at C-suite level — translating business ambition into multi-year technology roadmaps and measurable outcomes.</p>
+
+    <!-- Q1 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">1</div>
+        <div class="qa-q-text">How would you approach developing a multi-year digital experience transformation roadmap for a global enterprise?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-strategy">Strategy</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>I approach this as a <strong>four-horizon framework</strong> anchored in business outcomes, not technology components:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Multi-Year Digital Experience Roadmap Framework</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;">
+            <div style="background:#e8f1fb;border-radius:8px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:var(--blue-dark);margin-bottom:6px;">Phase 0 — Discover (Months 1–3)</div>
+              <ul style="padding-left:14px;font-size:12px;color:#1e40af;">
+                <li>Current state architecture assessment</li>
+                <li>Business capability gaps vs. market leaders</li>
+                <li>Data maturity evaluation</li>
+                <li>Stakeholder vision workshops</li>
+              </ul>
+            </div>
+            <div style="background:#e0f7fd;border-radius:8px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:#0c4a6e;margin-bottom:6px;">Year 1 — Foundation</div>
+              <ul style="padding-left:14px;font-size:12px;color:#0369a1;">
+                <li>Unified customer data layer (AEP / CDP)</li>
+                <li>Identity resolution across touchpoints</li>
+                <li>Core content supply chain (AEM)</li>
+                <li>Governance &amp; CoE established</li>
+              </ul>
+            </div>
+            <div style="background:#e8f8ee;border-radius:8px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:#14532d;margin-bottom:6px;">Year 2 — Intelligence</div>
+              <ul style="padding-left:14px;font-size:12px;color:#15803d;">
+                <li>Real-time decisioning &amp; personalisation</li>
+                <li>AI-powered content generation</li>
+                <li>Predictive audience activation</li>
+                <li>Journey orchestration (AJO)</li>
+              </ul>
+            </div>
+            <div style="background:#f3eeff;border-radius:8px;padding:14px;">
+              <div style="font-size:12px;font-weight:700;color:#4c1d95;margin-bottom:6px;">Year 3 — Differentiation</div>
+              <ul style="padding-left:14px;font-size:12px;color:#7c3aed;">
+                <li>Autonomous AI agents across journeys</li>
+                <li>Predictive next-best-action at scale</li>
+                <li>Composable experience architecture</li>
+                <li>Cross-brand / cross-market expansion</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p><strong>Key principles I apply:</strong></p>
+        <ul>
+          <li><strong>Business-back:</strong> Start with the CEO's strategic priorities (revenue, retention, CX NPS) — the technology is the enabler, not the starting point</li>
+          <li><strong>Data first:</strong> No personalisation or AI is possible without a clean, unified customer data layer — this is always Year 1</li>
+          <li><strong>Value at each horizon:</strong> Every phase must deliver measurable business value, not just architectural plumbing</li>
+          <li><strong>Governance alongside capability:</strong> Build the operating model, CoE, and governance at the same pace as the technology</li>
+        </ul>
+        <div class="star-answer">
+          <div class="star-answer-label">How to structure your answer (STAR)</div>
+          <p><strong>Situation:</strong> "At [company], a global retailer wanted to go from batch-and-blast email to real-time 1:1 personalisation across 12 markets." <strong>Task:</strong> "I was brought in to build the 3-year architecture roadmap." <strong>Action:</strong> "I ran a 6-week discovery using TOGAF Phase A/B, assessed their Adobe stack maturity, and built a phased roadmap — Year 1 unified AEP schema, Year 2 Journey Optimizer activation, Year 3 AI content." <strong>Result:</strong> "Roadmap was approved by the board; Year 1 delivered 23% uplift in email engagement."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">2</div>
+        <div class="qa-q-text">How do you define and measure the business value of a digital experience architecture investment?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-medium">Medium</span> <span class="type-badge type-strategy">Strategy</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>I use a <strong>Value Hypothesis Framework</strong> — before any architecture work starts, I define what "good" looks like in business language, not technology metrics.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Value Measurement Framework</div>
+          <table class="cmp-table">
+            <thead><tr><th>Layer</th><th>Metric Type</th><th>Example (Digital Experience)</th><th>Adobe Capability</th></tr></thead>
+            <tbody>
+              <tr><td>Customer</td><td>Experience KPIs</td><td>NPS +15pts, CSAT 85%+, Engagement rate +30%</td><td>AEP Insights, Journey Analytics</td></tr>
+              <tr><td>Revenue</td><td>Growth KPIs</td><td>Conversion rate +18%, Average Order Value +12%, CLV +25%</td><td>Real-time CDP, Target A/B</td></tr>
+              <tr><td>Efficiency</td><td>Operational KPIs</td><td>Content production time −40%, Campaign time-to-market −60%</td><td>AEM, Firefly, Workfront</td></tr>
+              <tr><td>Risk</td><td>Governance KPIs</td><td>Data compliance breaches = 0, Consent capture rate 98%</td><td>AEP Data Governance, Privacy Service</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>My approach:</strong> I define value hypotheses at Phase A: "If we implement real-time personalisation using AEP + AJO, we expect conversion rate to increase by X% within 6 months, worth $Y in incremental revenue." This becomes the investment benchmark and success criterion. Post-delivery, I run a value realisation review at 3 and 6 months.</p>
+        <div class="highlight-box blue">
+          <h5>Adobe-Specific Angle</h5>
+          <p>Adobe's Customer Journey Analytics (CJA) and Journey Analytics are specifically designed for this — they connect AEP data to business outcomes with attribution modelling, giving architects a feedback loop to prove value and justify the next phase of investment.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">3</div>
+        <div class="qa-q-text">A CMO asks you: "What's our AI strategy for personalisation?" — how do you structure your response?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-strategy">Strategy</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>I never start with technology when responding to a C-level question. I use the <strong>"So What → So How → So Which"</strong> structure:</p>
+        <ol>
+          <li><strong>So What (Business Context):</strong> "The opportunity is $X: your current batch-personalisation delivers 2% conversion vs. industry-leading 6% with real-time AI. The gap represents [revenue number]."</li>
+          <li><strong>So How (Architecture Approach):</strong> "To close this gap, we need three capabilities working together: unified customer data (know who they are), real-time decisioning (know what to show), and content at scale (generate the right variant)."</li>
+          <li><strong>So Which (Technology):</strong> "Adobe Experience Platform with Real-time CDP handles the data layer. Adobe Journey Optimizer handles decisioning and activation. Adobe Firefly + Sensei AI handles content generation. These are already in your Adobe contract."</li>
+        </ol>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">AI Personalisation Architecture (Executive View)</div>
+          <div class="flow-row">
+            <div class="flow-box" style="background:#e8f1fb;border-color:var(--blue-mid);color:var(--blue-dark);">Know the Customer<br><span style="font-size:10px;font-weight:400;">AEP Real-time CDP<br>Unified Profile</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#e0f7fd;border-color:var(--teal);color:#0c4a6e;">Decide in Real-time<br><span style="font-size:10px;font-weight:400;">AJO Decisioning<br>Next-Best-Action</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#e8f8ee;border-color:var(--green);color:#14532d;">Deliver at Scale<br><span style="font-size:10px;font-weight:400;">AEM + Firefly<br>Dynamic Content</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#f3eeff;border-color:var(--purple);color:#4c1d95;">Measure &amp; Learn<br><span style="font-size:10px;font-weight:400;">CJA Attribution<br>Feedback Loop</span></div>
+          </div>
+        </div>
+        <div class="highlight-box orange">
+          <h5>What CMOs Actually Want to Hear</h5>
+          <p>They want confidence, clarity, and a path to results — not technical jargon. Always quantify the gap, frame technology as the enabler of a business outcome, and give a realistic timeline. "We could have the data foundation live in 90 days and initial personalisation running in 6 months" is far more compelling than a technology feature list.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ ARCHITECTURE ═══ -->
+<section id="architecture">
+  <div class="container">
+    <div class="section-label">Category 2</div>
+    <h2>Enterprise Architecture &amp; Cloud Design</h2>
+    <p class="section-intro">These questions test your hands-on architecture depth — patterns, trade-offs, cloud-native design, and governance frameworks.</p>
+
+    <!-- Q4 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">4</div>
+        <div class="qa-q-text">Design an event-driven, cloud-native architecture for real-time customer experience activation on Azure.
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-technical">Technical</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>Here is a production-grade reference architecture connecting Azure cloud services to Adobe Experience Platform for real-time activation:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Event-Driven CX Architecture — Azure + Adobe AEP</div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:stretch;">
+            <div style="background:#e8f1fb;border-radius:8px;padding:10px 14px;">
+              <div style="font-size:11px;font-weight:700;color:var(--blue-dark);margin-bottom:6px;">DATA INGESTION LAYER</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <div style="background:#bfdbfe;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#1e40af;">Web/App Events (SDK)</div>
+                <div style="font-size:14px;color:#9ca3af;align-self:center;">→</div>
+                <div style="background:#bfdbfe;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#1e40af;">Azure Event Hubs</div>
+                <div style="font-size:14px;color:#9ca3af;align-self:center;">→</div>
+                <div style="background:#bfdbfe;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#1e40af;">Azure Stream Analytics</div>
+                <div style="font-size:14px;color:#9ca3af;align-self:center;">→</div>
+                <div style="background:#bfdbfe;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#1e40af;">AEP Streaming Ingestion API</div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:18px;color:#d1d5db;">↓</div>
+            <div style="background:var(--red-light);border-radius:8px;padding:10px 14px;">
+              <div style="font-size:11px;font-weight:700;color:var(--red-dark);margin-bottom:6px;">ADOBE EXPERIENCE PLATFORM (AEP)</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <div style="background:#fecaca;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--red-dark);">Real-time CDP</div>
+                <div style="background:#fecaca;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--red-dark);">Identity Service</div>
+                <div style="background:#fecaca;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--red-dark);">Segmentation Engine</div>
+                <div style="background:#fecaca;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--red-dark);">Sensei AI / Attribution AI</div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:18px;color:#d1d5db;">↓</div>
+            <div style="background:#e8f8ee;border-radius:8px;padding:10px 14px;">
+              <div style="font-size:11px;font-weight:700;color:#14532d;margin-bottom:6px;">ACTIVATION &amp; DECISIONING LAYER</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <div style="background:#bbf7d0;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#14532d;">Adobe Journey Optimizer</div>
+                <div style="background:#bbf7d0;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#14532d;">Adobe Target (A/B)</div>
+                <div style="background:#bbf7d0;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#14532d;">Azure API Management</div>
+                <div style="background:#bbf7d0;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#14532d;">Azure Functions (Microservices)</div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:18px;color:#d1d5db;">↓</div>
+            <div style="background:#f3eeff;border-radius:8px;padding:10px 14px;">
+              <div style="font-size:11px;font-weight:700;color:#4c1d95;margin-bottom:6px;">EXPERIENCE DELIVERY</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <div style="background:#ddd6fe;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#4c1d95;">AEM Sites (Web)</div>
+                <div style="background:#ddd6fe;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#4c1d95;">Adobe Campaign (Email)</div>
+                <div style="background:#ddd6fe;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#4c1d95;">Mobile App (SDK)</div>
+                <div style="background:#ddd6fe;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;color:#4c1d95;">Paid Media (DSP Activation)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Key architecture decisions and trade-offs to articulate:</strong></p>
+        <ul>
+          <li><strong>Azure Event Hubs vs. Kafka:</strong> Event Hubs for Azure-native cost efficiency; Kafka for multi-cloud or when client already has investment</li>
+          <li><strong>Stream vs. Batch:</strong> Web events stream in real-time (sub-second); CRM and offline data batched daily via Azure Data Factory → AEP Batch Ingestion</li>
+          <li><strong>Identity stitching:</strong> AEP Identity Service resolves email, ECID, CRM ID into a single unified profile — this is the most critical data quality step</li>
+          <li><strong>Latency SLAs:</strong> Audience segment membership evaluation in AEP is near-real-time (~1 min); activation to AJO can be milliseconds via edge network</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">5</div>
+        <div class="qa-q-text">What are the trade-offs between a monolithic, microservices, and composable architecture for digital experience platforms?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-medium">Medium</span> <span class="type-badge type-technical">Technical</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Architecture Pattern Comparison for Digital Experience</div>
+          <table class="cmp-table">
+            <thead><tr><th>Pattern</th><th>Best For</th><th>DXP Trade-offs</th><th>Adobe Alignment</th></tr></thead>
+            <tbody>
+              <tr><td>Monolithic (e.g., single AEM instance)</td><td>Smaller orgs, single market, stable requirements</td><td>Fast to start, hard to scale globally; single point of failure; long release cycles</td><td>AEM as a Service (managed AEM) reduces ops burden</td></tr>
+              <tr><td>Microservices (API-first)</td><td>Large orgs, multiple teams, multi-channel</td><td>Independent scaling &amp; deployment; complex ops; API contract governance critical; higher latency if over-decomposed</td><td>AEP APIs + AJO as composable services; Adobe I/O Runtime for serverless functions</td></tr>
+              <tr><td>Composable / MACH</td><td>Headless, multi-brand, global scale</td><td>Maximum flexibility; best developer experience; requires mature API gateway &amp; CDN strategy; harder to govern content consistency</td><td>AEM Headless + Content Fragments + GraphQL APIs; Edge Delivery Services</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>My recommendation framework:</strong> Start with the team's maturity and operating model, not the architecture pattern. A composable MACH architecture fails if the client has a single dev team managing it — the organisation must be ready for the architecture. I apply the <strong>"strangler fig" pattern</strong> to migrate: run headless AEM alongside the legacy CMS, migrate one content type at a time, validate, then scale.</p>
+        <div class="highlight-box teal">
+          <h5>Adobe Edge Delivery Services (EDS)</h5>
+          <p>Adobe's newest answer to composable DXP — EDS delivers Google Lighthouse 100 scores by serving content from the edge, using Google Drive or SharePoint as the authoring source. It shifts the architecture from "AEM as CMS" to "AEM as content API" — a strong reference architecture for the MACH pattern.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">6</div>
+        <div class="qa-q-text">How do you design for reliability, observability, and business continuity in an Adobe Experience Cloud deployment?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-medium">Medium</span> <span class="type-badge type-technical">Technical</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>I apply the <strong>LACE framework</strong> — Latency, Availability, Consistency, and Elasticity — to Adobe Experience Cloud deployments:</p>
+        <ul>
+          <li><strong>Latency:</strong> Edge Delivery Services + CDN (Fastly/Cloudflare) for sub-100ms content delivery; AEP Edge Network for client-side event collection with &lt;50ms response</li>
+          <li><strong>Availability:</strong> Adobe Experience Cloud runs on AWS with 99.9%+ SLA; your customisations (Launch rules, custom extensions, API integrations) are the risk — design with circuit breakers</li>
+          <li><strong>Consistency:</strong> AEP data ingestion uses eventual consistency — design UX to handle 1–3 minute profile update lag; do not build UX that promises real-time data if the pipeline is batch</li>
+          <li><strong>Elasticity:</strong> AEP Batch Segmentation auto-scales; Streaming Segmentation has limits (4,000 segments/sandbox) — plan capacity</li>
+        </ul>
+        <div class="highlight-box blue">
+          <h5>Observability Stack for Adobe Deployments</h5>
+          <p>Adobe Experience Platform Observability Insights API + Datadog (or Azure Monitor) + Splunk for Log Aggregation. Define SLOs per pipeline: "95% of web events ingested into AEP within 60 seconds." Alert on pipeline latency degradation, not just failures.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">7</div>
+        <div class="qa-q-text">Walk me through how you establish architecture standards and governance for a large client organisation.
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-strategy">Strategy</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>I build governance in three layers — <strong>Principles → Standards → Guidelines</strong> — each with different enforcement mechanisms:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Architecture Governance Pyramid</div>
+          <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+            <div style="background:var(--red-light);border:2px solid var(--red);border-radius:8px;padding:12px 24px;text-align:center;width:280px;">
+              <div style="font-size:13px;font-weight:700;color:var(--red-dark);">Principles (5–10)</div>
+              <div style="font-size:11px;color:#7f1d1d;">Non-negotiable. Violated only with CEO/CTO waiver.</div>
+            </div>
+            <div style="font-size:18px;color:#d1d5db;">↓</div>
+            <div style="background:var(--orange-light);border:2px solid var(--orange);border-radius:8px;padding:12px 24px;text-align:center;width:360px;">
+              <div style="font-size:13px;font-weight:700;color:#92400e;">Standards (Technology Choices)</div>
+              <div style="font-size:11px;color:#78350f;">Approved technology list, API contracts, security baseline. ARB-managed.</div>
+            </div>
+            <div style="font-size:18px;color:#d1d5db;">↓</div>
+            <div style="background:#fef3c7;border:2px solid #d97706;border-radius:8px;padding:12px 24px;text-align:center;width:440px;">
+              <div style="font-size:13px;font-weight:700;color:#92400e;">Guidelines (Best Practices)</div>
+              <div style="font-size:11px;color:#78350f;">Recommended patterns, code style guides, naming conventions. Team-level adoption.</div>
+            </div>
+          </div>
+        </div>
+        <p><strong>For an Adobe client, my standards typically include:</strong></p>
+        <ul>
+          <li>All data entities must have a canonical XDM schema in AEP before any activation</li>
+          <li>No direct database integrations — all Adobe product connections via published APIs</li>
+          <li>Every customer journey must have a defined success metric before development starts</li>
+          <li>Consent and privacy handled exclusively via AEP Privacy Service — no custom solutions</li>
+          <li>All AI/ML models must pass a bias audit and be registered in the AI governance registry</li>
+        </ul>
+        <p>Governance without teeth fails. I pair every standard with an <strong>automated check</strong> where possible — e.g., AEP schema validation in the CI/CD pipeline, Launch extension audit script, Datadog alert on unconsented data flows.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ AI & DATA ═══ -->
+<section id="ai">
+  <div class="container">
+    <div class="section-label">Category 3</div>
+    <h2>AI, Data Architecture &amp; Responsible AI</h2>
+    <p class="section-intro">Adobe explicitly requires LLM, RAG, agentic AI, and AI governance experience. These questions go deep on applied AI architecture in enterprise CX contexts.</p>
+
+    <!-- Q8 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">8</div>
+        <div class="qa-q-text">Explain how you would architect a RAG (Retrieval-Augmented Generation) system for personalised customer experience content.
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-technical">Technical</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p><strong>RAG</strong> grounds a Large Language Model in your organisation's proprietary data, preventing hallucinations and enabling context-aware, personalised content generation without fine-tuning the model.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">RAG Architecture for CX Personalisation (Adobe + Azure OpenAI)</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;">
+              <div class="flow-box" style="background:#e8f1fb;border-color:var(--blue-mid);color:var(--blue-dark);font-size:11px;">Customer Profile<br>(AEP Unified Profile)</div>
+              <div class="flow-arrow">+</div>
+              <div class="flow-box" style="background:var(--red-light);border-color:var(--red);color:var(--red-dark);font-size:11px;">Content Library<br>(AEM Assets + Fragments)</div>
+              <div class="flow-arrow">+</div>
+              <div class="flow-box" style="background:#e8f8ee;border-color:var(--green);color:#14532d;font-size:11px;">Product Catalogue<br>(Commerce API)</div>
+            </div>
+            <div style="text-align:center;font-size:14px;color:#9ca3af;">↓ Chunk + Embed ↓</div>
+            <div style="background:#fef3c7;border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:12px;font-weight:700;color:#92400e;">Vector Store</div>
+              <div style="font-size:11px;color:#78350f;">Azure AI Search / Pinecone — embeddings indexed from AEP + AEM + Commerce</div>
+            </div>
+            <div style="text-align:center;font-size:14px;color:#9ca3af;">↓ Retrieve relevant context ↓</div>
+            <div style="background:#f3eeff;border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:12px;font-weight:700;color:#4c1d95;">Prompt Assembly</div>
+              <div style="font-size:11px;color:#6b21a8;">System prompt (brand tone + compliance guardrails) + Customer context (segment, history) + Retrieved content + User request</div>
+            </div>
+            <div style="text-align:center;font-size:14px;color:#9ca3af;">↓ Generate ↓</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;">
+              <div class="flow-box" style="background:#e0f7fd;border-color:var(--teal);color:#0c4a6e;font-size:11px;">Azure OpenAI<br>(GPT-4o)</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box" style="background:#e8f8ee;border-color:var(--green);color:#14532d;font-size:11px;">Content Variant<br>(personalised)</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box" style="background:var(--red-light);border-color:var(--red);color:var(--red-dark);font-size:11px;">AEM + AJO<br>Delivery</div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Critical architecture decisions:</strong></p>
+        <ul>
+          <li><strong>Chunking strategy:</strong> AEM content fragments map well to RAG chunks — each fragment is a discrete, retrievable unit of brand content</li>
+          <li><strong>Embedding model:</strong> Use Azure OpenAI text-embedding-3-large for English; multilingual-e5 for global deployments</li>
+          <li><strong>Context window management:</strong> Customer profile summary (compressed) + top-5 retrieved content snippets + product context stays under 4k tokens for GPT-4o</li>
+          <li><strong>Latency:</strong> Vector retrieval adds ~30–80ms; acceptable for async content generation but too slow for in-session real-time decisioning — use pre-generated variants instead</li>
+          <li><strong>Adobe Firefly integration:</strong> Text-to-image generation for visual personalisation sits alongside text RAG — same brand guardrails apply</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">9</div>
+        <div class="qa-q-text">What is an agentic AI architecture and how would you design one for an enterprise customer service context?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-technical">Technical</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>An <strong>agentic AI architecture</strong> goes beyond single-turn LLM responses — it involves AI systems that plan multi-step tasks, use tools, and execute actions autonomously within defined boundaries. For enterprise customer service, this requires careful orchestration between autonomy and governance.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Multi-Agent Architecture — Enterprise Customer Service</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:#e8f1fb;border-radius:8px;padding:12px 14px;">
+              <div style="font-size:11px;font-weight:700;color:var(--blue-dark);margin-bottom:6px;">ORCHESTRATOR AGENT (Supervisor)</div>
+              <div style="font-size:11px;color:#1e40af;">Routes customer intent to specialist agents; manages conversation state; escalation decision</div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+              <div style="background:var(--teal-light);border:1px solid var(--teal);border-radius:8px;padding:10px 12px;flex:1;min-width:130px;font-size:11px;color:#0c4a6e;"><strong>Order Agent</strong><br>Tools: Order API, Returns API, CRM lookup</div>
+              <div style="background:#e8f8ee;border:1px solid var(--green);border-radius:8px;padding:10px 12px;flex:1;min-width:130px;font-size:11px;color:#14532d;"><strong>Knowledge Agent</strong><br>Tools: RAG over KB, FAQ retrieval, AEM content</div>
+              <div style="background:#f3eeff;border:1px solid var(--purple);border-radius:8px;padding:10px 12px;flex:1;min-width:130px;font-size:11px;color:#4c1d95;"><strong>Personalisation Agent</strong><br>Tools: AEP profile, offer decisioning, AJO</div>
+              <div style="background:#fef3c7;border:1px solid #d97706;border-radius:8px;padding:10px 12px;flex:1;min-width:130px;font-size:11px;color:#92400e;"><strong>Human Handoff Agent</strong><br>Tools: Case creation, routing, Genesys/ServiceNow</div>
+            </div>
+            <div style="background:#fee2e2;border-radius:8px;padding:10px 14px;border:1px solid #fca5a5;">
+              <div style="font-size:11px;font-weight:700;color:#b91c1c;margin-bottom:4px;">GUARDRAIL LAYER (Required for Enterprise)</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <div style="background:#fecaca;border-radius:5px;padding:4px 8px;font-size:10px;font-weight:600;color:#7f1d1d;">PII Detection + Masking</div>
+                <div style="background:#fecaca;border-radius:5px;padding:4px 8px;font-size:10px;font-weight:600;color:#7f1d1d;">Hallucination Detection</div>
+                <div style="background:#fecaca;border-radius:5px;padding:4px 8px;font-size:10px;font-weight:600;color:#7f1d1d;">Action Boundary Enforcement</div>
+                <div style="background:#fecaca;border-radius:5px;padding:4px 8px;font-size:10px;font-weight:600;color:#7f1d1d;">Full Audit Trail</div>
+                <div style="background:#fecaca;border-radius:5px;padding:4px 8px;font-size:10px;font-weight:600;color:#7f1d1d;">Consent Verification</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Key governance principles for enterprise agentic AI:</strong></p>
+        <ul>
+          <li><strong>Bounded autonomy:</strong> Agents must have explicit tool lists and action limits — an order agent cannot process refunds above $500 without human approval</li>
+          <li><strong>Observability:</strong> Every tool call, decision, and response is logged to an audit trail (Azure Monitor + OpenTelemetry)</li>
+          <li><strong>Fail-safe escalation:</strong> Confidence score below threshold → immediate human handoff with full context passed</li>
+          <li><strong>Model evaluation:</strong> Regular red-teaming, bias testing, and ground-truth evaluation against resolved cases</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">10</div>
+        <div class="qa-q-text">How do you implement an AI governance framework for an enterprise deploying generative AI in customer-facing applications?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-strategy">Strategy</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>AI governance is not a single policy document — it is a set of <strong>living controls embedded in the development and operations lifecycle</strong>. I structure it across four dimensions:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">AI Governance Framework — Four Dimensions</div>
+          <div class="mini-grid">
+            <div class="mini-cell" style="background:#e8f1fb;color:var(--blue-dark);">🏛 Policy<br><span style="font-weight:400;font-size:11px;">AI use policy, prohibited use cases, ethics board charter</span></div>
+            <div class="mini-cell" style="background:var(--red-light);color:var(--red-dark);">🔍 Accountability<br><span style="font-weight:400;font-size:11px;">Model registry, owner per model, risk classification</span></div>
+            <div class="mini-cell" style="background:#e8f8ee;color:#14532d;">🛡 Technical Controls<br><span style="font-weight:400;font-size:11px;">Guardrails, PII masking, output validation, rate limits</span></div>
+            <div class="mini-cell" style="background:#f3eeff;color:#4c1d95;">📊 Monitoring<br><span style="font-weight:400;font-size:11px;">Drift detection, bias audits, performance benchmarks, incident response</span></div>
+          </div>
+        </div>
+        <p><strong>For Adobe CX deployments specifically:</strong></p>
+        <ul>
+          <li><strong>Adobe Firefly compliance:</strong> Firefly is trained only on licensed content — document this as the justification for IP-safe generative images in brand guidelines</li>
+          <li><strong>AEP AI Assistant:</strong> Audit what data AEP AI Assistant can access — it should not surface PII in responses to analysts</li>
+          <li><strong>Consent as a prerequisite:</strong> No AI personalisation runs without an AEP consent record. AEP's Privacy Service is the enforcement layer</li>
+          <li><strong>EU AI Act readiness:</strong> High-risk AI systems (automated hiring, credit, health) require human oversight controls and transparency notifications — design these at architecture time, not retrofit</li>
+        </ul>
+        <div class="highlight-box green">
+          <h5>Responsible AI Checklist (Gate Before Production)</h5>
+          <p>Model bias audit completed → Data privacy impact assessment passed → Transparency notice drafted for end-users → Human override capability built → Monitoring alert thresholds set → Incident response runbook documented → Legal sign-off obtained.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">11</div>
+        <div class="qa-q-text">Explain the architecture of a real-time next-best-action decisioning system.
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-technical">Technical</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>Real-time Next-Best-Action (NBA) is the convergence of customer data, business rules, and AI models to recommend the most contextually relevant action for each individual at each moment. It is the core of AJO Decisioning (formerly Offer Decisioning).</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Real-Time NBA Decision Architecture</div>
+          <div class="flow-row">
+            <div class="flow-box" style="background:#e8f1fb;border-color:var(--blue-mid);color:var(--blue-dark);">Context Signal<br><span style="font-size:10px;font-weight:400;">Page view, click, cart abandon, purchase</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:var(--red-light);border-color:var(--red);color:var(--red-dark);">AEP Edge<br><span style="font-size:10px;font-weight:400;">Real-time profile merge</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#fef3c7;border-color:#d97706;color:#92400e;">Eligibility Engine<br><span style="font-size:10px;font-weight:400;">Business rules + consent + frequency cap</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#f3eeff;border-color:var(--purple);color:#4c1d95;">Ranking Model<br><span style="font-size:10px;font-weight:400;">Sensei AI propensity score</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box" style="background:#e8f8ee;border-color:var(--green);color:#14532d;">Winning Action<br><span style="font-size:10px;font-weight:400;">&lt;100ms response to channel</span></div>
+          </div>
+        </div>
+        <ul>
+          <li><strong>AEP Edge Network:</strong> Handles the first milliseconds — profile lookup and segment membership at edge nodes globally</li>
+          <li><strong>AJO Decisioning:</strong> Applies eligibility rules (user must be Gold tier, consent to marketing, not been shown offer in last 24h) then ranks remaining offers using Sensei AI propensity models</li>
+          <li><strong>Fallback strategy:</strong> Always define a default offer — never return a blank experience</li>
+          <li><strong>A/B testing layer:</strong> Adobe Target integration allows multi-armed bandit testing of offers alongside rule-based decisioning</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ ADOBE PLATFORM ═══ -->
+<section id="adobe-platform">
+  <div class="container">
+    <div class="section-label">Category 4</div>
+    <h2>Adobe Experience Platform &amp; Cloud Deep Dives</h2>
+    <p class="section-intro">Questions specifically about Adobe's technical stack — AEP architecture, data models, identity, and how the products connect.</p>
+
+    <!-- Q14 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">14</div>
+        <div class="qa-q-text">Explain the Adobe Experience Platform data architecture — schemas, datasets, profiles, and how they relate.
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-medium">Medium</span> <span class="type-badge type-adobe">Adobe Platform</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>AEP's data architecture is built on <strong>XDM (Experience Data Model)</strong> — an open standard that Adobe, Microsoft, and SAP co-developed. Understanding this is foundational to any AEP implementation.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">AEP Data Architecture Hierarchy</div>
+          <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+            <div style="background:var(--red-light);border:2px solid var(--red);border-radius:8px;padding:12px 20px;text-align:center;width:100%;max-width:500px;">
+              <div style="font-size:13px;font-weight:700;color:var(--red-dark);">XDM Schema (Blueprint)</div>
+              <div style="font-size:11px;color:#7f1d1d;margin-top:4px;">Defines structure: field names, types, relationships. Uses mixins (fieldgroups) for extensibility. Profile schema vs. Event schema.</div>
+            </div>
+            <div style="font-size:18px;color:#d1d5db;">↓ schema applied to ↓</div>
+            <div style="background:#e8f1fb;border:2px solid var(--blue-mid);border-radius:8px;padding:12px 20px;text-align:center;width:100%;max-width:500px;">
+              <div style="font-size:13px;font-weight:700;color:var(--blue-dark);">Dataset (Storage)</div>
+              <div style="font-size:11px;color:#1e40af;margin-top:4px;">Actual data rows stored in AEP Data Lake. Batch ingestion, streaming ingestion, connector-sourced. Multiple datasets can share one schema.</div>
+            </div>
+            <div style="font-size:18px;color:#d1d5db;">↓ profile-enabled datasets populate ↓</div>
+            <div style="background:#e8f8ee;border:2px solid var(--green);border-radius:8px;padding:12px 20px;text-align:center;width:100%;max-width:500px;">
+              <div style="font-size:13px;font-weight:700;color:#14532d;">Real-time Customer Profile</div>
+              <div style="font-size:11px;color:#15803d;margin-top:4px;">Merged view of a person across all datasets. Identity graph resolves CRM ID + email + ECID + loyalty number → single unified profile. Edge-projected for real-time access.</div>
+            </div>
+            <div style="font-size:18px;color:#d1d5db;">↓ profiles evaluated against ↓</div>
+            <div style="background:#f3eeff;border:2px solid var(--purple);border-radius:8px;padding:12px 20px;text-align:center;width:100%;max-width:500px;">
+              <div style="font-size:13px;font-weight:700;color:#4c1d95);">Segments / Audiences</div>
+              <div style="font-size:11px;color:#7c3aed;margin-top:4px;">Batch segmentation (daily), Streaming segmentation (near-real-time), Edge segmentation (milliseconds on-device). Activated to destinations.</div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Architecture decisions that matter:</strong></p>
+        <ul>
+          <li><strong>Primary identity:</strong> Choose wisely — email vs. ECID vs. CRM ID as the primary key affects identity resolution accuracy</li>
+          <li><strong>Profile dataset vs. non-profile:</strong> Not every dataset needs to be profile-enabled. Analytics-only datasets (raw clickstream) should stay in Data Lake to avoid inflating profile count</li>
+          <li><strong>Sandboxes:</strong> Use AEP sandboxes for environment isolation (dev/staging/prod); a sandbox is a full logical separation, not just a folder</li>
+          <li><strong>Schema versioning:</strong> XDM schemas can be versioned via field groups — plan for evolution without breaking existing datasets</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">15</div>
+        <div class="qa-q-text">How does Adobe Journey Optimizer (AJO) differ from Adobe Campaign, and when would you recommend each?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-medium">Medium</span> <span class="type-badge type-adobe">Adobe Platform</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">AJO vs. Adobe Campaign — Architecture &amp; Use Case Comparison</div>
+          <table class="cmp-table">
+            <thead><tr><th>Dimension</th><th>Adobe Journey Optimizer (AJO)</th><th>Adobe Campaign (v8 / Classic)</th></tr></thead>
+            <tbody>
+              <tr><td>Architecture</td><td>Cloud-native SaaS on AEP; real-time profile access</td><td>On-premise or hybrid; own data model; SFTP-based integrations</td></tr>
+              <tr><td>Data foundation</td><td>Native AEP — uses Real-time CDP unified profiles directly</td><td>Separate data model; AEP integration via connector</td></tr>
+              <tr><td>Journey type</td><td>Event-triggered, real-time journeys (sub-second); cross-channel orchestration</td><td>Batch campaign workflows; strong for high-volume transactional email</td></tr>
+              <tr><td>Personalisation</td><td>Real-time profile attributes + AJO Decisioning offers + Sensei AI</td><td>Personalisation blocks; limited real-time capability</td></tr>
+              <tr><td>Scale</td><td>Best for &lt;100M profiles with high-frequency event processing</td><td>Battle-tested for hundreds of millions of email sends/day</td></tr>
+              <tr><td>When to recommend</td><td>New build, AEP-first strategy, real-time CX, journey orchestration</td><td>High-volume batch email, existing Campaign investment, complex approval workflows</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-box teal">
+          <h5>Hybrid Architecture</h5>
+          <p>Many large enterprises run AJO for real-time triggered journeys (abandoned cart, post-purchase) and Campaign for high-volume batch sends (newsletters, promotions) — with AEP as the shared profile layer. The architecture question is: which system is the "system of record" for email send history and consent? Answer: AEP, always.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">16</div>
+        <div class="qa-q-text">What is customer identity resolution and how does AEP's Identity Service handle it architecturally?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-adobe">Adobe Platform</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>Identity resolution is the process of recognising that a cookie on a website, an email address in a CRM, and a loyalty card swipe at a store all belong to the same person. It is the single most important data architecture decision in an AEP deployment.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">AEP Identity Graph — How Identity Resolution Works</div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:center;">
+            <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+              <div style="background:#e8f1fb;border:1px solid var(--blue-mid);border-radius:6px;padding:8px 12px;text-align:center;font-size:11px;color:var(--blue-dark);">ECID: abc123<br><span style="font-size:10px;opacity:.7;">Web visitor</span></div>
+              <div style="background:#e8f8ee;border:1px solid var(--green);border-radius:6px;padding:8px 12px;text-align:center;font-size:11px;color:#14532d;">Email: j@co.com<br><span style="font-size:10px;opacity:.7;">Newsletter signup</span></div>
+              <div style="background:var(--red-light);border:1px solid var(--red);border-radius:6px;padding:8px 12px;text-align:center;font-size:11px;color:var(--red-dark);">CRM ID: CRM-9876<br><span style="font-size:10px;opacity:.7;">Salesforce record</span></div>
+              <div style="background:#f3eeff;border:1px solid var(--purple);border-radius:6px;padding:8px 12px;text-align:center;font-size:11px;color:#4c1d95;">Loyalty: LY-4567<br><span style="font-size:10px;opacity:.7;">In-store purchase</span></div>
+            </div>
+            <div style="font-size:14px;color:#9ca3af;">↓ Identity Service links shared identifiers ↓</div>
+            <div style="background:#fef3c7;border:2px solid #d97706;border-radius:8px;padding:12px 20px;text-align:center;max-width:400px;">
+              <div style="font-size:13px;font-weight:700;color:#92400e;">Identity Graph</div>
+              <div style="font-size:11px;color:#78350f;margin-top:4px;">ECID ↔ Email (matched at login) → CRM ID ↔ Email (CRM import) → Loyalty ↔ CRM ID (POS match) → All 4 identities now linked to one Person node</div>
+            </div>
+            <div style="font-size:14px;color:#9ca3af;">↓ merged into ↓</div>
+            <div style="background:#e8f8ee;border:2px solid var(--green);border-radius:8px;padding:10px 20px;text-align:center;max-width:400px;">
+              <div style="font-size:13px;font-weight:700;color:#14532d;">Unified Customer Profile</div>
+              <div style="font-size:11px;color:#15803d;margin-top:4px;">One profile, all touchpoints, 360° view</div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Architecture decisions:</strong></p>
+        <ul>
+          <li><strong>Deterministic vs. probabilistic:</strong> AEP uses deterministic (exact match on shared identifier) by default. Probabilistic (device fingerprinting) requires partner integrations like LiveRamp</li>
+          <li><strong>Identity namespace design:</strong> Define custom namespaces early — CRMID, LoyaltyID, EmailHash — with their priority rank. Wrong namespace priority causes incorrect profile merges</li>
+          <li><strong>Private Graph (B2C) vs. Shared Device Graph:</strong> B2C uses AEP's private identity graph. Shared devices (household TVs, kiosks) need special handling to avoid cross-contamination</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ LEADERSHIP ═══ -->
+<section id="leadership">
+  <div class="container">
+    <div class="section-label">Category 5</div>
+    <h2>Executive Communication &amp; Leadership</h2>
+    <p class="section-intro">These questions assess your ability to operate as a C-suite trusted advisor, communicate trade-offs, and lead alignment across organisations.</p>
+
+    <!-- Q19 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">19</div>
+        <div class="qa-q-text">Tell me about a time you influenced a major technology decision with a senior executive who was resistant. How did you do it?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-leadership">Leadership</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">STAR Framework Answer Structure</div>
+        <p>This is a <strong>behavioural question</strong> testing executive influence. Use STAR and ensure the "Action" focuses on <em>how</em> you influenced, not just what you recommended.</p>
+        <div class="star-answer">
+          <div class="star-answer-label">Model STAR Answer</div>
+          <p><strong>Situation:</strong> "A CTO at a global FSI client had committed to building a custom in-house customer data platform. I assessed that it would take 3 years and $8M to build what AEP already does natively. He had strong personal attachment to the 'build' decision."</p>
+          <p><strong>Task:</strong> "My job was to present an alternative that respected his expertise and technical credibility while redirecting investment to faster value."</p>
+          <p><strong>Action:</strong> "Rather than presenting a slide deck opposing his decision, I requested a 1:1 and asked him to walk me through his architecture. I listened, found 3 legitimate concerns (data sovereignty, vendor lock-in, customisation), and built my counter-proposal around resolving exactly those 3 concerns using AEP's sandbox isolation, open XDM schema portability, and extensibility APIs. I brought a comparable client case study and a TCO model showing his team could build 3× more differentiated value on top of AEP than inside it."</p>
+          <p><strong>Result:</strong> "He approved AEP in the next governance meeting. He introduced me to his board as 'the person who saved us 3 years.' The client went live in 8 months and hit their personalisation targets within the first quarter."</p>
+        </div>
+        <p><strong>What makes this answer strong:</strong> It shows empathy (listened first), preparation (addressed his specific objections), and respect for the executive's intelligence. It does NOT show "I told him he was wrong."</p>
+      </div>
+    </div>
+
+    <!-- Q20 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">20</div>
+        <div class="qa-q-text">How do you communicate complex architecture trade-offs to a non-technical C-suite audience?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-medium">Medium</span> <span class="type-badge type-leadership">Leadership</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>I use the <strong>"Outcome-Risk-Investment" (ORI) framework</strong> for executive communication of architecture decisions:</p>
+        <ul>
+          <li><strong>Outcome:</strong> "If we choose Option A (composable headless), we can launch new markets 4× faster with 60% less content duplication cost."</li>
+          <li><strong>Risk:</strong> "The risk is a 6-month transition period where the current site and new architecture run in parallel — during this time, there's increased engineering complexity. We mitigate it by running a Proof of Concept on a low-traffic market first."</li>
+          <li><strong>Investment:</strong> "It costs $2.4M over 18 months vs. $3.1M for Option B, but Option A saves $800k/year in licensing from year 2 onwards."</li>
+        </ul>
+        <p><strong>What to avoid:</strong></p>
+        <ul>
+          <li>Technology acronyms without explanation ("MACH, API-first, microservices") — replace with business analogies</li>
+          <li>Presenting too many options — executives want 2, maximum 3, with a recommendation</li>
+          <li>Leading with the technology problem — lead with the business pain it solves</li>
+        </ul>
+        <div class="highlight-box blue">
+          <h5>The One-Page Architecture Summary</h5>
+          <p>For every major architecture decision, I prepare a 1-page summary: Current State (the pain), Proposed State (the future), Trade-offs (2–3 bullets), Recommendation, and Next Step. This respects executive time and forces architectural clarity on the architect's part.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q21 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">21</div>
+        <div class="qa-q-text">How do you lead an architecture review workshop with stakeholders from Marketing, IT, Data Science, and Legal who have conflicting priorities?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-leadership">Leadership</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>I treat architecture workshops as facilitated <strong>decision sessions</strong>, not presentations. The output is decisions and owners — not slides that everyone politely agrees with and then ignores.</p>
+        <p><strong>My workshop structure:</strong></p>
+        <ol>
+          <li><strong>Pre-work (1 week before):</strong> Send each stakeholder group a 3-question survey: "What problem are you trying to solve? What does success look like for you? What is your biggest concern?" This surfaces conflicts before the room.</li>
+          <li><strong>Frame with shared purpose (10 min):</strong> Open with the business outcome everyone agrees on ("We want to personalise the customer experience to increase retention by 15%"). Anchor every disagreement back to this.</li>
+          <li><strong>Explicit trade-off discussion (30 min):</strong> Use a pre-prepared 2×2 matrix: "Speed vs. Compliance", "Flexibility vs. Cost". Ask each group to place their priority. Conflicts become visual and discussable.</li>
+          <li><strong>Decision framework (20 min):</strong> For each open decision, I use "Who is the Decision Rights owner?" — is this an IT decision, a Business decision, or a shared decision? Removes the circular "everyone has veto" dynamic.</li>
+          <li><strong>Parking lot for scope conflicts:</strong> Items where Legal and Marketing fundamentally disagree go to a "Governance Council" decision — not resolved in the room, but clearly owned.</li>
+          <li><strong>Commit to written ADR (5 min):</strong> Every decision made in the room is read back aloud and confirmed before people leave.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ SCENARIOS ═══ -->
+<section id="scenario">
+  <div class="container">
+    <div class="section-label">Category 6</div>
+    <h2>Scenario-Based &amp; Case Study Questions</h2>
+    <p class="section-intro">Adobe interviews often include real-world scenarios — these test your ability to apply architecture thinking to ambiguous, complex situations.</p>
+
+    <!-- Q23 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">23</div>
+        <div class="qa-q-text">A retail client has 5 disparate MarTech tools (Salesforce Marketing Cloud, Marketo, a legacy CDP, Braze, and Google Analytics) and wants to migrate to Adobe. How do you approach this?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-scenario">Scenario</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>This is a classic MarTech consolidation scenario. I would approach it in phases using TOGAF ADM, <strong>never big-bang replacing everything at once</strong>.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">MarTech Consolidation — Assessment Matrix</div>
+          <table class="cmp-table">
+            <thead><tr><th>Tool</th><th>Function</th><th>Adobe Replacement</th><th>Migration Priority</th><th>Complexity</th></tr></thead>
+            <tbody>
+              <tr><td>Legacy CDP</td><td>Customer data unification</td><td>AEP Real-time CDP</td><td>1st — foundation for all else</td><td>High (data migration)</td></tr>
+              <tr><td>Marketo</td><td>B2B email + lead nurture</td><td>AJO or MCAE via Adobe</td><td>2nd — depends on CDP ready</td><td>Medium</td></tr>
+              <tr><td>Salesforce MC</td><td>B2C email campaigns</td><td>Adobe Campaign v8 or AJO</td><td>2nd — parallel with Marketo</td><td>Medium-High</td></tr>
+              <tr><td>Braze</td><td>Mobile push + in-app</td><td>AJO (mobile channel)</td><td>3rd — after journey orchestration stable</td><td>Medium</td></tr>
+              <tr><td>Google Analytics</td><td>Web analytics</td><td>Adobe Analytics + CJA</td><td>3rd — or keep GA as supplemental</td><td>Low (tag swap)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Critical principles I apply:</strong></p>
+        <ul>
+          <li><strong>AEP first:</strong> No activation tool migration starts until AEP has a unified customer profile — otherwise you're moving broken data from one system to another</li>
+          <li><strong>Parallel run strategy:</strong> Run old and new systems in parallel for 60–90 days per channel. Validate that AJO journeys produce the same business results as Salesforce MC before switching off</li>
+          <li><strong>Don't migrate historical data indiscriminately:</strong> Migrate the last 24 months of behavioural data; archive anything older to cold storage. Most ML models don't benefit from 5-year-old data</li>
+          <li><strong>Manage stakeholder change:</strong> Each tool has a power user who will resist. Involve them in defining how Adobe does what they loved about the old tool — don't just tell them it's better</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Q24 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">24</div>
+        <div class="qa-q-text">Your AEP implementation is 6 months in and the client is not seeing personalisation results. What do you diagnose first?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-scenario">Scenario</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>This is a diagnostic question — interviewers want to see structured problem-solving, not panic. I use a <strong>data → decision → delivery</strong> diagnostic framework:</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Personalisation Failure Diagnostic Tree</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:#fee2e2;border-radius:8px;padding:10px 14px;">
+              <div style="font-size:12px;font-weight:700;color:#b91c1c;">Layer 1 — DATA: Is the profile complete?</div>
+              <ul style="padding-left:14px;font-size:11px;color:#7f1d1d;margin-top:4px;">
+                <li>Profile completeness rate: are &gt;70% of profiles identifiable? (check ECID → email match rate)</li>
+                <li>Segment membership: are segments actually being populated? (check Segment Job run logs)</li>
+                <li>Data freshness: when was the last batch ingestion? Is streaming lag &gt;5 minutes?</li>
+              </ul>
+            </div>
+            <div style="background:#fef3c7;border-radius:8px;padding:10px 14px;">
+              <div style="font-size:12px;font-weight:700;color:#92400e;">Layer 2 — DECISIONING: Are the right offers being served?</div>
+              <ul style="padding-left:14px;font-size:11px;color:#78350f;margin-top:4px;">
+                <li>AJO Decisioning logs: what percentage of requests are returning a personalised offer vs. fallback?</li>
+                <li>Eligibility rules: are they too restrictive? (e.g., frequency cap too low)</li>
+                <li>Offer inventory: is there enough offer variety, or is one offer winning 95% of the time?</li>
+              </ul>
+            </div>
+            <div style="background:#e8f8ee;border-radius:8px;padding:10px 14px;">
+              <div style="font-size:12px;font-weight:700;color:#14532d;">Layer 3 — DELIVERY: Is personalised content actually rendering?</div>
+              <ul style="padding-left:14px;font-size:11px;color:#15803d;margin-top:4px;">
+                <li>Web SDK / alloy.js: is the personalisation response being applied before content renders? (check for FOOC — flash of original content)</li>
+                <li>AEM integration: are the personalised content fragments being picked up and rendered correctly?</li>
+                <li>A/B test config: is the control group too large? (e.g., 90% control, 10% personalised)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p>In my experience, 80% of AEP personalisation failures trace back to Layer 1 — poor identity resolution or incomplete profiles. You can have the most sophisticated decisioning engine in the world, but if you can't recognise the customer, you're just guessing.</p>
+      </div>
+    </div>
+
+    <!-- Q25 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">25</div>
+        <div class="qa-q-text">A client's Legal team wants full data sovereignty — no customer data leaves their country. How does this affect your Adobe architecture?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-advanced">Advanced</span> <span class="type-badge type-scenario">Scenario</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>Data sovereignty is a hard architectural constraint that must be resolved in <strong>Phase D (Technology Architecture)</strong> before any implementation begins. The choices you make here affect every other architecture decision.</p>
+        <div class="qa-diagram">
+          <div class="qa-diagram-title">Data Sovereignty Architecture Options</div>
+          <table class="cmp-table">
+            <thead><tr><th>Option</th><th>Architecture</th><th>Adobe Support</th><th>Trade-off</th></tr></thead>
+            <tbody>
+              <tr><td>AEP EU Data Centre</td><td>Use AEP provisioned in EU region (AMS1 / LON5)</td><td>Native AEP supports EU region deployment</td><td>Some AEP capabilities may have region-specific latency or feature lag</td></tr>
+              <tr><td>AEP Data Spaces</td><td>Isolate sensitive data in a dedicated AEP sandbox/data space</td><td>AEP Data Spaces (Gov edition) for segmented access</td><td>Complexity in cross-region profile unification</td></tr>
+              <tr><td>Federated Data Access</td><td>Data stays in client's Azure/AWS region; AEP queries it via Federated Data Access (Snowflake/Databricks)</td><td>AEP Federated Audience Composition (new 2024)</td><td>No data copying to Adobe — queries run against client data warehouse</td></tr>
+              <tr><td>On-premise Hybrid</td><td>AEP ingests aggregated/pseudonymised data; raw PII stays on-premise</td><td>AEP supports pseudonymised identifiers</td><td>Reduced personalisation fidelity; harder to resolve identity</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>My recommended approach:</strong> First, get Legal to define precisely what "data sovereignty" means — the raw PII fields (name, email, address) vs. behavioural signals (page views, clicks) often have different treatment. Many times behavioural data can cross borders, only PII is restricted. This nuance unlocks significantly more architecture flexibility.</p>
+        <div class="highlight-box purple">
+          <h5>AEP Federated Audience Composition (2024)</h5>
+          <p>This is Adobe's newest answer to data sovereignty — it allows AEP to build audience segments by querying data in Snowflake, Databricks, or BigQuery without ingesting the underlying data into AEP. A game-changer for regulated industries and sovereignty-constrained markets.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q28 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">28</div>
+        <div class="qa-q-text">How would you build a reusable reference architecture for Adobe Experience Platform that accelerates future client engagements?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-medium">Medium</span> <span class="type-badge type-strategy">Strategy</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>Building reusable reference architectures is a force-multiplier for the EA practice. My approach follows <strong>three principles: Opinionated, Configurable, Versioned</strong>.</p>
+        <p><strong>Structure of an AEP Reference Architecture Accelerator:</strong></p>
+        <ul>
+          <li><strong>Architecture Pattern Library:</strong> Documented patterns for each major use case — Real-time CDP foundation, Journey orchestration, AI personalisation, Data governance. Each pattern includes: when to use it, key decisions, trade-offs, and implementation checklist</li>
+          <li><strong>XDM Schema Templates:</strong> Pre-built XDM schema sets for Retail, FSI, Healthcare, and B2B — covering the most common objects (Order, Product, Policy, Account) with standard field groups. Teams spend weeks on schema design; templates cut this to days</li>
+          <li><strong>AEP Sandbox Bootstrap Scripts:</strong> Postman collections or Terraform modules to provision an AEP sandbox with standard schemas, datasets, and identity namespaces in under 2 hours</li>
+          <li><strong>Architecture Decision Register:</strong> A living document of all common decisions (e.g., "batch vs. streaming ingestion decision tree") that new architects can refer to instead of reinventing reasoning</li>
+          <li><strong>Governance Playbook:</strong> CoE model, ARB template, data steward responsibilities — all adapted for Adobe implementations</li>
+        </ul>
+        <div class="highlight-box green">
+          <h5>How I'd Contribute to Adobe's EA Practice</h5>
+          <p>I'd start by documenting the patterns from the first 3 client engagements — what worked, what trade-offs were made, what the client wished they'd known earlier. These become the "lessons learned" chapters that make the reference architecture genuinely valuable rather than generic. I'd also ensure the accelerators are tested against real AEP API versions and updated with each major release.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q29 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">29</div>
+        <div class="qa-q-text">How do you support a strategic sales opportunity as an Enterprise Architect — what is your role and how do you engage?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-medium">Medium</span> <span class="type-badge type-strategy">Strategy</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Best-case Answer</div>
+        <p>The EA's role in pre-sales is to <strong>earn technical credibility and de-risk the deal</strong> — not to sell. The most effective pre-sales EAs are the ones who make the prospect say "I want that person on my project."</p>
+        <p><strong>My pre-sales engagement model:</strong></p>
+        <ol>
+          <li><strong>Discovery call:</strong> I join the first technical call to listen, ask about current architecture pain points, and map the prospect's language to Adobe capabilities. I take notes on every technical concern — these become the proposal's "concerns addressed" section.</li>
+          <li><strong>Architecture brief:</strong> I produce a 1-page "Current State → Target State" diagram tailored to the prospect — not a generic AEP slide. This shows we listened and understood their specific situation.</li>
+          <li><strong>Executive workshop:</strong> I facilitate a 2-hour "Architecture Vision" workshop with the prospect's CTO/CDO. The output is a shared roadmap sketch — this creates emotional ownership of the proposed solution before a contract is signed.</li>
+          <li><strong>SOW input:</strong> I define the architecture deliverables and phase gates in the SOW — this sets quality expectations and protects both parties from scope creep.</li>
+          <li><strong>Reference architecture:</strong> Where available, I share (with permission) a sanitised reference architecture from a comparable client — proof the approach works in production.</li>
+        </ol>
+        <div class="highlight-box teal">
+          <h5>What NOT to do in Pre-Sales</h5>
+          <p>Don't over-promise on what's technically feasible to win the deal. Architectural commitments made pre-contract become delivery constraints — if you promise real-time personalisation on day 1 without validating their identity resolution capability, you set the project up to fail. Better to set accurate expectations and win the deal on trust than to overpromise and lose the client relationship post-contract.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q30 -->
+    <div class="qa-item">
+      <div class="qa-question">
+        <div class="qa-q-num">30</div>
+        <div class="qa-q-text">Why Adobe? What specifically draws you to this EA role versus an equivalent role at a competitor or in-house?
+          <span style="display:block;margin-top:4px;"><span class="diff-badge diff-basic">Basic</span> <span class="type-badge type-leadership">Leadership</span></span>
+        </div>
+        <div class="qa-meta"><div class="qa-chevron">▼</div></div>
+      </div>
+      <div class="qa-answer">
+        <div class="qa-answer-label">Guidance for Your Answer</div>
+        <p>This question tests motivation and cultural fit. A great answer is <strong>specific, genuine, and connects Adobe's mission to your personal architecture philosophy</strong>. Generic "great company, great products" answers fail here.</p>
+        <p><strong>Angles to weave in (adapt to your own story):</strong></p>
+        <ul>
+          <li><strong>Platform breadth:</strong> "Adobe is the only vendor where I can architect the full customer experience stack — from the content supply chain through to real-time personalisation and AI — on a single, open data platform. That end-to-end capability means I can design solutions that create genuine business value, not just integrate point products."</li>
+          <li><strong>AEP's open architecture:</strong> "AEP's XDM schema approach and federated data access model align with how I believe data architecture should work — open, portable, and not trapping clients in proprietary formats. That's rare at this scale."</li>
+          <li><strong>AI leadership:</strong> "Adobe's position on responsible AI — Firefly trained on licensed content, the Content Credentials initiative — aligns with how I believe AI should be deployed in enterprise contexts. I want to build on a platform where ethical AI is a design principle, not an afterthought."</li>
+          <li><strong>Scale of impact:</strong> "In an in-house role, I design for one organisation. At Adobe, the reference architectures and frameworks I build can influence how hundreds of enterprises design their digital experiences. That leverage on my work is uniquely motivating."</li>
+        </ul>
+        <div class="star-answer">
+          <div class="star-answer-label">Remember</div>
+          <p>End with why <em>this role specifically</em> matters to you — not just Adobe as a company. Reference the JD: "The emphasis on building reusable frameworks and mentoring the EA practice aligns with where I am in my career — I want to multiply impact through others, not just deliver individually."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ PREP TIPS ═══ -->
+<section id="prep">
+  <div class="container">
+    <div class="section-label">Final Preparation</div>
+    <h2>Interview Preparation Strategy</h2>
+    <p class="section-intro">How to prepare in the days before your Adobe EA interview — what to read, what to practise, and what to bring.</p>
+
+    <div class="tip-grid">
+      <div class="tip-card">
+        <h4>📚 Must-Read Before Interview</h4>
+        <ul>
+          <li>Adobe Experience Platform documentation — XDM, identity, segmentation</li>
+          <li>Adobe Journey Optimizer (AJO) architecture overview</li>
+          <li>Adobe's AI/ML capabilities: Sensei, Firefly, AI Assistant in AEP</li>
+          <li>Adobe Edge Delivery Services (EDS) — newest composable pattern</li>
+          <li>Adobe Federated Audience Composition (2024 feature)</li>
+          <li>TOGAF 10 Preliminary Phase and Phase A (review your principles)</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h4>🎯 Prepare These Stories</h4>
+        <ul>
+          <li>A multi-year roadmap you built — what phases, what value at each</li>
+          <li>A time you influenced a resistant executive — the HOW, not just the outcome</li>
+          <li>A complex integration architecture you designed — trade-offs you made</li>
+          <li>An AI project you led — governance decisions, outcomes, lessons learned</li>
+          <li>A time you had to say "no" to a client — and maintained the relationship</li>
+          <li>A reference architecture you built that others reused — what made it work</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h4>💬 Questions to Ask Adobe</h4>
+        <ul>
+          <li>"How does the EA team measure success 12 months in?"</li>
+          <li>"What does the relationship between Adobe's EA practice and product teams look like?"</li>
+          <li>"What's the biggest architecture challenge your clients face with AEP adoption right now?"</li>
+          <li>"How does the EA practice contribute to Adobe's product roadmap feedback?"</li>
+          <li>"What does the mentoring and knowledge-sharing model look like within the EA group?"</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h4>⚠️ Common Mistakes to Avoid</h4>
+        <ul>
+          <li>Talking about Salesforce architecture without pivoting to Adobe — know both but frame for Adobe</li>
+          <li>Giving generic TOGAF theory without applying it to a real scenario</li>
+          <li>Not quantifying outcomes — always have a metric ("23% uplift", "6 months faster")</li>
+          <li>Over-focusing on technical depth without demonstrating executive communication</li>
+          <li>Saying "Adobe is the best" without specifics — know WHY architecturally</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h4>🔗 Resources to Review</h4>
+        <ul>
+          <li><a href="https://experienceleague.adobe.com/docs/experience-platform/landing/home.html" target="_blank" style="color:var(--blue-mid);">Adobe Experience League — AEP Docs</a></li>
+          <li><a href="https://business.adobe.com/blog/the-latest/adobe-real-time-cdp" target="_blank" style="color:var(--blue-mid);">Adobe Real-time CDP overview</a></li>
+          <li><a href="https://developer.adobe.com/experience-platform-apis/" target="_blank" style="color:var(--blue-mid);">AEP API Reference</a></li>
+          <li><a href="https://www.opengroup.org/togaf" target="_blank" style="color:var(--blue-mid);">TOGAF Standard — The Open Group</a></li>
+          <li><a href="togaf-salesforce-architecture.html" style="color:var(--red);">← TOGAF Principles Guide (this series)</a></li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h4>🧠 Day-of Mindset</h4>
+        <ul>
+          <li>You are interviewing as a <em>peer</em>, not a candidate — Adobe EAs speak with peers, not impress hiring managers</li>
+          <li>When asked a technical question, think out loud — the reasoning matters as much as the answer</li>
+          <li>It is OK to say "I haven't worked with that specific product, but here's how I'd approach it architecturally" — intellectual honesty is valued</li>
+          <li>Bring one printed diagram — a reference architecture you've built. It changes the dynamic from talk to show</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p><strong>Adobe Enterprise Architect — Interview Prep Guide</strong></p>
+    <p>Adobe® and Adobe Experience Platform® are registered trademarks of Adobe Inc. This is an independent interview preparation resource.</p>
+    <p style="margin-top:12px;">
+      <a href="togaf-salesforce-architecture.html">← TOGAF Principles &amp; Salesforce Guide</a> &nbsp;·&nbsp;
+      <a href="https://experienceleague.adobe.com" target="_blank">Adobe Experience League</a> &nbsp;·&nbsp;
+      <a href="https://architect.salesforce.com" target="_blank">Salesforce Architect Hub</a>
+    </p>
+    <p style="margin-top:16px;opacity:.5;font-size:11px;">Interview preparation resource. All Adobe product information is based on publicly available documentation.</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.qa-item').forEach(item => {
+    item.querySelector('.qa-question').addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Q&amp;A — Director, Technical Consulting (Marketing Cloud Next)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #f4f5f7;
+    color: #1c1c1c;
+    padding: 32px 16px 64px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 48px 56px 64px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 0.92rem;
+    color: #444;
+    margin-bottom: 8px;
+  }
+
+  .note {
+    font-size: 0.82rem;
+    color: #555;
+    background: #f7f7f5;
+    border-left: 3px solid #111;
+    padding: 10px 14px;
+    margin: 18px 0 28px;
+  }
+
+  .toc {
+    margin-bottom: 36px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .toc h2 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  .toc a {
+    display: block;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 0.88rem;
+    padding: 3px 0;
+  }
+
+  .toc a:hover { text-decoration: underline; }
+
+  .group {
+    margin-top: 36px;
+  }
+
+  .group-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #fff;
+    background: #111;
+    display: inline-block;
+    padding: 4px 10px;
+    margin-bottom: 16px;
+  }
+
+  .qa {
+    padding: 18px 0 20px;
+    border-top: 1px solid #ececec;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .q {
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  .q-num {
+    color: #888;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+
+  .label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 4px;
+  }
+
+  .a {
+    font-size: 0.92rem;
+    color: #222;
+    line-height: 1.7;
+  }
+
+  .a + .a { margin-top: 12px; }
+
+  pre.script {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    background: #f6f6f4;
+    border: 1px solid #e4e4e0;
+    padding: 10px 12px;
+    margin: 8px 0 0;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+
+  .sub {
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin: 16px 0 4px;
+  }
+
+  .flow {
+    margin: 14px 0 16px;
+    padding: 16px 14px 14px;
+    background: #f7f7f5;
+    border: 1px solid #e4e4e0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .flow-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 12px;
+  }
+
+  .flow-step {
+    display: flex;
+    justify-content: center;
+  }
+
+  .node {
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    text-align: center;
+    max-width: 460px;
+  }
+
+  .node strong { display: block; font-size: 0.8rem; margin-bottom: 2px; }
+  .node small { color: #555; }
+
+  .node.src { border-color: #f5c16c; background: #fff8eb; }
+  .node.api { border-color: #9ec5ea; background: #f3f8fd; }
+  .node.mc { border-color: #8ec9a8; background: #f3faf6; }
+  .node.bad { border-color: #e3a3a3; background: #fdf6f6; }
+  .node.gate { border-color: #111; background: #111; color: #fff; }
+  .node.gate small { color: #ddd; }
+
+  .varr {
+    text-align: center;
+    color: #888;
+    font-size: 0.85rem;
+    line-height: 1;
+    padding: 3px 0;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .split.four { grid-template-columns: 1fr 1fr; }
+
+  .files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 2px;
+  }
+
+  .files .node { max-width: none; flex: 1 1 120px; }
+
+  .print-btn {
+    display: block;
+    margin: 0 auto 18px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 0.82rem;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  @page { size: A4; margin: 14mm; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .print-btn { display: none; }
+    .page { box-shadow: none; max-width: none; padding: 0; }
+    .toc a { color: #000; }
+    a { text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Save as PDF</button>
+
+<div class="page">
+
+  <h1>Director, Technical Consulting — Marketing Cloud Next</h1>
+  <p class="subtitle">Shivam Shukla · Interview questions and answers · Salesforce Global Delivery Centre</p>
+  <p class="note">Answers describe what normally happens on a live migration: the decision, the failure, and what you would say in the room. They are not tied to a résumé.</p>
+
+  <nav class="toc">
+    <h2>Contents</h2>
+    <a href="#fit">Fit, leadership, and the practice</a>
+    <a href="#migration">Migration from legacy marketing platforms</a>
+    <a href="#mc">Marketing Cloud Next, data, and journeys</a>
+    <a href="#data">Data Cloud, consent, and deliverability</a>
+    <a href="#ai">Customer leadership and AI</a>
+  </nav>
+
+  <section class="group" id="fit">
+    <div class="group-title">Fit, leadership, and the practice</div>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">1.</span> This role asks for 18+ years leading Salesforce technical consulting and 8+ years of people management. How have you led technical consulting and people at that level?</p>
+      <span class="label">Answer</span>
+      <p class="a">At this level the years are the scope, not a date on a slide. I am accountable for the design and for the people who build it, across more than one account at the same time. On a migration factory that means a team of architects plus a delivery manager, while I stay on the subscriber model, consent, and the defects that reach production. People management at eight years and more is hiring, a weekly utilization and quality review, written feedback, and a manager who reports to me. That manager does not get to move a go-live because a campaign owner is impatient. I still read the blueprint. A director who has left the design is not the person this role is hiring.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">2.</span> The role leads up to 8 people, including architects and possibly managers. Who do you manage today, how many, and have you managed other managers?</p>
+      <span class="label">Answer</span>
+      <p class="a">On the Marketing Cloud migration program I had up to eight people: architects on journeys and data, a delivery manager who ran the day-to-day plan, and an integration developer on Informatica and MuleSoft. I set the technical direction and stayed about half billable on the design. The delivery manager ran standups, risks, and the client calendar. I reviewed his plan twice a week and coached him on scope, because his gap was saying yes to a campaign switch before reconciliation passed. The architects came to me for the subscriber model, consent, and production defects. I have managed that manager, not only individual contributors. I still read the designs. A manager who cannot explain the consent gate does not get to move the go-live date.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">3.</span> The job is about 50% billable, with you still acting as senior architect on customer work. How do you split your time now between delivery and leading the practice?</p>
+      <span class="label">Answer</span>
+      <p class="a">I block the week before I accept the work. Two or three days are customer time on the migration I am the named architect for: the workshop, the blueprint, the reconciliation sign-off, and any production defect on that account. The other two or three days are the factory: design review for the other migrations, the delivery manager's plan, hiring, and the standard we are about to reuse. I do not fill the customer days with internal meetings, and I do not let the factory days become another full-time account. When a cutover week arrives, the customer days take the week and the factory waits. That is the only way fifty percent billable stays honest.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">4.</span> Tell us about a time you grew a consulting practice: hiring, utilization, quality, and what you personally changed.</p>
+      <span class="label">Answer</span>
+      <p class="a">A practice grows when the second account is faster than the first. I hired for the gap we actually had, which was data and journeys, not more generalists. Utilization was reviewed every week against the fifty percent I owed the client and the time the architects owed their own migrations. Quality was a gate, not a retrospective: no campaign switch without a reconciliation that tied, and no blueprint that invented its own subscriber key. What I changed myself was the asset. Discovery, workshop, proof, then a blueprint the next team had to start from. The first migration took the scars. The third one used the same consent model, the same suppression pattern, and the same test pack. That is the factory.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">5.</span> How do you handle performance issues on a senior architect who is strong technically but weak with the customer?</p>
+      <span class="label">Answer</span>
+      <p class="a">On the HubSpot migration one architect was the strongest data-extension designer on the team and the client had stopped asking him questions. His blueprints were right and his workshops were a readout. I told him that directly: the technical work was not the issue, the client did not believe he was listening. I ran the first journey workshop with him silent except when I brought him in on the data model. He owned the category-branch section of the next one. His blueprint still came to me before it went to the client, and the consent decision had to be visible on the first page. I wrote the feedback down so it was not a mood. The measure was the following workshop, which he ran. The client asked him to stay on the account. I did not move him off it, and I did not pretend the gap was technical.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">6.</span> You would be a foundational member of a Strategic Migration CoE and a Migration Factory. What would you put in place in the first 90 days?</p>
+      <span class="label">Answer</span>
+      <p class="a">The first month is an inventory, not a framework. Which migrations are live, which source platform each one uses, whose consent model is already unlawful to copy, and which architects are actually free. The second month I publish one blueprint and make it the default: subscriber key, suppression, consent record, journey map, domain checklist, and the reconciliation that blocks a send. The third month I run that blueprint on one live migration myself, at the billable half, and I write back what broke. A standard that has not survived a cutover is a slide. The usual failure in a new factory is three teams solving subscriber key three ways in the same quarter. One data-flow standard is the whole point of the first ninety days.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">7.</span> Where have you set delivery standards that other architects then reused, rather than solving the same problem on every account?</p>
+      <span class="label">Answer</span>
+      <p class="a">On a multi-brand Marketing Cloud account, each vendor arrives with its own data extension and its own suppression list. I stopped that becoming the design. Before build, every vendor had to use the shared data-flow diagram: one subscriber key, one auto-suppression, one consent record. The workshop with the business was where that diagram was agreed, so it was not a document the vendor could ignore. The reusable piece was small on purpose. A connector pattern, a suppression checklist, and a reconciliation sheet went into the team space. The next account was required to start from those, and a new subscriber key was a review comment, not a creative choice.</p>
+    </article>
+  </section>
+
+  <section class="group" id="migration">
+    <div class="group-title">Migration from legacy marketing platforms</div>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">8.</span> Walk through a migration you led from a legacy marketing platform to Marketing Cloud. What was the source system, the volume, and what you owned versus the team?</p>
+      <span class="label">Answer</span>
+      <p class="a">The migration I walk through is HubSpot to Marketing Cloud Engagement for a retail account with about 12 million sendable contacts. I owned the blueprint, the subscriber model, consent, domain plan, and reconciliation. Two architects owned Journey Builder and MobileConnect. An integration developer owned the Informatica load and the MuleSoft delta. HubSpot kept sending until each journey was switched. This is how we kept the business running.</p>
+
+      <p class="sub">Business continuity</p>
+      <p class="a">HubSpot keeps sending until each replacement journey in Marketing Cloud Engagement is built, tested, and explicitly switched. I do not big-bang the calendar. First I freeze net-new workflow builds in HubSpot and list every active workflow, form, ad-hoc send, and operational mail. Transactional and always-on journeys move first: welcome, password or appointment mail, opt-in confirmation. Newsletters and long nurture programs follow. During the overlap, a person is eligible in only one platform. New captures land in Marketing Cloud Engagement, and HubSpot is set not to enroll them. Unsubscribes and SMS opt-outs write to both systems until HubSpot is retired, so a stop in either tool is honored. Rollback is HubSpot still being live. I do not remove a HubSpot workflow until the Marketing Cloud journey has passed a seed test, a consent check, and one controlled production send. Stakeholders get a campaign calendar with a switch date per journey, not one go-live Friday for everything.</p>
+
+      <p class="sub">Data flow</p>
+      <p class="a">HubSpot is the source until cutover. Salesforce CRM is the system of record for the person if the customer already has one. The flow is HubSpot contacts, lists, subscription types, and custom properties into a staging area, then into Contact Builder. I do not load straight into All Subscribers and call it done. Subscriber key is a durable id, preferably the Salesforce contact or lead id, with the HubSpot contact id stored beside it. Email is an attribute, not the key. Static lists become sendable data extensions only when they are a real audience. Active lists become SQL Query or Filter activities, because a one-time copy goes stale the next day. Subscription types and lawful basis become a consent data extension: channel, purpose, status, timestamp, and source system. "Unsubscribed from all," quarantined, and bounced map to Marketing Cloud unsubscribe or held status and to an auto-suppression list, not to a journey filter someone can forget. Companies, deals, and page views stay out of the sendable model unless a journey decision needs them. Historical opens and clicks go to a non-sendable extension or Data Cloud for reporting. They do not block the first compliant send. Until switchover I run a delta: new contacts, changed properties, and new opt-outs. After switchover the arrow reverses. Marketing Cloud Engagement, fed by CRM, is the source, and HubSpot is read-only. Reconciliation before any production send is source count, loaded count, rejected rows, opt-in totals by subscription type, and opt-out totals, plus a trace of sample people from HubSpot record to subscriber to journey eligibility.</p>
+
+      <p class="sub">Campaign movement</p>
+      <p class="a">I migrate active campaigns, not the archive of every workflow ever built. Each HubSpot workflow gets a one-page map: enrollment trigger, goal, delays, if/then branches, suppression, and exit. In Journey Builder the entry is the same business event, usually from CRM or an API event, not a file someone uploads on Tuesday. The first decision split is consent and suppression. Wait steps stay only where the business rule needs a wait. Exits are unsubscribe, goal met, or a later event that makes the journey untrue. Steps that existed only because HubSpot could not read CRM are dropped. Emails move from HubSpot templates into Content Builder. Personalization tokens are rewritten in AMPscript with a fallback for an empty field, and heavy logic stays out of the email. Images and links are rehosted so nothing still calls HubSpot. Forms either move to CloudPages or stay on the site and post into Marketing Cloud or CRM by API. In-flight people are not dropped mid-drip: they finish the current step in HubSpot, or they are re-entered in the Marketing Cloud journey at the equivalent step with a suppression so they do not get the same email twice. Reporting continuity is a named cutover date in the dashboard, not an attempt to stitch two engagement histories into one vanity number.</p>
+
+      <p class="sub">Domain registration</p>
+      <p class="a">HubSpot reputation and HubSpot's sending domain do not move with the data. The customer's from-address domain has to be authenticated in Marketing Cloud Engagement before the first real send: Sender Authentication Package or a private domain, SPF that includes Marketing Cloud, DKIM, and DMARC aligned to that from-address. During the parallel run, SPF has to include both HubSpot and Marketing Cloud without blowing the DNS lookup limit, and I do not delete the HubSpot records until the last HubSpot workflow is off. Click-tracking and image domains are registered and verified in Marketing Cloud, and reply mail management is set so replies and unsubscribes do not fall on the floor. I prove it with a seed send from the real from-address before any customer volume. If the account is on a new dedicated IP, warm-up starts on the most engaged, fully consented segment only, after suppression is loaded. Complaints, bounces, and blocks are watched for the first two weeks before volume rises. Authentication is a migration task, not a task for the week after go-live.</p>
+
+      <p class="sub">Mobile number transfer</p>
+      <p class="a">What moves is the person's mobile number and their SMS consent. The HubSpot sending number, long code, or short code does not port into Mobile Studio. Marketing Cloud needs its own provisioned code, keywords, and STOP/HELP handling before any SMS goes out. HubSpot stores numbers in local formats. I normalize every number to E.164 with a country code before import, and I reject numbers that cannot be normalized rather than guessing. Those numbers are loaded as a mobile address on the contact in Contact Builder, not only as a text field on an email subscriber. SMS opt-in is a separate consent record from email: status, timestamp, source, and keyword if they have one. Anyone who sent STOP, or who never opted in, is loaded as opted out. I do not mark a contact opted in because a mobile number happened to be on their HubSpot profile. Quiet hours and country rules are set on the new code before the first broadcast. A sample of numbers is traced from HubSpot property to MobileConnect status to a test send on the new code. Only then is an SMS journey allowed to enroll.</p>
+
+      <p class="sub">Order I would run it in</p>
+      <p class="a">Authenticate the domain and stand up the mobile code first. Profile and cleanse HubSpot contacts, consent, and phone numbers second. Load subscribers, suppression, and mobile opt-outs, and reconcile, third. Rebuild the always-on journeys and switch them one at a time, fourth. Warm the IP on consented, engaged mail, fifth. Turn HubSpot workflows off only after each Marketing Cloud journey has sent cleanly. Leave HubSpot readable until the delta and the complaint rate are stable. I would own the blueprint, the data model, consent, domain plan, and reconciliation. An integration specialist would own the extract pipeline. The developers would own Journey Builder, AMPscript, and MobileConnect configuration under that blueprint.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">9.</span> The role expects migrations from Eloqua, Marketo, HubSpot, Pardot, or SFMC Classic, including subscriber databases of 10 million or more with no consent loss. Which of those have you actually done?</p>
+      <span class="label">Answer</span>
+      <p class="a">The one I led end to end was HubSpot to Marketing Cloud Engagement, about 12 million sendable contacts. Event history was larger and did not go into the sendable model. Consent loss was the acceptance test: HubSpot opt-out totals had to match Marketing Cloud unsubscribe and auto-suppression totals before warm-up, and a sample of opted-out people had to be held when we tried to send. I owned the data model, the consent map, the journey blueprint, and that reconciliation. Informatica did the first load. MuleSoft kept the delta until HubSpot was read-only. I have also moved a Marketo nurture of about 1.5 million with the same blueprint: durable subscriber key, opt-out wins, journeys switched one at a time. Pardot I have folded in through Marketing Cloud Connect rather than as a full ESP cutover, because the person already lived in CRM. I would not claim an Eloqua factory migration. If they ask which one to go deep on, it is the 12 million HubSpot cutover.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">10.</span> How would you design the cutover so live campaigns do not stop while subscriber, consent, and journey data move to Marketing Cloud Next?</p>
+      <span class="label">Answer</span>
+      <p class="a">You do not freeze the whole program. You freeze the data model and the consent rules. Source campaigns keep sending until each journey is rebuilt, tested, and switched. New subscribers are created in Marketing Cloud Next first, and the source platform is set not to enroll them. Existing subscribers move in batches after a rehearsal load. Suppression and opt-out are live in the new account before any production send, including warm-up. A brand with several business units cannot pause marketing while the model changes, so the data flow is proven on one journey before the next campaign is allowed to use it. In-flight people finish the current step on the old platform and are suppressed from the equivalent new message, so nobody receives it twice.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">11.</span> How do you map a subscriber key from a source platform when the same person exists more than once, or when email is not a stable identifier?</p>
+      <span class="label">Answer</span>
+      <p class="a">Email is a poor subscriber key. People change it, and the same person shows up in more than one brand or business unit with a different address. The key is a durable id from the system of record, usually the CRM contact or lead id. Until CRM has that id, the source-platform contact id is the key, stored so it can be swapped without creating a second person. Email is an attribute. Suppression and consent hang off the person, not off whichever list they were exported on. If two brands key the same human on two emails, an opt-out in one brand never reaches the other, and you will mail them. One key, many attributes, is the rule I hold in design review.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">12.</span> What do you migrate for historical send data, and what do you leave behind? How do you explain that choice to a client who wants every open and click?</p>
+      <span class="label">Answer</span>
+      <p class="a">On the 12 million HubSpot cutover we migrated the person, the consent, the preferences, and the suppression as the system of record for day one. Opens and clicks went to a history data extension the following week. They were useful for reporting and for a frequency lookback. They were not a reason to hold the first compliant send. I put that in the blueprint as two columns: in the sendable model at go-live, and retained for reporting. The CMO wanted every click on day one. I showed her that waiting for history did not change who we were allowed to mail, and that a wrong consent flag did. She accepted the split.</p>
+      <p class="a">What failed was the dashboard, not the load. The campaign report she used every Monday read HubSpot clicks. On the first Monday it looked like email had died. We drew a cutover line on the report and pointed history at the new data extension. The numbers came back. The lesson I keep is to agree the reporting cutover in the same workshop as the data cutover, not after the client has seen an empty chart.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">13.</span> Describe your reconciliation method after a load. How do you prove record counts, consent flags, and suppression status match the source?</p>
+      <span class="label">Answer</span>
+      <p class="a">Reconciliation happens before anyone is allowed to send, including warm-up. Source count, loaded count, and rejected rows have to tie. Consent true and false totals have to tie. Suppression totals have to tie. Then I trace a sample of real people from the source record to the subscriber to journey eligibility: an opted-out person must be held, and a clean person must be eligible. A load that "succeeded" in the tool is not the sign-off. On a regulated account the reason is audit. If you cannot show where a person came from and why they were mailable, the platform is not ready. I do not close the risk because the file imported. I close it when the totals and the sample match.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">14.</span> Which ETL tools have you used for a large subscriber extract and transform — Informatica, Talend, MuleSoft, Azure Data Factory, or something else? What did you design yourself?</p>
+      <span class="label">Answer</span>
+      <p class="a">I have used both tools on subscriber ETL, for different shapes of problem. MuleSoft was the ongoing integration, the delta that had to keep HubSpot, CRM, and Marketing Cloud Engagement in step. Informatica was the heavy initial load, where the job was extract, cleanse, reject, and reconcile a large file before anyone was allowed to send. I owned the source-to-target map, the cleansing rules, and the acceptance totals. The integration developer owned the flow or the mapping task. I reviewed both before they ran.</p>
+
+      <p class="sub">MuleSoft — ongoing subscriber sync</p>
+      <div class="flow" id="flow-mulesoft">
+        <div class="flow-title">Data flow · every 15 minutes</div>
+        <div class="flow-step"><div class="node src"><strong>HubSpot</strong><small>Contacts (CRM v3) and communication preferences. Cursor pages the delta.</small></div></div>
+        <div class="varr">↓</div>
+        <div class="flow-step"><div class="node api"><strong>System API</strong><small>Pulls only records changed since the watermark. Watermark (last modified time) is stored in the Object Store.</small></div></div>
+        <div class="varr">↓</div>
+        <div class="flow-step"><div class="node api"><strong>Process API — canonical subscriber</strong><small>Subscriber key = Salesforce contact id, or HubSpot id until CRM has one. Email lowercased. Mobile to E.164. Opt-out wins. HubSpot id kept as a cross-reference.</small></div></div>
+        <div class="varr">↓</div>
+        <div class="split">
+          <div class="node mc"><strong>Salesforce CRM</strong><small>Contact upsert by Bulk or Composite API.</small></div>
+          <div class="node mc"><strong>Marketing Cloud REST</strong><small>Data-extension upsert, subscriber status, and auto-suppression in the same write. Same key updates the row. It does not create a second subscriber.</small></div>
+          <div class="node bad"><strong>Dead-letter queue</strong><small>Invalid email or a number that fails E.164, kept with the HubSpot id for replay. Not loaded as sendable.</small></div>
+        </div>
+        <div class="varr">↓</div>
+        <div class="flow-step"><div class="node mc"><strong>Marketing Cloud SQL Query</strong><small>Active-list membership is an attribute. The query builds the sendable audience. Lists are not copied as files.</small></div></div>
+        <div class="varr">↓</div>
+        <div class="flow-step"><div class="node gate"><strong>Reconciliation</strong><small>Pulled, upserted, rejected, and opt-out count. An email change updates the attribute on the same subscriber key, and the old email is suppressed for one send.</small></div></div>
+      </div>
+      <p class="a">On a marketing migration, HubSpot could not stay a weekly export. Contacts, subscription changes, and opt-outs moved all day, and Marketing Cloud had to see them before the next journey entry. We built that in MuleSoft as three layers. The system API wrapped HubSpot's CRM v3 contacts endpoint and the communication-preferences endpoint. It paged with the HubSpot cursor, and it stored a watermark, the last modified timestamp, in the Object Store so the next run only pulled the delta. A second system API wrapped Salesforce and Marketing Cloud: Bulk or Composite into CRM for the contact, and the Marketing Cloud REST API for the data-extension upsert and the subscriber status. The process API in the middle was the only place business rules lived. HubSpot contact id went into a cross-reference field. Subscriber key became the Salesforce contact id once CRM had one, and stayed the HubSpot id until it did. Email was lowercased and validated. Mobile was normalized to E.164. Subscription type, status, timestamp, and source were written to a consent structure. "Unsubscribed from all" became a Marketing Cloud unsubscribe and a row on the auto-suppression extension, in the same transaction as the contact upsert, so we never had a mailable person whose opt-out was still in flight. Lists were not copied as files. Active-list membership arrived as an attribute, and a Marketing Cloud SQL Query activity built the sendable audience from it. The flow ran every fifteen minutes on a scheduler. Bad emails and numbers that failed E.164 went to a dead-letter queue with the HubSpot id, not into the sendable extension. A replay path let us fix the source and reprocess that id without reloading the full base. Idempotency was the upsert key: run the same contact twice and Marketing Cloud updated the row, it did not create a second subscriber. What I designed was the canonical subscriber, the watermark, the consent precedence (opt-out wins), and the reconciliation the flow wrote at the end of each run: records pulled, upserted, rejected, and opt-out count. What failed once in testing was a contact whose email changed. The first version updated the email attribute and left the old subscriber key, so sends still went to the old address. We fixed it by treating an email change as an attribute update on the same subscriber key, and by adding the old email to a one-send suppression until the new address was confirmed.</p>
+
+      <p class="sub">Informatica — initial high-volume load</p>
+      <div class="flow" id="flow-informatica">
+        <div class="flow-title">Data flow · one-time batch, then rerun on subscriber key</div>
+        <div class="files">
+          <div class="node src"><strong>Contacts</strong><small>SFTP extract</small></div>
+          <div class="node src"><strong>Subscriptions</strong><small>SFTP extract</small></div>
+          <div class="node src"><strong>List membership</strong><small>SFTP extract</small></div>
+          <div class="node src"><strong>Suppression</strong><small>Lookup file</small></div>
+          <div class="node src"><strong>Opens and clicks</strong><small>History only</small></div>
+        </div>
+        <div class="varr">↓</div>
+        <div class="flow-step"><div class="node api"><strong>Informatica joiner</strong><small>Contacts, subscriptions, and lists join on HubSpot contact id. Sorter runs first so the join is stable.</small></div></div>
+        <div class="varr">↓</div>
+        <div class="flow-step"><div class="node api"><strong>Expression transformations</strong><small>Trim and lowercase email. Drop bad addresses. Build E.164. Collapse duplicate contact ids to one row. If consent disagrees, keep the opt-out. Suppression lookup forces held status.</small></div></div>
+        <div class="varr">↓</div>
+        <div class="split four">
+          <div class="node mc"><strong>Sendable file</strong><small>Subscriber key, email, locale, consent. Lands on Marketing Cloud SFTP. Automation Studio import loads the sendable data extension. Overwrite on subscriber key.</small></div>
+          <div class="node mc"><strong>Related file</strong><small>Preferences, list codes, HubSpot id. Loads to non-sendable data extensions.</small></div>
+          <div class="node"><strong>History file</strong><small>Opens and clicks. Loads after the contact mapping. A failure here does not block go-live.</small></div>
+          <div class="node bad"><strong>Reject file</strong><small>Invalid email, missing key, bad phone, each with the source id. Business repairs the row and it is rerun.</small></div>
+        </div>
+        <div class="varr">↓</div>
+        <div class="flow-step"><div class="node gate"><strong>Gate before any send</strong><small>Informatica success and reject counts match the source files, then match data-extension row counts. Sample opted-out people are unsubscribed. Sample clean people are journey-eligible.</small></div></div>
+      </div>
+      <p class="a">The initial cutover was a different tool. HubSpot gave us a full contact export, list membership, and email-event history, tens of millions of rows if you included opens and clicks, and a much smaller sendable population. Informatica Cloud Data Integration ran that as a batch mapping, not as an API chat. The source was the HubSpot extract landed on secure SFTP, contacts in one file, subscription status in another, list membership in a third. A sorter and a joiner brought them together on HubSpot contact id. Expression transformations did the cleanse: trim and lowercase email, drop addresses that failed a format check, build E.164 from country plus local number, and collapse duplicate contact ids to one row. Where two rows for the same person disagreed on consent, the expression kept the opt-out. A lookup against the suppression file forced those people to held status even if the subscription file said opted in. The target was split. The sendable audience, a thin file of subscriber key, email, locale, and consent status, went to the Marketing Cloud SFTP import location, and an Automation Studio import definition loaded it into the sendable data extension. Related data, preferences, list codes, and the HubSpot id cross-reference, went to non-sendable extensions through a second target file. Opens and clicks went to a third, history-only file and were not part of the sendable load. Rejects were a first-class output: invalid email, missing key, and unparseable phone, each with the source id, written to a reject file the business could repair. We did not use one giant mapping for the whole history. The contact-and-consent mapping was the gate. The engagement-history mapping ran after, and a failed history load could not block go-live. Before the Marketing Cloud import was allowed to proceed I checked Informatica's success and reject counts against the source file counts, then against the data extension row counts after import. A sample of opted-out HubSpot contacts had to show as unsubscribed in Marketing Cloud, and a sample of clean contacts had to be journey-eligible. The first full run taught us the file was not unique. HubSpot had exported the same contact on two lists as two rows, and the import created duplicates until we aggregated on subscriber key before the target. After that change, reruns were safe: the import was an overwrite on subscriber key, and Informatica's reject file was the only queue of rows still to fix.</p>
+    </article>
+  </section>
+
+  <section class="group" id="mc">
+    <div class="group-title">Marketing Cloud Next, data, and journeys</div>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">15.</span> Where have you used Marketing Cloud Next on a customer project, as distinct from classic Marketing Cloud?</p>
+      <span class="label">Answer</span>
+      <p class="a">I use both, and they are not the same product. Classic Marketing Cloud Engagement is where the 12 million HubSpot migration landed: data extensions, Journey Builder, Email Studio, MobileConnect, and Marketing Cloud Connect. Marketing Cloud Next is the account I moved a second brand into after the profile already lived in Data Cloud. In classic, the audience was a sendable data extension we built with SQL. In Next, the audience was a Data Cloud segment activated to Marketing Cloud Next. The person was the unified profile. Consent and suppression sat on that profile. We did not export the segment to a data extension and mail it from Email Studio.</p>
+      <p class="a">What failed was someone doing exactly that. An analyst exported the activated segment to a classic data extension and scheduled a send in Email Studio, which bypassed the Next consent check. The send was small and we caught it from a complaint, not from a guardrail. We removed the export permission, kept activation as the only path into Next, and added a decision in the classic business unit that refused records whose consent source was the Next profile. Classic is still the right tool for a triggered operational mail that already has a template and a subscriber key. Next is the right tool when the segment is defined on the unified profile and has to stay there.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">16.</span> What platform standards do you enforce on a multi-business-unit Marketing Cloud account, and what breaks when a vendor does not follow them?</p>
+      <span class="label">Answer</span>
+      <p class="a">When several business units share one Marketing Cloud account, the standard is one subscriber key, one auto-suppression, one consent record, and a data-flow diagram before anyone builds. Vendors do a lot of the build. The failure mode is a vendor creating a local data extension and a local send process the other units cannot audit. An opt-out in one unit then does not reach the others, and somebody gets mailed. I stop the build until the diagram, the compliance check, and a workshop with the business are done. Journeys, emails, and ads can be local. The person, the consent, and the suppression cannot. Vendors dislike that. An account you can audit is the result I will defend.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">17.</span> Explain sendable versus non-sendable data extensions, and how you decide the subscriber key and contact model on a large account.</p>
+      <span class="label">Answer</span>
+      <p class="a">A sendable data extension has a relationship to the subscriber and can be the audience of a send. A non-sendable one holds related data, such as purchases, preferences, or consent history, and is looked up from the send. I keep the sendable extension thin: subscriber key, locale, consent status, and the few fields the journey needs in order to decide. Everything else stays related, so a large related table does not become the audience by accident. On a large account the mistake is modeling product or account data as another list of people. Someone will eventually mail that list. Related data stays non-sendable. The person stays the subscriber. The subscriber key is the CRM id, not the email.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">18.</span> How do you design a suppression and list model so a person who opted out in the source platform cannot be mailed after go-live?</p>
+      <span class="label">Answer</span>
+      <p class="a">Suppression has to be enforced by the platform at send time, not by a journey builder remembering to add a filter. The subscriber comes from CRM through Marketing Cloud Connect, or from the migration load, and the opt-out is a status on that person. The rule on a cutover is: load the opt-out and the suppression list before any production or warm-up send, set the subscriber status, and add an auto-suppression the email author cannot skip. Across business units this is a compliance issue. An opt-out in one unit cannot depend on the next vendor knowing about it. If the only copy of the opt-out is a filtered list inside one journey, the next journey will mail them.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">19.</span> Walk through a journey you rebuilt: trigger, decision splits, wait steps, and exit criteria. What did you change because Journey Builder does not match the source tool?</p>
+      <span class="label">Answer</span>
+      <p class="a">The journey I rebuilt was a HubSpot post-purchase workflow. Enrollment was "deal stage = delivered." It waited two days, branched on product category, and its goal was a repeat purchase, which in HubSpot was membership of a list that refreshed nightly. Exit was unsubscribe or that goal. In Journey Builder the entry became an API event, order delivered, not a file. The first decision split was consent and suppression. The category branch stayed. The wait stayed only because the business wanted two days, and we set it to fire at 9am in the contact's time zone rather than forty-eight hours from the event. The exit was an unsubscribe, a second event for repeat purchase, or a support case opened, which HubSpot could not see because it could not read the service cloud. People already inside the HubSpot drip finished the current step there. We suppressed the equivalent Marketing Cloud email so they did not get it twice. New deliveries entered only the new journey.</p>
+      <p class="a">What failed in the first week: we had used a forty-eight hour wait. HubSpot's "two days" meant two calendar days and then the next morning send window. Weekend deliveries got the Marketing Cloud email on Sunday night. Complaints were not huge, but the business noticed. We changed the wait to two days and a specific hour. The second miss was the goal. The nightly list meant someone who bought again in the afternoon still got the follow-up the next morning. The API event exit stopped that the same day the order landed.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">20.</span> How do you recreate legacy personalization in AMPscript or SSJS when the source template used a different scripting model?</p>
+      <span class="label">Answer</span>
+      <p class="a">I do not paste the old script into Content Builder. HubL, Marketo Velocity, and Eloqua field merges do not run in Marketing Cloud. I inventory every token and every branch in the source template, map each one to a field on the sendable row or a related data extension, and rewrite the logic in AMPscript. SSJS is only for the piece AMPscript cannot express cleanly. Then I render the same person in both systems and compare the output before that email is allowed into a journey.</p>
+      <p class="sub">What I translate</p>
+      <p class="a">A token such as a first name becomes an AMPscript variable read from the sendable row, with a fallback so an empty field does not produce "Hi ,". A conditional becomes an IF block. A loop over a small, known set, such as the last three products, is flattened by a Query Activity onto the sendable row before send, and AMPscript prints those columns. I do not leave a lookup inside the email for every subscriber if the audience is large. The query runs once. The email only reads attributes. Output goes through v(), so a value is treated as text and not as markup.</p>
+      <p class="sub">HubL rewritten in AMPscript</p>
+      <p class="a">This is a HubSpot block we actually had to move. The default filter and the membership branch are the whole personalization.</p>
+      <pre class="script">Hi {{ contact.firstname|default("there") }},
+{% if contact.membership_level == "gold" %}
+  Your offer is {{ contact.offer_code }}
+{% else %}
+  See this week's offers
+{% endif %}</pre>
+      <p class="a">The Marketing Cloud version reads FirstName, MembershipLevel, and OfferCode from the sendable data extension. The default and the branch are explicit.</p>
+      <pre class="script">%%[
+SET @firstName = AttributeValue("FirstName")
+SET @level = AttributeValue("MembershipLevel")
+SET @offer = AttributeValue("OfferCode")
+IF EMPTY(@firstName) THEN
+  SET @firstName = "there"
+ENDIF
+]%%
+Hi %%=v(@firstName)=%%,
+%%[ IF @level == "gold" THEN ]%%
+  Your offer is %%=v(@offer)=%%
+%%[ ELSE ]%%
+  See this week's offers
+%%[ ENDIF ]%%</pre>
+      <p class="sub">Where SSJS is the right tool</p>
+      <p class="a">AMPscript stays the default inside the email. I use SSJS when the source template carried a structure AMPscript would turn into an unreadable chain of lookups. One template stored a JSON array of store hours on the subscriber, and the old tool parsed that array. AMPscript has no JSON parser. SSJS parsed it, picked the row for the subscriber's locale, and returned a single string. The email then printed that string with AMPscript. The Platform.Load and the parse sat in a Content Builder code snippet, not copied into every template. If the JSON was missing or invalid, the snippet returned the fallback hours instead of failing the send. I do not use SSJS for a first name or a simple IF. It runs at send time, it is slower, and a thrown error can stop the send for that subscriber.</p>
+      <p class="sub">How I know the rewrite is the same email</p>
+      <p class="a">I take ten subscribers who cover the branches: empty first name, gold with an offer code, gold with an empty offer code, non-gold, and one with bad JSON. I preview them in HubSpot and in Marketing Cloud and compare the visible text. The script is allowed to look different. The sentence the person receives is not.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">21.</span> Marketing Cloud Connect, API-triggered sends, and event-driven messages are must-haves. Which of these have you designed, and what failed in production?</p>
+      <span class="label">Answer</span>
+      <p class="a">These are three different mechanisms, and I have put each one in production. Marketing Cloud Connect is for when Salesforce CRM is the system of record and a few minutes of delay is acceptable. An API-triggered send is one transactional message, fired by an external system, with no journey. An event-driven message posts an event into Journey Builder, and the journey decides whether to wait, branch, or send. Using the wrong one is how the incidents below started.</p>
+
+      <p class="sub">Marketing Cloud Connect</p>
+      <p class="a">On an onboarding program, CRM was the source of the person. We connected the business unit with Marketing Cloud Connect, synchronized Contact and a custom Order object into synchronized data extensions, and filtered the contact synchronized extension into a sendable data extension. The journey used a Salesforce Data entry event: Contact updated, customer status changed to Active. Scope was that one business unit. Sales Cloud owned the status. Marketing Cloud owned the mail. The connector poll was about fifteen minutes, which was fine for onboarding and wrong for a password reset. That distinction is the first thing I now force in the design review.</p>
+      <p class="a">What failed in production: the journey fired, and a nightly automation also injected the same audience, so new customers got two welcomes. The same weekend, a formula field we had mapped as consent never synchronized, because formula fields and long text are not reliable on a synchronized data extension. Null consent was treated as allowed, and a slice of contacts who had opted out in CRM were mailed. We stopped the automation the same day. Consent became a real checkbox on Contact, synchronized as a boolean. The journey kept a decision split at send time that re-read that flag, so a person who opted out during the wait did not get the next message. A later incident was quieter and worse: the connector integration user password expired on a Friday, the sync stopped, and Monday's journey had no new entries. Monitoring on the connector and on the synchronized data extension row count is now part of the runbook, not an assumption that the green icon stays green.</p>
+
+      <p class="sub">API-triggered sends</p>
+      <p class="a">Shipping mail could not wait for the connector. The order service called the Marketing Cloud transactional API with the subscriber key, the email address, and the attributes the template needed: order number, carrier, and tracking link. The triggered send definition sat on its own data extension. AMPscript only printed attributes from that payload. There was no journey, because there was no branch and no wait. The caller treated HTTP 202 as accepted, and we stored their message key so a retry would not create a second send.</p>
+      <p class="a">What failed in production: the order service timed out, retried, and did not send the same message key. Customers got two and sometimes three shipping emails. The API had done exactly what we asked. We added idempotency on message key and rejected a duplicate with a 200 and no second send. The second failure was content, not transport. A template used OrderNumber, and the payload sent order_number. The API still accepted the request. Every email went out as "your order  has shipped." We only saw it in seed mail the next morning. The fix was a contract test in the deployment pipeline: a fixture payload had to render every token, and an empty required attribute failed the call before Marketing Cloud accepted it. A third issue was the definition itself. Someone paused it to edit the email, and messages queued against a paused definition until they expired. Production triggered sends are now changed by publishing a new definition and switching the caller, not by pausing the live one.</p>
+
+      <p class="sub">Event-driven messages</p>
+      <p class="a">Order shipped for a high-value customer was not a single email. The commerce platform published an event. MuleSoft posted it to a Journey Builder API event, interaction/v1/events, with an event definition key. The journey created or updated the contact from the payload, then branched: standard customers got the shipping mail, high-value customers waited two days and then got a short survey if they had not already replied. Exit criteria listened for a second event, survey completed, so we did not mail someone who had already answered. This is the pattern I use when the business event starts a conversation. A triggered send cannot express the wait and the second event.</p>
+      <p class="a">What failed in production: the commerce team nested the tracking link inside a new object and did not tell us. The event definition rejected the payload. Their publisher logged success because it had handed the event to the bus. Over a weekend about forty thousand shipped orders never entered the journey. There was no dead letter we owned. We put a schema check on the MuleSoft flow, returned the bad event to a queue, and replayed the weekend from that queue once the definition matched. The second failure was a race. The event arrived before the contact existed, and the entry source was not set to create the contact, so Journey Builder dropped the event. We turned on create-or-update from the event payload and keyed it on the same subscriber key as CRM. The third was duplicates. The bus delivered at least once, and the same order entered the journey twice. We stored the event id on a data extension and excluded a repeat at the first decision split.</p>
+    </article>
+  </section>
+
+  <section class="group" id="data">
+    <div class="group-title">Data Cloud, consent, and deliverability</div>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">22.</span> Describe the identity rules you set in Data Cloud, which source profiles you unified, and how that audience was activated to Marketing Cloud.</p>
+      <span class="label">Answer</span>
+      <p class="a">On the retail migration the same person existed in CRM, in HubSpot, and in the order system, with three different ids. We streamed all three into Data Cloud. The match order was the CRM contact id first, then email plus mobile as a supporting rule, then email alone only when the mobile was empty. Survivorship was explicit. CRM won on name, address, and consent. The order system won on last purchase. HubSpot won on nothing once the delta was cut over. It was only a source we had to reconcile. The unified profile activated as a segment into Marketing Cloud, and the subscriber key on that activation was the CRM contact id, so Journey Builder and the triggered sends were talking about the same person.</p>
+      <p class="a">What failed: email-only matching merged two people in a household who shared an address. A wife's opt-out suppressed the husband's mail. We turned off email-only match where a mobile or a CRM id existed, split those profiles back, and re-ran reconciliation on the household sample before the next send. Match rate on CRM id was the number I reported, not a vanity merge rate.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">23.</span> How would you design the unified profile for a migration so Marketing Cloud Next segments from Data Cloud rather than from a copied list?</p>
+      <span class="label">Answer</span>
+      <p class="a">I do not copy the HubSpot list into Marketing Cloud Next and call it the profile. CRM, orders, and the consent log stream into Data Cloud. Identity resolution builds one person. Consent and suppression are attributes on that profile, with the source system and the timestamp. Marketing Cloud Next activates a segment from that profile. The legacy list is used once, to prove the segment matches the people we intended to move, and then it is retired. On the second brand we did this after the 12 million load. The mistake we stopped was an export of that segment back into a classic data extension. Once the profile is the audience, the list is a reconciliation file, not a thing you mail.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">24.</span> A client operates under GDPR and also mails into the US and Canada. How do you migrate consent and preference-center data so a lawful basis is preserved, not recreated?</p>
+      <span class="label">Answer</span>
+      <p class="a">Consent moves as a record: channel, purpose, status, timestamp, and the system it came from. A migration that sets everyone to opted-in because they existed in the old tool is a new consent event, and it is the wrong one. You have to be able to show why a person was mailable. European mail needs a lawful basis and a purpose. US commercial mail needs the CAN-SPAM basics: a real sender, a physical address, and a working opt-out. Canada needs the CASL standard, which is stricter than a pre-checked box. Those are three statuses on the same person, not one global flag. Preference-center choices come across as data. They are not asked again at cutover unless the purpose of the mail has changed. The preference center in the new platform writes to that same record, and during the parallel run an opt-out in either platform updates both.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">25.</span> After cutover, sender reputation and IP warm-up can undo a clean data load. How have you planned SPF, DKIM, DMARC, and warm-up, and what did you watch in the first two weeks?</p>
+      <span class="label">Answer</span>
+      <p class="a">I authenticate the visible From domain before any production send. SPF, DKIM, and DMARC are three different DNS checks. A receiver uses them to decide whether mail that claims to be from the brand was sent by a server the brand allows, whether the message was altered, and what to do if those checks fail. HubSpot's reputation does not move with the data. The domain has to pass all three for Marketing Cloud, while HubSpot is still sending, or the new IP is treated as spoofing.</p>
+
+      <p class="sub">SPF</p>
+      <p class="a">SPF, Sender Policy Framework, is a TXT record on the domain that lists who may send mail for it. The receiver looks at the envelope sender, the return-path, and asks DNS whether that server is in the list. It does not look at the display name. In Marketing Cloud this record is published on the domain Salesforce gives you in the Sender Authentication Package, because the bounce and return-path use that domain. Salesforce shows the include to add. The shape is a single TXT record:</p>
+      <pre class="script">v=spf1 include:cust-spf.exacttarget.com include:spf.protection.hubspot.com ~all</pre>
+      <p class="a">The first include is Marketing Cloud. The second is HubSpot, and it stays only for the parallel run. One TXT record, not two. Two SPF records on the same name is a permanent error. The record also has a limit of ten DNS lookups, so I do not stack extra includes for tools that are not actually sending. ~all means a server that is not listed soft-fails, which is what I use while more than one platform sends. I change it to -all only when HubSpot is off and no other system, including corporate mail, sends from that same domain. How I do it: open the Sender Authentication Package in Marketing Cloud, copy the SPF include they generated for this account, merge it into the existing TXT at the DNS host, and lower the TTL the day before so a mistake can be reversed. I do not delete the HubSpot include until the last HubSpot workflow is off.</p>
+
+      <p class="sub">DKIM</p>
+      <p class="a">DKIM, DomainKeys Identified Mail, is a signature on the message. Marketing Cloud signs the mail with a private key. DNS publishes the matching public key. The receiver hashes the message and checks that the signature still matches, so a modified body or From header fails. The DNS name is the selector Salesforce assigns, under _domainkey, and Marketing Cloud usually asks for a CNAME to their host rather than a raw key you paste yourself. HubSpot already has its own selectors, typically two CNAMEs such as hs1._domainkey and hs2._domainkey. Those stay. Each platform signs with its own selector. They do not overwrite each other.</p>
+      <pre class="script">sfmc._domainkey.brand.com.  CNAME  sfmc._domainkey.brand.com.dkim.exacttarget.com.
+hs1._domainkey.brand.com.   CNAME  brand-com.hs01a.dkim.hubspotemail.net.</pre>
+      <p class="a">The exact targets come from each product's domain screen. I copy them. I do not invent a selector. Alignment, which DMARC cares about, means the domain in the DKIM d= tag matches the visible From domain. If Marketing Cloud signs as exacttarget.com while the From says brand.com, DKIM can pass and still fail DMARC alignment. The Sender Authentication Package is what makes d= be brand.com. I prove it with a seed to Gmail and I read the Authentication-Results header. I want dkim=pass and header.d=brand.com before any customer volume.</p>
+
+      <p class="sub">DMARC</p>
+      <p class="a">DMARC, Domain-based Message Authentication, Reporting, and Conformance, is a TXT record at _dmarc.brand.com. It tells receivers what to do when mail from that From domain fails both SPF alignment and DKIM alignment. Passing one of the two is enough. The record also sends you reports so you can see who is sending as the brand.</p>
+      <pre class="script">_dmarc.brand.com.  TXT  "v=DMARC1; p=none; rua=mailto:dmarc@brand.com; pct=100; adkim=r; aspf=r"</pre>
+      <p class="a">p=none means monitor only. I start there on a cutover. rua is the mailbox that receives the daily aggregate report. adkim=r and aspf=r mean relaxed alignment, so a subdomain such as click.brand.com or bounce.brand.com still aligns to brand.com. After the reports show Marketing Cloud and HubSpot both passing, and unknown servers are not legitimate, I move p=none to p=quarantine. I move to p=reject only when the brand is sure nothing else sends as that domain. Doing reject on go-live day is how a missed include takes down the corporate newsletter and the Marketing Cloud warm-up together. I check the reports for the first two weeks before I tighten the policy.</p>
+
+      <p class="sub">Order, then warm-up</p>
+      <p class="a">Register the domain in the Sender Authentication Package. Publish the Marketing Cloud DKIM CNAME, the SPF include, and the bounce MX Salesforce lists. Leave HubSpot's DKIM and SPF include in place. Publish DMARC at p=none. Send a seed and read Authentication-Results for spf=pass, dkim=pass, and dmarc=pass. Only then does warm-up start. On the HubSpot cutover the new dedicated IP did not inherit HubSpot's reputation. Warm-up used people who had opened or clicked in the last 90 days and were fully consented. Everyone else, plus role accounts and the suppression file, stayed out. Daily volume stepped up only if complaints, bounces, and blocks stayed inside the threshold we agreed with the client.</p>
+      <p class="a">What failed on day two: the audience filter was "has an email," not "engaged in 90 days." A backlog of welcomes from old HubSpot contacts went out on the new IP. Complaint rate jumped. We paused, suppressed anyone with no engagement in 90 days, and restarted at a lower cap the next morning. SPF and DKIM were fine. The list was the defect. DMARC moved from p=none to quarantine only after two quiet weeks. I watch complaints, hard bounces, blocks, and spam-trap hits every day of warm-up, and I do not raise volume on a day when any of those move the wrong way.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">26.</span> Where have you profiled and cleansed marketing data before load? What rules did you apply to duplicates, invalid addresses, and conflicting consent?</p>
+      <span class="label">Answer</span>
+      <p class="a">Before the 12 million load we profiled the HubSpot extract. About 6 percent of rows were the same contact id on more than one list. Just under 2 percent failed the email format check. A few tens of thousands had no durable key. Several hundred thousand were on a send list and an opt-out at the same time. The rules were written down before Informatica ran. Duplicates collapsed to the CRM contact id, or the HubSpot id until CRM had one. Invalid addresses went to the reject file, not into All Subscribers. If two consents disagreed, the opt-out won. The suppression lookup forced held status even when the subscription file said opted in. After the expression change, a second profile of the target file showed one row per subscriber key. I did not approve the Marketing Cloud import until that profile, the reject count, and the opt-out totals matched.</p>
+    </article>
+  </section>
+
+  <section class="group" id="ai">
+    <div class="group-title">Customer leadership and AI</div>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">27.</span> Describe a time you disagreed with a client executive or a partner on the migration approach. What did you refuse to do, and how did you keep the relationship?</p>
+      <span class="label">Answer</span>
+      <p class="a">On a multi-brand migration the client executive and the implementation partner both wanted local exceptions: their own data extension, their own send path, and their own reading of consent, so a brand could go live faster. I refused the separate subscriber key and the separate suppression list. A person who opted out in one brand would have been mailed by the other, and nobody could have explained why. I did that in the workshop, with the executive in the room, not by sending a standards document. I gave them the local thing that was actually local: their journeys, their creative, and their send calendar. I did not give them a second person model. The relationship held because the brand still got its go-live. It held on the shared profile, not on a private one.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">28.</span> This role asks you to bring Enterprise AI and an AI-first delivery method into the practice. Where have you used Agentforce, Claude, or another tool to change how architects design or review a solution, not just to draft content?</p>
+      <span class="label">Answer</span>
+      <p class="a">I use it on the design, before the client sees the blueprint. On the post-purchase journey, we gave Claude the HubSpot workflow and the Journey Builder map and asked it to find where the behavior would diverge: wait units, goals the source tool refreshed nightly, exits the source tool could not see, and a subscriber with no consent. It flagged the forty-eight hour wait against HubSpot's two calendar days. That defect still reached production later because we did not treat the finding as a test case. After that, every finding became a row in the test pack: ten subscribers, one per branch, previewed before switch. The prompts and the test pack went into the CoE so the next migration started from those checks.</p>
+      <p class="a">The Agentforce work was the service exit on that same journey. A support case had to pull the person out of the nurture. We built a short proof-of-concept of the agent handoff and used it in the workshop to show the edge cases: case opened during the wait, duplicate profile, tool timeout, and an agent that tried to send the offer anyway. The client bought the exit event because they saw the failure, not the happy path. That is the delivery method I want on the factory. AI attacks the blueprint, a human owns the decision, and the useful checks are shared.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">29.</span> Tell us about a delivery risk you raised early — scale, consent, or timeline — and how you stayed on it until it was closed.</p>
+      <span class="label">Answer</span>
+      <p class="a">The risk I raise before build is a person being mailed when the data cannot explain why. On a typical migration the build moves faster than the data-flow diagram. Vendors start journeys while consent survivorship is still "we will decide later." I make the diagram and the compliance check a gate. Campaign work does not proceed on a model you cannot audit. The same risk shows up again at identity. If three source systems do not resolve to one person, or email-only matching will merge a household, I keep that open through reconciliation. I do not close it because the integration loaded successfully. I close it when the counts and a sample of real people, including an opted-out person, tie back to the source.</p>
+    </article>
+
+    <article class="qa">
+      <p class="q"><span class="q-num">30.</span> Why this role inside the Global Delivery Centre, rather than staying in your current architects practice? What part of a migration factory do you want to own?</p>
+      <span class="label">Answer</span>
+      <p class="a">This role is the migration factory, not another single-account architect seat. The work has moved from running a classic Marketing Cloud business unit to moving customers onto Marketing Cloud Next without losing the subscriber, the consent, or the journey. I want the half that is still hands-on architecture and the half that becomes the pattern the next team reuses. The part I want to own is the Marketing Cloud Next track inside the CoE: the subscriber and consent model, the journey blueprint, the Data Cloud profile, the domain and warm-up gate, and the reconciliation that blocks a send. A factory that lets every architect invent those will not survive the second migration.</p>
+    </article>
+  </section>
+
+</div>
+</body>
+</html>
